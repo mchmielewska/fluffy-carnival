@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('./config');
@@ -16,7 +18,7 @@ const Post = require('./models/posts');
 const app = express();
 app.use(bodyparser.json());
 app.use(passport.initialize());
-app.use(cors())
+app.use(cors());
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),

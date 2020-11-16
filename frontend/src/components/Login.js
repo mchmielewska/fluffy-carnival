@@ -1,9 +1,12 @@
+/*jshint esversion: 6 */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions/authentication';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
+
 
 class Login extends Component {
 
@@ -12,7 +15,7 @@ class Login extends Component {
         this.state = {
             email: '',
             password: ''
-        }
+        };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -20,7 +23,7 @@ class Login extends Component {
     handleInputChange(e) {
         this.setState({
             [e.target.name]: e.target.value
-        })
+        });
     }
 
     handleSubmit(e) {
@@ -28,7 +31,7 @@ class Login extends Component {
         const user = {
             email: this.state.email,
             password: this.state.password,
-        }
+        };
         this.props.loginUser(user);
     }
 
@@ -40,7 +43,7 @@ class Login extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.auth.isAuthenticated) {
-            this.props.history.push('/')
+            this.props.history.push('/');
         }
     }
 

@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 import React, { Component } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -26,7 +28,7 @@ if(localStorage.jwtToken) {
     const currentTime = Date.now() / 1000;
     if(decoded.exp < currentTime) {
       store.dispatch(logoutUser());
-      window.location.href = '/login'
+      window.location.href = '/login';
     }
   }
 
