@@ -16,7 +16,7 @@ class Header extends Component {
     render() {
         const {isAuthenticated, user} = this.props.auth;
         const authLinks = (
-            <ul className="navbar-nav ml-auto">
+            <ul className="navbar-nav right">
                 <li className="nav-item">
                     <Link className="nav-link" to="/dashboard">Dashboard</Link>
                 </li>
@@ -29,7 +29,7 @@ class Header extends Component {
             </ul>
         )
       const guestLinks = (
-        <ul className="navbar-nav ml-auto">
+        <ul className="navbar-nav right">
             <li className="nav-item">
                 <Link className="nav-link" to="/register">Sign Up</Link>
             </li>
@@ -39,9 +39,9 @@ class Header extends Component {
         </ul>
       )
         return(
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="/">Fluffy Carnival</Link>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <nav className="nav-wrapper teal lighten-2">
+                <Link className="brand-logo" to="/">Fluffy Carnival</Link>
+                <div className="hide-on-med-and-down" id="navbarSupportedContent">
                     {isAuthenticated ? authLinks : guestLinks}
                 </div>
             </nav>

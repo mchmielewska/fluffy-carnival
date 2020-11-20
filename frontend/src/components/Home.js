@@ -18,23 +18,30 @@ class Home extends Component {
         const image = "https://cdn.shopify.com/s/files/1/1723/9103/products/Screen_Shot_2018-04-09_at_9.39.34_PM_1024x1024.png?v=1523328013";
         const {isAuthenticated, user} = this.props.auth;
         const authPage = (
-            <div>
-                Hello to Fluffy Carnival page!
+            <div className="container center">
+                <div class="row">
+                    <div class="col s4">
+                    <i class="large material-icons">forum</i>
+                    <br></br>
+                    <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                    <p className="center">Check the newest posts</p>
+                    </div>
+                    <div class="col s4">
+                    <i class="large material-icons">forum</i>
+                    <br></br>
+                    <Link className="nav-link" to="/post_add">Add post</Link>
+                    </div>
+                    <div class="col s4">
+                    
+                    </div>
+                </div>
             </div>
             
         )
       const guestPage = (
-        <div className="container-fluid text-center">
-        <div className="row">
-            <div className="col-md-12">
+        <div className="container center">
                 <img src={image} height="400"></img>
-            </div>
-        </div>
-        <div className="row">
-            <div className="col-md-12">
                 <Link  to="/register">Register</Link> or <Link  to="/login">login as existing user</Link> to access the Fluffy Carnival page!
-            </div>
-        </div>
         </div>
       )
 

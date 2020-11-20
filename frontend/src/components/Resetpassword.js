@@ -26,12 +26,12 @@ class ResetPassword extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <div className='container-fluid'>
+            <div className='container'>
                 <div className="row justify-content-center">
                     <div className="col-md-3 text-center">
                         <form onSubmit={handleSubmit(this.onSubmit)}>
-                            <h1>Please enter your email</h1>
-                            <fieldset>
+                            <p>Please enter your email</p>
+                            <fieldset className="input-field">
                                 <Field
                                     name="email"
                                     type="text"
@@ -42,8 +42,9 @@ class ResetPassword extends Component {
                                     component={CustomInput} />
 
                             </fieldset>
+                            <br></br>
                             <button type='submit' className="btn btn-primary">
-                                Send email!
+                                Send email! <i className="material-icons right">chevron_right</i>
                             </button>
                         </form>
                     </div>

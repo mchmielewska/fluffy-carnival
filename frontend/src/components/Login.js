@@ -50,7 +50,7 @@ class Login extends Component {
     render() {
         return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
-            <h2 style={{marginBottom: '40px'}}>Login</h2>
+            <h4 style={{marginBottom: '40px'}}>Login to Fluffy Carnival</h4>
             <form onSubmit={ this.handleSubmit }>
                 <div className="form-group">
                     <input
@@ -74,11 +74,11 @@ class Login extends Component {
                 </div>
                 <div className="form-group">
                     <button type="submit" className="btn btn-primary" style={{ justifyContent: "center" }}>
-                        Login User
+                        Login User <i className="material-icons right">chevron_right</i>
                     </button>
                 </div>
                 <div className="form-group">
-                    <Link to="/resetpassword">Forgot your password?</Link>
+                    <Link to="/resetpassword" className="link right">Forgot your password?</Link>
                 </div>
             </form>
         </div>

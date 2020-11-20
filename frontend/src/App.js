@@ -13,12 +13,15 @@ import Home from './components/Home';
 import Header from './components/Header';
 import Register from './components/Register';
 import Login from './components/Login';
+import Post from './components/Post'
 
 import Dashboard from './components/Dashboard';
 import Resetpassword from './components/Resetpassword';
 import Resetpassword2 from './components/Resetpassword2';
 import Useractivated from './components/UserActivated';
 import UserCreated from './components/UserCreated';
+import PostAdded from './components/PostAdded'
+import AddPost from './components/AddPost';
 
 if(localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken);
@@ -48,6 +51,9 @@ class App extends Component {
                     <Route path="/resetpassword" component={Resetpassword} />
                     <Route path="/resetpassword2" component={Resetpassword2} />
                     <Route path="/dashboard" component={Dashboard} />
+                    <Route exact path="/posts/:post_id" component={Post} />
+                    <Route path="/postadded" component={PostAdded} />
+                    <Route exact path="/post_add" component={AddPost} />
                   </div>
               </div>
             </Router>
