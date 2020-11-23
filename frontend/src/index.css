@@ -1,3 +1,45 @@
 .link {
     color: #004d40;
 }
+
+.main-img {
+    margin: 10px;
+}
+
+i.home {
+    margin: 10px;
+    margin-top:30px;
+    color: #26a69a;
+    font-size: 8rem;
+}
+
+.card-action i {
+    color: #26a69a;
+    font-size: 1.5rem;
+}
+
+.page-header {
+    text-transform: uppercase;
+    letter-spacing: 0.6rem;
+}
+
+.btn {
+    letter-spacing: 0.3rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 45px;
+    margin: 5px;
+    text-align: center;
+}
+
+.select-wrapper + label {
+    top: -35px;
+}
+
+nav .brand-logo {
+    letter-spacing: 0.7rem;
+    padding: 0 15px;
+    font-size: 1.8rem;
+}

@@ -15,32 +15,34 @@ class Home extends Component {
     }
 
     render() {
-        const image = "https://cdn.shopify.com/s/files/1/1723/9103/products/Screen_Shot_2018-04-09_at_9.39.34_PM_1024x1024.png?v=1523328013";
+        const image = "https://i.imgur.com/HO6Cme5.jpg";
         const {isAuthenticated, user} = this.props.auth;
         const authPage = (
             <div className="container center">
-                <div class="row">
-                    <div class="col s4">
-                    <i class="large material-icons">forum</i>
-                    <br></br>
-                    <Link className="nav-link" to="/dashboard">Dashboard</Link>
-                    <p className="center">Check the newest posts</p>
-                    </div>
-                    <div class="col s4">
-                    <i class="large material-icons">forum</i>
-                    <br></br>
-                    <Link className="nav-link" to="/post_add">Add post</Link>
-                    </div>
-                    <div class="col s4">
-                    
+                    <div className="row">
+                        <div className="col s4">
+                            <i className="home large material-icons">whatshot</i>
+                            <br></br>
+                            <Link className="nav-link btn" to="/dashboard">Dashboard</Link>
+                            <p className="">Check the newest posts</p>
+                        </div>
+                        <div className="col s4">
+                            <i className="home large material-icons">mode_edit</i>
+                            <br></br>
+                            <Link className="nav-link btn" to="/post_add">Add post</Link>
+                        </div>
+                        <div className="col s4">
+                            <i className="home large material-icons">mode_edit</i>
+                            <br></br>
+                            <Link className="nav-link btn" to="/post_add">Add post</Link>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
         )
       const guestPage = (
         <div className="container center">
-                <img src={image} height="400"></img>
+                <img className="main-img" src={image} alt="social media"></img>
+                <br></br>
                 <Link  to="/register">Register</Link> or <Link  to="/login">login as existing user</Link> to access the Fluffy Carnival page!
         </div>
       )

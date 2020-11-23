@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 // import { deletePost } from './actions/postActions'
 
 class Post extends Component {
@@ -9,11 +10,17 @@ class Post extends Component {
     // }
     
     render() {
-        console.log('in the post')
+        function dateBuilder (date) {
+            const event = new Date(date);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const newDate = `${event.toLocaleDateString('en-EN', options)} ${event.toLocaleTimeString('en-US', { hour12: false })}`;
+            return newDate;
+        }
+
         const post = this.props.post ? (
             <div className="card horizontal">
                 <div className="card-image">
-                   <img src="https://cataas.com/cat?type=md" alt="cat"></img>
+                   <img src="http://placekitten.com/300/300" alt="cat"></img>
                 </div>
                 <div className="card-stacked">
                     <div className="card-content">
@@ -21,7 +28,7 @@ class Post extends Component {
                         <p>{this.props.post.description}</p>
                     </div>
                     <div className="card-action">
-                        <p>{this.props.post.publishDate}</p>
+                        <p>{dateBuilder(this.props.post.publishDate)}</p>
                     </div>
                 </div>
 
@@ -40,6 +47,8 @@ class Post extends Component {
         return (
             <div className="container">
                 {post}
+            
+            <Link className="nav-link btn" to="/dashboard"><i className="material-icons left">keyboard_arrow_left</i>Back</Link>
             </div>
         )
     }

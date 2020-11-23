@@ -3,7 +3,8 @@ import { GET_ERRORS, GET_POSTS } from './types';
 
 export const getPosts = (user) => dispatch => {
     axios.get('http://localhost:9090/posts/find?privacy=all', user)
-            .then(res => {
+            .then(
+                res => {
                 dispatch({
                     type: GET_POSTS,
                     payload: res.data
@@ -17,13 +18,17 @@ export const getPosts = (user) => dispatch => {
             });
 }
 
-export const addPost = (history, user) => dispatch => {
-    axios.post('http://localhost:9090/posts/add', user)
-        .then(res => history.push('/postadded'))
+export const addPost = (post, history) => dispatch => {
+    axios.post('http://localhost:9090/posts/add', post)
+        .then(
+            res => {
+                history.push('/postadded');
+            }
+        )
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
-                payload: err.response.data
+                payload: err.res
             });
         });
     

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { addPost } from '../actions/postsActions'
-// import posts from '../../../backend/models/posts';
+import { addPost } from '../actions/postsActions';
 
 class AddPost extends Component {
     
@@ -13,7 +11,7 @@ class AddPost extends Component {
             authorId: '',
             title: '',
             description: '',
-            privacyLevel: '',
+            privacyLevel: 'public',
             publishDate: '',
             state: '',
             tags: ''
@@ -31,24 +29,29 @@ class AddPost extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        const date = new Date();
+        const tags = this.state.tags
+        const tagsArray = (tags.toLowerCase()).split(', ');
+        
+
         const newPost = {
             authorId: this.state.userId,
-            title: '',
-            description: '',
-            privacyLevel: '',
-            publishDate: '',
-            state: '',
-            tags: ''
+            title: this.state.title,
+            description: this.state.description,
+            privacyLevel: this.state.privacyLevel,
+            publishDate: date,
+            state: this.state.state,
+            tags: tagsArray
         }
-        console.log(newPost)
-        // this.props.registerUser(newPost, this.props.history);
+        console.log(newPost);
+        this.props.addPost(newPost, this.props.history);
     }
 
     render() {
-        const loggedUser = ''
+        
         return (
             <div className="row center">
-            <h4 style={{marginBottom: '40px'}}>New post</h4>
+            <h4 style={{marginBottom: '40px'}} className="page-header">New post</h4>
             <form className="col s12" onSubmit={ this.handleSubmit }>
                 <div className="input-field">
                 <i className="material-icons prefix">mode_edit</i>
@@ -76,8 +79,11 @@ class AddPost extends Component {
                 </div>
                 <div className="row">
                     <div className="input-field col s12">
-                        <select>
-                                <option value="public" selected>public</option>
+                        <select
+                            onChange={ this.handleInputChange }
+                            name="privacyLevel"
+                            defaultValue='public'>
+                                <option value="public">public</option>
                                 <option value="friendsOnly">friends only</option>
                                 <option value="private">private</option>
                         </select>
@@ -85,24 +91,28 @@ class AddPost extends Component {
                     </div>
                 </div>
 
-                <div className="input-field">
-                    <input
-                    type="text"
-                    placeholder="Country"
-                    className='form-control form-control-lg'
-                    name="country"
-                    onChange={ this.handleInputChange }
-                    value={ this.state.country }
-                    />
+                <div className="row">
+                    <div className="input-field col s12">
+                        <select
+                            onChange={ this.handleInputChange }
+                            defaultValue='draft'
+                            name="state">
+                                <option value="draft">draft</option>
+                                <option value="published">published</option>
+                        </select>
+                        <label>State</label>
+                    </div>
                 </div>
+
                 <div className="input-field">
+                    <label>Separate tags with commas!</label>
                     <input
                     type="text"
-                    placeholder="City"
+                    placeholder="tags"
                     className='form-control form-control-lg'
-                    name="city"
+                    name="tags"
                     onChange={ this.handleInputChange }
-                    value={ this.state.city }
+                    value={ this.state.tags }
                     />
                 </div>
                 <div className="input-field">
@@ -116,12 +126,6 @@ class AddPost extends Component {
     }
 }
 
-// Register.propTypes = {
-//     registerUser: PropTypes.func.isRequired,
-//     auth: PropTypes.object.isRequired
-// };
-
-
 const mapStateToProps = (state, ownProps) => {
     const userId = state.auth.user.id;
     return {
@@ -129,11 +133,5 @@ const mapStateToProps = (state, ownProps) => {
         authorId: userId
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addPost: (post) => {
-            dispatch(addPost(post))
-        }
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddPost));
+
+export default connect(mapStateToProps, { addPost })(withRouter(AddPost));

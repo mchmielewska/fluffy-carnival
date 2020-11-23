@@ -73,7 +73,7 @@ class Login extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary" style={{ justifyContent: "center" }}>
+                    <button type="submit" className="btn btn-primary " style={{ justifyContent: "center" }}>
                         Login User <i className="material-icons right">chevron_right</i>
                     </button>
                 </div>
