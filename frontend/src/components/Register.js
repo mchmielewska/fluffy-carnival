@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { registerUser } from '../actions/authentication';
-import classnames from 'classnames';
-
 class Register extends Component {
     
     constructor() {
@@ -59,95 +57,109 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container" style={{ marginTop: '50px', width: '700px'}}>
-            <h2 style={{marginBottom: '40px'}}>Registration</h2>
+            <div className="center" style={{ marginTop: '50px' }}>
+            <h4 style={{marginBottom: '40px'}}>Registration</h4>
+            <div className="row valign-wrapper">
+            <div className="col m6">
+                <img className="main-img" src="https://i.imgur.com/hvneBJX.png" alt="register" width="100%"></img>
+            </div>
+            <div className="col m6">
             <form onSubmit={ this.handleSubmit }>
-                <div className="form-group">
+                <div className="input-field">
+                    <label for="email">E-mail</label>
                     <input
-                    type="text"
-                    placeholder="email"
-                    className={classnames('form-control form-control-lg')}
+                    type="email"
                     name="email"
+                    className="validate"
+                    required
                     onChange={ this.handleInputChange }
                     value={ this.state.email }
                     />
+                    <span className="helper-text" data-error="incorrect e-mail"></span>
                 </div>
-                <div className="form-group">
+                <div className="input-field">
+                    <label for="Name">Name</label>
                     <input
                     type="text"
-                    placeholder="name"
-                    className={classnames('form-control form-control-lg')}
                     name="name"
+                    required
                     onChange={ this.handleInputChange }
                     value={ this.state.name }
                     />
                 </div>
-                <div className="form-group">
+                <div className="input-field">
+                    <label for="password">Surname</label>
                     <input
                     type="text"
-                    placeholder="surname"
-                    className={classnames('form-control form-control-lg')}
                     name="surname"
+                    required
                     onChange={ this.handleInputChange }
                     value={ this.state.surname }
                     />
                 </div>
-                <div className="form-group">
+                <div className="input-field">
+                    <label for="birthDate">Birth date</label>
                     <input
                     type="date"
                     placeholder="DD-MM-YYYY"
-                    className={classnames('form-control form-control-lg')}
                     name="birthDate"
+                    required
                     onChange={ this.handleInputChange }
                     value={ this.state.birthDate }
                     />
                 </div>
-                <div className="form-group">
-                    <label> Gender*</label>
-                                <select className="form-control"
-                                    onChange={ this.handleInputChange }
-                                    defaultValue={this.state.gender}>
-                                    <option value="female">Female</option>
-                                    <option value="male">Male</option>
-                                    <option value="other">Other</option>
-                                </select>
+                <div className="row">
+                    <div className="input-field col m12">
+                        <select
+                            onChange={ this.handleInputChange }
+                            name="gender"
+                            defaultValue='other'>
+                                <option value="female">female</option>
+                                <option value="male">male</option>
+                                <option value="other">other</option>
+                        </select>
+                        <label>Gender</label>
+                    </div>
                 </div>
-                <div className="form-group">
+                <div className="input-field">
+                    <label for="password">Password</label>
                     <input
                     type="password"
-                    placeholder="Password"
-                    className={classnames('form-control form-control-lg')}
                     name="password"
+                    required
                     onChange={ this.handleInputChange }
                     value={ this.state.password }
                     />
                 </div>
-                <div className="form-group">
+                <div className="input-field">
+                    <label for="password">Country</label>
                     <input
                     type="text"
-                    placeholder="Country"
-                    className={classnames('form-control form-control-lg')}
                     name="country"
+                    required
                     onChange={ this.handleInputChange }
                     value={ this.state.country }
                     />
                 </div>
-                <div className="form-group">
+                <div className="input-field">
+                    <label for="password">City</label>
                     <input
                     type="text"
-                    placeholder="City"
-                    className={classnames('form-control form-control-lg')}
                     name="city"
+                    required
                     onChange={ this.handleInputChange }
                     value={ this.state.city }
                     />
                 </div>
-                <div className="form-group">
+                <div className="input-field">
                     <button type="submit" className="btn btn-primary">
                         Register User
                     </button>
                 </div>
             </form>
+
+            </div>
+            </div>
         </div>
         )
     }

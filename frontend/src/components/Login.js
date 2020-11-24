@@ -49,8 +49,13 @@ class Login extends Component {
 
     render() {
         return(
-        <div className="container" style={{ marginTop: '50px', width: '700px'}}>
-            <h4 style={{marginBottom: '40px'}}>Login to Fluffy Carnival</h4>
+        <div>
+            <div className="row valign-wrapper">
+            <div className="col m6">
+                <img className="main-img" src="https://i.imgur.com/isTc8fu.png" alt="login" width="100%"></img>
+            </div>
+            <div className="col m6">
+            <h5 style={{marginBottom: '40px'}}>Login to Fluffy Carnival</h5>
             <form onSubmit={ this.handleSubmit }>
                 <div className="form-group">
                     <input
@@ -81,6 +86,8 @@ class Login extends Component {
                     <Link to="/resetpassword" className="link right">Forgot your password?</Link>
                 </div>
             </form>
+            </div>
+        </div>
         </div>
         )
     }

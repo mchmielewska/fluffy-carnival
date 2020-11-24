@@ -11,11 +11,13 @@ class ResetPassword extends Component {
     }
 
     onSubmit = () => {
-        Axios.post('http://localhost:9090/user/reset', {
-            email: this.state.email
-        })
+        Axios
+            .post('http://localhost:9090/user/reset', { email: this.state.email })
             .then(data => {
                 console.log(data)
+            })
+            .catch((error) => {
+                console.log(error)
             });
     }
 
@@ -26,17 +28,20 @@ class ResetPassword extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <div className='container'>
-                <div className="row justify-content-center">
-                    <div className="col-md-3 text-center">
+            <div className="row valign-wrapper">
+                <div className="col m6">
+                    <img className="main-img" src="https://i.imgur.com/xkOkstF.png" alt="reset password" width="100%"></img>
+                </div>
+        
+                    <div className="col m6 text-center">
                         <form onSubmit={handleSubmit(this.onSubmit)}>
                             <p>Please enter your email</p>
                             <fieldset className="input-field">
                                 <Field
                                     name="email"
-                                    type="text"
+                                    type="email"
                                     id="email"
-                                    placeholder="Email"
+                                    placeholder="E-mail"
                                     value={this.state.email}
                                     onChange={event => this.handleChange(event, "email")}
                                     component={CustomInput} />
@@ -47,9 +52,10 @@ class ResetPassword extends Component {
                                 Send email! <i className="material-icons right">chevron_right</i>
                             </button>
                         </form>
+
                     </div>
-                </div>
             </div>
+            
         )
     }
 

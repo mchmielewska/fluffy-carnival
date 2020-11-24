@@ -17,11 +17,11 @@
       function select() {
         var elems = document.querySelectorAll('select');
         if (elems.length === 0) return;
-        console.log(elems)
         var options = {}
         var instances = M.FormSelect.init(elems, options);
         }
         window.addEventListener('popstate', select);
+        document.addEventListener("DOMContentLoaded", select);
   </script>
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.

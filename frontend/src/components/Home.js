@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
 class Home extends Component {
 
@@ -15,29 +16,33 @@ class Home extends Component {
     }
 
     render() {
-        const image = "https://i.imgur.com/HO6Cme5.jpg";
+        const image = "https://i.imgur.com/I3SMZXj.png";
         const {isAuthenticated, user} = this.props.auth;
         const authPage = (
-            <div className="container center">
-                    <div className="row">
-                        <div className="col s4">
-                            <i className="home large material-icons">whatshot</i>
-                            <br></br>
-                            <Link className="nav-link btn" to="/dashboard">Dashboard</Link>
-                            <p className="">Check the newest posts</p>
+            <div className="row">
+                    <div className="col s10 center-align">
+                        <div className="row valign-wrapper">
+                            <div className="col">
+                                <img className="main-img" src="https://i.imgur.com/sOY7tje.jpg" alt="social media" width="100%"></img>
+                            </div>
+                            <div className="col">
+                                    <div className="row">                              
+                                        <br></br>
+                                        <Link className="nav-link home-link" to="/dashboard">Dashboard</Link>
+                                        <p className="">Check the newest posts</p>
+                                    </div>
+                                    <div className="row">
+                                        <Link className="nav-link home-link" to="/post_add">Add post</Link>
+                                    </div>
+                                    {/* <div className="row">
+                                        <Link className="nav-link home-link" to="/post_add">Add post</Link>
+                                    </div> */}
+                                </div>
                         </div>
-                        <div className="col s4">
-                            <i className="home large material-icons">mode_edit</i>
-                            <br></br>
-                            <Link className="nav-link btn" to="/post_add">Add post</Link>
-                        </div>
-                        <div className="col s4">
-                            <i className="home large material-icons">mode_edit</i>
-                            <br></br>
-                            <Link className="nav-link btn" to="/post_add">Add post</Link>
-                        </div>
-                    </div>
-                </div>
+                    </div> 
+                    <Sidebar />
+            </div>
+
         )
       const guestPage = (
         <div className="container center">

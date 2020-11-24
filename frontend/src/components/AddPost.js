@@ -50,7 +50,7 @@ class AddPost extends Component {
     render() {
         
         return (
-            <div className="row center">
+            <div className="row">
             <h4 style={{marginBottom: '40px'}} className="page-header">New post</h4>
             <form className="col s12" onSubmit={ this.handleSubmit }>
                 <div className="input-field">

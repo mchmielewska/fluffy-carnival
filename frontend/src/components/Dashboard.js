@@ -29,19 +29,19 @@ class Dashboard extends Component {
         const postList = posts.length ? (
             posts.map(post => {
                 return (
-                    <div className="col s12 m6" key={post.id}>
+                    <div className="col s6 m4" key={post.id}>
                         <div className="post card" >
                             <div className="card-image">
                                 <img src="http://placekitten.com/300/300" alt="cat"></img>
                             </div>
                             <div className="card-content">
                                 <Link to={'/posts/' + post.id}>
-                                    <h5 className="card-title teal-text ">{post.title}</h5>
+                                    <h5 className="card-title blue-text ">{post.title}</h5>
                                 </Link>
                                 <p>{post.description}</p>
                             </div>
                             <div className="card-action">
-                            <p className="card-date teal-text">{dateBuilder(post.publishDate)}</p>
+                            <p className="card-date blue-text">{dateBuilder(post.publishDate)}</p>
                             <p className="valign-wrapper">
                                 <i className="small material-icons">{privacyLevelIcon(post.privacyLevel)}</i>
                             </p>
@@ -57,7 +57,7 @@ class Dashboard extends Component {
         )
 
         return ( 
-            <div className="container" id="home">
+            <div className="home">
                 <div className="row">
                         {postList}
                 </div>

@@ -39,7 +39,7 @@ class Header extends Component {
         </ul>
       )
         return(
-            <nav className="nav-wrapper teal lighten-2">
+            <nav className="nav-wrapper blue">
                 <Link className="brand-logo" to="/">Fluffy Carnival</Link>
                 <div className="hide-on-med-and-down" id="navbarSupportedContent">
                     {isAuthenticated ? authLinks : guestLinks}

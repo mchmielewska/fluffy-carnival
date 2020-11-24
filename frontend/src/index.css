@@ -1,5 +1,5 @@
 .link {
-    color: #004d40;
+    color: #2196f3;
 }
 
 .main-img {
@@ -7,14 +7,29 @@
 }
 
 i.home {
-    margin: 10px;
-    margin-top:30px;
-    color: #26a69a;
-    font-size: 8rem;
+    color: #2196f3;
+    font-size: 2rem;
+}
+
+.home {
+    max-width: 90vw;
+}
+
+.home-link {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+    padding: 5px;
+}
+
+.home-link:hover {
+    background-color: #2196f3;
+    color: #FFFFFF;
+
 }
 
 .card-action i {
-    color: #26a69a;
+    color: #2196f3;
     font-size: 1.5rem;
 }
 
@@ -24,14 +39,23 @@ i.home {
 }
 
 .btn {
+    background-color: #2196f3;
     letter-spacing: 0.3rem;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
     height: 45px;
-    margin: 5px;
+    margin: 5px 0;
     text-align: center;
+}
+
+.btn:hover {
+    background-color: #64b5f6;
+}
+
+.btn:focus {
+    background-color: #1565c0;
 }
 
 .select-wrapper + label {
@@ -42,4 +66,73 @@ nav .brand-logo {
     letter-spacing: 0.7rem;
     padding: 0 15px;
     font-size: 1.8rem;
+}
+
+a:hover {
+    border-bottom: #2196f3 1px solid;
+}
+
+ /* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #000;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+    border-bottom: 1px solid #2196f3;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+input:not([type]):focus:not([readonly]), input[type="text"]:not(.browser-default):focus:not([readonly]), input[type="password"]:not(.browser-default):focus:not([readonly]), input[type="email"]:not(.browser-default):focus:not([readonly]), input[type="url"]:not(.browser-default):focus:not([readonly]), input[type="time"]:not(.browser-default):focus:not([readonly]), input[type="date"]:not(.browser-default):focus:not([readonly]), input[type="datetime"]:not(.browser-default):focus:not([readonly]), input[type="datetime-local"]:not(.browser-default):focus:not([readonly]), input[type="tel"]:not(.browser-default):focus:not([readonly]), input[type="number"]:not(.browser-default):focus:not([readonly]), input[type="search"]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #2196f3;
+    -webkit-box-shadow: 0 1px 0 0 #2196f3;
+    box-shadow: 0 1px 0 0 #2196f3;
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+    font-size: 16px;
+    color: #2196f3;
+    display: block;
+    line-height: 22px;
+    padding: 14px 16px;
+}
+
+.select-wrapper input.select-dropdown:focus {
+    border-bottom: 1px solid #2196f3;
+}
+
+.input-field .helper-text {
+    min-height: 0;
+}
+
+fieldset {
+    padding: 0;
+    border: 0;
+}
+
+nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+    line-height: 63px;
+}
+
+ .row .col.s2.sidebar {
+    width: 280px;
+    max-width: 16%;
+    padding: 15px;
+    position: relative;
+    
+}
+
+.row .col.s2.sidebar::before {
+    position: absolute;
+    content: '';
+    height: 91vh;
+    margin-left: -25px;
+    border-left: 1px solid #CCCCCC;
+    overflow-x: hidden;
+}
+
+
+.sidebar .responsive-img {
+    margin: 10px;
+    width: 40%;
 }
