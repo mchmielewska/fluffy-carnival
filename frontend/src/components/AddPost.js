@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addPost } from '../actions/postsActions';
-
+import * as M from 'materialize-css'
 class AddPost extends Component {
     
     constructor() {
@@ -47,10 +47,20 @@ class AddPost extends Component {
         this.props.addPost(newPost, this.props.history);
     }
 
+    componentDidMount() {
+        function select() {
+            var elems = document.querySelectorAll('select');
+            var options = {}
+            var instances = M.FormSelect.init(elems, options);
+          }
+        select();
+      }
+
     render() {
         
         return (
-            <div className="row">
+            <div className="container">
+<div className="row">
             <h4 style={{marginBottom: '40px'}} className="page-header">New post</h4>
             <form className="col s12" onSubmit={ this.handleSubmit }>
                 <div className="input-field">
@@ -122,6 +132,7 @@ class AddPost extends Component {
                 </div>
             </form>
         </div>
+            </div>
         )
     }
 }

@@ -252,12 +252,12 @@ exports.deleteUser = (req, res, next) => {
 
 exports.getFindUsers = (req, res, next) => {
 
-    User.find({ $and: [{ visibility: "visible" }, searchParams.userSearch(req)] })
+    User.find({ visibility: "visible" })
         .then(users => {
             if (!users || (users.length == 0)) {
                 res.status(400).json({ success: false, msg: "Users matching criteria not found" });
             }
-            const foundUsers = _.map(users, user => _.pick(user, ['_id', 'name', 'surname', 'gender', 'city']));
+            const foundUsers = _.map(users, user => _.pick(user, ['_id', 'name', 'surname', 'birthDate', 'gender', 'city', 'friends']));
 
             res.send(foundUsers);
         })

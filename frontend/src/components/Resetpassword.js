@@ -28,7 +28,8 @@ class ResetPassword extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <div className="row valign-wrapper">
+            <div className="container">
+<div className="row valign-wrapper">
                 <div className="col m6">
                     <img className="main-img" src="https://i.imgur.com/xkOkstF.png" alt="reset password" width="100%"></img>
                 </div>
@@ -54,6 +55,7 @@ class ResetPassword extends Component {
                         </form>
 
                     </div>
+            </div>
             </div>
             
         )

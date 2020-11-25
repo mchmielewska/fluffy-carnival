@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions/postsActions';
+import Sidebar from './Sidebar'
 
 class Dashboard extends Component {
 
@@ -57,10 +58,13 @@ class Dashboard extends Component {
         )
 
         return ( 
-            <div className="home">
-                <div className="row">
-                        {postList}
-                </div>
+            <div className="row">
+                    <div className="col s10">
+                        <div className="row center">
+                            { postList }
+                        </div>
+                    </div>
+                    <Sidebar />
             </div>
         )
     }

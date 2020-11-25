@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import CurrentUser from './CurrentUser'
 
-export default class Sidebar extends Component {
-    render() {
+export default function Sidebar () {
         return (
             <div className="sidebar col s2 right">
-                <div className="center-align">
-                    <h5>Hello logged user!</h5>
-                    <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
-                    <div>
-                        <p>name surname</p>
-                        <p>location</p>
-                    </div>
-                    <br></br>
-        
-                    <Link className="link" to="/dashboard">Go back to Dashboard page</Link>
+                <CurrentUser />
+                <div className="sidebar-links">
+                    <Link className="link valign-wrapper"  to="/post_add"><i className="material-icons">edit</i>Add post</Link>
+                    <Link className="link valign-wrapper"  to="/posts"><i className="material-icons">home</i>Dashboard</Link>
+                    <span className="valign-wrapper"><i className="material-icons">search</i>Explore</span>
+                    <Link className="link valign-wrapper" to="/posts/"><i className="material-icons white-text">navigate_next</i>Posts</Link>
+                    <Link className="link valign-wrapper" to="/users"><i className="material-icons white-text">navigate_next</i>People</Link>
                 </div>
             </div>
         )
     }
-}

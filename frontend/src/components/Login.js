@@ -49,7 +49,7 @@ class Login extends Component {
 
     render() {
         return(
-        <div>
+        <div className="container">
             <div className="row valign-wrapper">
             <div className="col m6">
                 <img className="main-img" src="https://i.imgur.com/isTc8fu.png" alt="login" width="100%"></img>

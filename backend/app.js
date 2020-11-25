@@ -39,7 +39,7 @@ const successHandler = (jwt_payload, done) => {
 
 passport.use(new Strategy(opts, successHandler));
 
-app.use('/user', UserRoutes);
+app.use('/users', UserRoutes);
 app.use('/friends', FriendsRoutes);
 app.use('/posts', PostRoutes);
 

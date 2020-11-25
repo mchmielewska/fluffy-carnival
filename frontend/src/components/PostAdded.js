@@ -6,7 +6,7 @@ export default class PostAdded extends Component {
             <div className="container">
                 <div className="center text-center">
                     <h4>Post created!</h4>
-                    <Link className="link" to="/dashboard">Go back to Dashboard page</Link>
+                    <Link className="link" to="/posts">Go back to Dashboard page</Link>
                 </div>
             </div>
         )

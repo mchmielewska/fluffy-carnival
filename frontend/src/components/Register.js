@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { registerUser } from '../actions/authentication';
+import * as M from 'materialize-css';
 class Register extends Component {
     
     constructor() {
@@ -53,11 +54,18 @@ class Register extends Component {
         if(this.props.auth.isAuthenticated) {
             this.props.history.push('/');
         }
+            function select() {
+                var elems = document.querySelectorAll('select');
+                var options = {}
+                var instances = M.FormSelect.init(elems, options);
+              }
+            select();
     }
 
     render() {
         return (
-            <div className="center" style={{ marginTop: '50px' }}>
+            <div className="container">
+<div className="center" style={{ marginTop: '50px' }}>
             <h4 style={{marginBottom: '40px'}}>Registration</h4>
             <div className="row valign-wrapper">
             <div className="col m6">
@@ -66,7 +74,7 @@ class Register extends Component {
             <div className="col m6">
             <form onSubmit={ this.handleSubmit }>
                 <div className="input-field">
-                    <label for="email">E-mail</label>
+                    <label htmlFor="email">E-mail</label>
                     <input
                     type="email"
                     name="email"
@@ -78,7 +86,7 @@ class Register extends Component {
                     <span className="helper-text" data-error="incorrect e-mail"></span>
                 </div>
                 <div className="input-field">
-                    <label for="Name">Name</label>
+                    <label htmlFor="Name">Name</label>
                     <input
                     type="text"
                     name="name"
@@ -88,7 +96,7 @@ class Register extends Component {
                     />
                 </div>
                 <div className="input-field">
-                    <label for="password">Surname</label>
+                    <label htmlFor="password">Surname</label>
                     <input
                     type="text"
                     name="surname"
@@ -98,7 +106,7 @@ class Register extends Component {
                     />
                 </div>
                 <div className="input-field">
-                    <label for="birthDate">Birth date</label>
+                    <label htmlFor="birthDate">Birth date</label>
                     <input
                     type="date"
                     placeholder="DD-MM-YYYY"
@@ -122,7 +130,7 @@ class Register extends Component {
                     </div>
                 </div>
                 <div className="input-field">
-                    <label for="password">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input
                     type="password"
                     name="password"
@@ -132,7 +140,7 @@ class Register extends Component {
                     />
                 </div>
                 <div className="input-field">
-                    <label for="password">Country</label>
+                    <label htmlFor="country">Country</label>
                     <input
                     type="text"
                     name="country"
@@ -142,7 +150,7 @@ class Register extends Component {
                     />
                 </div>
                 <div className="input-field">
-                    <label for="password">City</label>
+                    <label htmlFor="city">City</label>
                     <input
                     type="text"
                     name="city"
@@ -161,6 +169,7 @@ class Register extends Component {
             </div>
             </div>
         </div>
+            </div>
         )
     }
 }

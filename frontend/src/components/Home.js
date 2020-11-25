@@ -21,27 +21,11 @@ class Home extends Component {
         const authPage = (
             <div className="row">
                     <div className="col s10 center-align">
-                        <div className="row valign-wrapper">
-                            <div className="col">
-                                <img className="main-img" src="https://i.imgur.com/sOY7tje.jpg" alt="social media" width="100%"></img>
-                            </div>
-                            <div className="col">
-                                    <div className="row">                              
-                                        <br></br>
-                                        <Link className="nav-link home-link" to="/dashboard">Dashboard</Link>
-                                        <p className="">Check the newest posts</p>
-                                    </div>
-                                    <div className="row">
-                                        <Link className="nav-link home-link" to="/post_add">Add post</Link>
-                                    </div>
-                                    {/* <div className="row">
-                                        <Link className="nav-link home-link" to="/post_add">Add post</Link>
-                                    </div> */}
-                                </div>
-                        </div>
-                    </div> 
+                        <img className="main-img" src="https://i.imgur.com/sOY7tje.jpg" alt="social media" width="50%"></img>
+                    </div>
                     <Sidebar />
             </div>
+
 
         )
       const guestPage = (

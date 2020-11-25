@@ -14,7 +14,7 @@ exports.sendActivationEmail = user => {
     user.guid = uniqid();
 
     const generatedURL = buildUrl('http://localhost:9090', {
-        path: 'user/activate',
+        path: 'users/activate',
         queryParams: {
             guid: user.guid
         }
@@ -37,7 +37,7 @@ exports.sendResetPasswordEmail = user => {
     user.expirationTokenDate = user.expirationTokenDate.getTime() + 5 * 60 * 1000;
 
     const generatedURL = buildUrl('http://localhost:9090/', {
-        path: 'user/reset',
+        path: 'users/reset',
         queryParams: {
             token: user.resetPasswordToken
         }
