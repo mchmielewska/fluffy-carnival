@@ -48,7 +48,7 @@ class Post extends Component {
             <div className="container">
                 {post}
             
-            <Link className="nav-link btn" to="/dashboard"><i className="material-icons left">keyboard_arrow_left</i>Back</Link>
+            <Link className="nav-link btn" to="/posts"><i className="material-icons left">keyboard_arrow_left</i>Back</Link>
             </div>
         )
     }

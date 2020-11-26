@@ -114,14 +114,16 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
     line-height: 63px;
 }
 
+.nav-wrapper {
+    margin-bottom: 1rem;
+}
+
  .row .col.s2.sidebar {
     width: 280px;
     max-width: 16%;
     position: relative;
     
 }
-
-
 
 .sidebar .responsive-img {
     margin: 10px;
@@ -176,4 +178,69 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 
 .profile-card .responsive-img {
     width: 35%;
+}
+
+.description {
+    font-size: 13px;
+    text-align: justify;
+}
+
+.card  h6.card-title {
+    color: #000000;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+p.card-date {
+    font-weight: bold;
+    text-align: left;
+    font-size: 13px;
+    margin-top: 0;
+}
+
+.card-content.row {
+    margin-bottom: 0;
+    color: #000000;
+}
+
+.card-content.row a {
+    color: #000000;
+}
+
+.card-content a {
+    color: #999999;
+    font-weight: bold;
+}
+
+.card-content a:hover {
+    border-bottom: solid 1px #999999;
+}
+
+.card .card-image img {
+    padding: 0 10px;
+    margin: 0;
+}
+
+.post {
+    min-height: 680px;
+    height: 45vw;
+}
+
+
+.profile .responsive-img {
+    margin-top: 1rem;
+}
+
+.edit-form {
+    font-size: 0.9rem;
+}
+
+.edit-form .input-field {
+    margin: 0
+}
+
+nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+    display: inline-block;
 }

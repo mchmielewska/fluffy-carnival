@@ -21,10 +21,7 @@ class Header extends Component {
                     <Link className="nav-link" to="/posts">Dashboard</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/profile">Profile</Link>
-                </li>    
-                <li className="nav-item">
-                    <a href="#" onClick={this.onLogout.bind(this)}>Logout</a>
+                    <a href="#" onClick={this.onLogout.bind(this)}><i className="material-icons small white-text">power_settings_new</i> Logout</a>
                 </li>
             </ul>
         )

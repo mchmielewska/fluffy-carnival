@@ -35,3 +35,16 @@ export const getCurrentUser = (user) => dispatch => {
                 });
             });
 }
+
+export const patchUser = (user) => dispatch => {
+    axios.patch('http://localhost:9090/users/update', user)
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.res
+        });
+    });
+}

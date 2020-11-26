@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions/postsActions';
+import { getUsers } from '../actions/usersActions';
 import Sidebar from './Sidebar'
 
 class Dashboard extends Component {
 
     render() {
+        this.props.getUsers();
         this.props.getPosts();
+        
         const posts = this.props.posts;
+        const users = this.props.users;
 
         function dateBuilder (date) {
             const event = new Date(date);
@@ -27,25 +31,59 @@ class Dashboard extends Component {
             }
         }
 
+        function shortenDescription (text) {
+            if (text.length > 100) {
+                text = text.substring(0,100) + '...';
+                return text;
+            }
+        }
+
+        function readMore(post) {
+            if (post.description.length > 100) {
+                return <Link to={'/posts/' + post.id}>read more</Link>
+            }
+        }
+
+        function getAuthor(users, post) {
+            for (let i=0; i < users.length; i++) {
+                if (users[i]._id === post.authorId) {
+                    const author = 
+                    <div>
+                        <Link to={'/users/' + users[i]._id}>
+                            <p className="bold">{ users[i].name } { users[i].surname }</p>
+                        </Link>
+                        <p>{ users[i].city }</p>
+                    </div>
+
+                    return author 
+                }
+            }
+        }
+
         const postList = posts.length ? (
-            posts.map(post => {
+            (posts.sort((a, b) => (a.publishDate < b.publishDate) ? 1 : -1)).map(post => {
                 return (
-                    <div className="col s6 m4" key={post.id}>
+                    <div className="col m4 s6" key={post.id}>
                         <div className="post card" >
+                            <div className="card-content row">
+                                <div className="user-details left-align col m6">
+                                    {getAuthor(users, post)}
+                                </div>
+                                <div className="col m6 right-align">
+                                    <span title={privacyLevelIcon(post.privacyLevel)}><i className="small material-icons">{privacyLevelIcon(post.privacyLevel)}</i></span>
+                                </div>
+                            </div>
                             <div className="card-image">
                                 <img src="http://placekitten.com/300/300" alt="cat"></img>
                             </div>
                             <div className="card-content">
                                 <Link to={'/posts/' + post.id}>
-                                    <h5 className="card-title blue-text ">{post.title}</h5>
+                                    <h6 className="card-title">{post.title}</h6>
                                 </Link>
-                                <p>{post.description}</p>
+                                    <p className="description">{shortenDescription(post.description)} {readMore(post)}</p>
                             </div>
                             <div className="card-action">
-                            <p className="card-date blue-text">{dateBuilder(post.publishDate)}</p>
-                            <p className="valign-wrapper">
-                                <i className="small material-icons">{privacyLevelIcon(post.privacyLevel)}</i>
-                            </p>
+                            <p className="card-date">{dateBuilder(post.publishDate)}</p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +98,7 @@ class Dashboard extends Component {
         return ( 
             <div className="row">
                     <div className="col s10">
-                        <div className="row center">
+                        <div className="row center post-list">
                             { postList }
                         </div>
                     </div>
@@ -71,13 +109,18 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return { posts: state.posts }
+    return { 
+        posts: state.posts,
+        users: state.users.all }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getPosts: () => {
             dispatch(getPosts())
+        },
+        getUsers: () => {
+            dispatch(getUsers())
         }
     }
 }

@@ -257,7 +257,7 @@ exports.getFindUsers = (req, res, next) => {
             if (!users || (users.length == 0)) {
                 res.status(400).json({ success: false, msg: "Users matching criteria not found" });
             }
-            const foundUsers = _.map(users, user => _.pick(user, ['_id', 'name', 'surname', 'birthDate', 'gender', 'city', 'friends']));
+            const foundUsers = _.map(users, user => _.pick(user, ['_id', 'name', 'surname', 'birthDate', 'gender', 'country', 'city', 'friends', 'email']));
 
             res.send(foundUsers);
         })
