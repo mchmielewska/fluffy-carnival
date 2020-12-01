@@ -36,10 +36,10 @@ export const getCurrentUser = (user) => dispatch => {
             });
 }
 
-export const patchUser = (user) => dispatch => {
+export const patchUser = (user, history) => dispatch => {
     axios.patch('http://localhost:9090/users/update', user)
     .then(res => {
-        console.log(res)
+        history.push('/userupdated');
     })
     .catch(err => {
         dispatch({

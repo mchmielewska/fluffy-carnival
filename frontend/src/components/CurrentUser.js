@@ -73,9 +73,9 @@ return {
     getFriendsList: () => {
         dispatch(getFriendsList())
     },
-        getUsers: () => {
-            dispatch(getUsers())
-        }
+    getUsers: () => {
+        dispatch(getUsers())
+    }
     }
 }
 

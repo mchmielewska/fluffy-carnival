@@ -25,6 +25,9 @@ import PostAdded from './components/PostAdded'
 import AddPost from './components/AddPost';
 import UserProfile from './components/UserProfile';
 import EditUser from './components/EditUser';
+import UserUpdated from './components/UserUpdated';
+import EditPost from './components/EditPost'
+import PostUpdated from './components/PostUpdated';
 
 if(localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken);
@@ -61,6 +64,9 @@ class App extends Component {
                     <Route exact path="/users" component={Users} />
                     <Route exact path="/users/:user_id" component={UserProfile}/>
                     <Route exact path="/users/:user_id/edit" component={EditUser} />
+                    <Route path="/userupdated/" component={UserUpdated} />
+                    <Route path="/postupdated/" component={PostUpdated} />
+                    <Route exact path="/posts/:post_id/edit" component={EditPost} />
                   </div>
               </div>
             </Router>

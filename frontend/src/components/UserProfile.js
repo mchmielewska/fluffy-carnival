@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import SidebarLinks from './SidebarLinks'
 import { getCurrentUser, getUsers } from '../actions/usersActions';
 import { getPosts } from '../actions/postsActions';
@@ -25,6 +25,7 @@ class UserProfile extends Component {
                         }}>
                     <i className="material-icons tiny">edit</i>Edit profile</Link>
                 )
+                
             }
         }
 
@@ -111,7 +112,7 @@ class UserProfile extends Component {
                 No posts found
             </div>
         )
-    
+
         return (
             <div className="row">
                 <div className="col s10">
@@ -158,4 +159,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserProfile));

@@ -21,7 +21,7 @@ class Header extends Component {
                     <Link className="nav-link" to="/posts">Dashboard</Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" onClick={this.onLogout.bind(this)}><i className="material-icons small white-text">power_settings_new</i> Logout</a>
+                    <a className="nav-link" href="#" onClick={this.onLogout.bind(this)}>Logout</a>
                 </li>
             </ul>
         )
@@ -36,7 +36,7 @@ class Header extends Component {
         </ul>
       )
         return(
-            <nav className="nav-wrapper blue">
+            <nav className="nav-wrapper white">
                 <Link className="brand-logo" to="/">Fluffy Carnival</Link>
                 <div className="hide-on-med-and-down" id="navbarSupportedContent">
                     {isAuthenticated ? authLinks : guestLinks}

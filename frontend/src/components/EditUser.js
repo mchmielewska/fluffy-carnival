@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { getUsers, patchUser } from '../actions/usersActions';
@@ -35,7 +36,7 @@ class EditUser extends Component {
             city: this.state.city,
             birthDate: this.state.birthDate
         }
-        this.props.patchUser(user);
+        this.props.patchUser(user, this.props.history);
     }
 
     componentDidMount() {
@@ -50,6 +51,10 @@ class EditUser extends Component {
     render() {
         this.props.getUsers();
         const user = this.props.user;
+
+        console.log(this.props.history)
+        console.log()
+        
 
         return (
             <div className="container">
@@ -136,11 +141,12 @@ class EditUser extends Component {
                     />
                 </div>
                 <div className="input-field">
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="nav-link btn btn-primary">
                         Save changes
                     </button>
                 </div>
             </form>
+            <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>
 
             </div>
             </div>

@@ -1,3 +1,12 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px
+}
+
+a.brand-logo, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inknut Antiqua', serif;
+}
+
 .link {
     color: #2196f3;
 }
@@ -48,6 +57,7 @@ i.home {
     height: 45px;
     margin: 5px 0;
     text-align: center;
+    margin: 5px 15px;
 }
 
 .btn:hover {
@@ -188,7 +198,7 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 .card  h6.card-title {
     color: #000000;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 1.6rem;
     margin-top: 10px;
     text-align: left;
 }
@@ -243,4 +253,45 @@ p.card-date {
 
 nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
     display: inline-block;
+}
+
+a.btn:hover {
+    border-bottom: none;
+}
+
+.edit-links .btn {
+    margin-right: 0;
+}
+
+.edit-links .nav-link {
+    margin-left: 0;
+}
+
+.author {
+    padding: 15px;
+    text-align: center;
+    margin-top: 2rem
+}
+
+.post-title {
+    margin-right: 24px
+}
+
+.post-date {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: right;
+}
+
+img.post-image {
+    width: 100%;
+    margin-bottom: 10px
+}
+
+p.post-description {
+    text-align: justify;
+}
+
+i {
+    cursor: default;
 }

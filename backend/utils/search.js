@@ -16,7 +16,7 @@ exports.postSearch = async (req) => {
         const friendsIds = friendsUtils.myFriends(user);
         let posts = await Post.find({$or: 
         [{$and: [{authorId: friendsIds},{state: "published"},{privacyLevel: "friendsOnly"}]}, 
-        {$and: [{authorId: loggedUserId},{state: "published"},{privacyLevel: "private"}]}, 
+        {$and: [{authorId: loggedUserId},{state: "published"}]}, 
         {$and: [{privacyLevel: "public"},{state: "published"}]}]});
         return posts;
     }

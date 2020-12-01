@@ -74,7 +74,9 @@ class Dashboard extends Component {
                                 </div>
                             </div>
                             <div className="card-image">
-                                <img src="http://placekitten.com/300/300" alt="cat"></img>
+                                <Link to={'/posts/' + post.id}>
+                                    <img src="http://placekitten.com/300/300" alt="cat"></img>
+                                </Link>
                             </div>
                             <div className="card-content">
                                 <Link to={'/posts/' + post.id}>

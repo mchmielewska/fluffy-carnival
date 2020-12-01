@@ -40,6 +40,8 @@ exports.getFindPost = async (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
+    console.log("id", req.body.id)
+    console.log("body", req.body)
     Post.findOne({_id: req.body.id})
         .then(post => {
             if (!post) {

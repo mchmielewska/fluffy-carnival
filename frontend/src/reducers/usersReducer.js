@@ -5,7 +5,7 @@ const initialState = {}
 export default function (state = initialState, action ) {
      switch(action.type) {
         case GET_CURRENT_USER:
-            if (state.currentUser?.user.name == undefined || state.currentUser.user.name !== action.payload.user.name)
+            if (state.currentUser?.user.name == undefined || state.currentUser.user.name !== action.payload.user.name )
                 return {
                     ...state,
                     currentUser: action.payload
@@ -21,3 +21,5 @@ export default function (state = initialState, action ) {
              return state;
      }
 }
+
+// state.currentUser.posts !== action.payload.posts

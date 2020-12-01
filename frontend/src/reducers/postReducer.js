@@ -8,12 +8,10 @@ export default function (state = initialState, action ) {
             if (state.length !== action.payload.length || state.length === 0)
                 return action.payload
             return state;
-        //  case DELETE_POST:
-        //      return {
-        //          ...state,
-        //          isAuthenticated: !isEmpty(action.payload),
-        //          user: action.payload
-        //      }
+         case DELETE_POST:
+             return {
+                 ...state,
+             }
          default: 
              return state;
      }
