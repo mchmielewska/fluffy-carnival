@@ -5,7 +5,7 @@ import SidebarLinks from './SidebarLinks'
 
 export default function Sidebar () {
         return (
-            <div className="sidebar col s2 right">
+            <div className="sidebar col s2">
                 <CurrentUser />
                 <SidebarLinks />
             </div>

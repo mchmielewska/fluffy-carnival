@@ -89,7 +89,7 @@ exports.getFriendsList = (req, res, next) => {
 
             User.find({"_id": friendsIds})
                 .then(users => {
-                    const friends = _.map(users, friend => _.pick(friend, ['_id','name','surname','gender','city']));
+                    const friends = _.map(users, friend => _.pick(friend, ['_id','name','surname','gender','city', 'birthDate']));
                     res.send(friends);
                 })
         })

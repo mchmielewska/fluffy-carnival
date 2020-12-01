@@ -20,10 +20,10 @@ class Home extends Component {
         const {isAuthenticated, user} = this.props.auth;
         const authPage = (
             <div className="row">
+                    <Sidebar />
                     <div className="col s10 center-align">
                         <img className="main-img" src="https://i.imgur.com/sOY7tje.jpg" alt="social media" width="50%"></img>
                     </div>
-                    <Sidebar />
             </div>
 
 

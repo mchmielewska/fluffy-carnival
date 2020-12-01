@@ -38,12 +38,12 @@ class Users extends Component {
 
         return ( 
             <div className="row">
+                    <Sidebar />
                     <div className="col s10">
                         <div className="row center">
                             { userList }
                         </div>
                     </div>
-                    <Sidebar />
             </div>
         )
     }

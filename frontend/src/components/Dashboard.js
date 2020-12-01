@@ -78,11 +78,12 @@ class Dashboard extends Component {
                                     <img src="http://placekitten.com/300/300" alt="cat"></img>
                                 </Link>
                             </div>
-                            <div className="card-content">
+                            <div className="card-content text">
                                 <Link to={'/posts/' + post.id}>
                                     <h6 className="card-title">{post.title}</h6>
                                 </Link>
-                                    <p className="description">{shortenDescription(post.description)} {readMore(post)}</p>
+                                    <p className="description">{shortenDescription(post.description)}</p>
+                                    <p className="center-align">{readMore(post)}</p>
                             </div>
                             <div className="card-action">
                             <p className="card-date">{dateBuilder(post.publishDate)}</p>
@@ -99,12 +100,12 @@ class Dashboard extends Component {
 
         return ( 
             <div className="row">
+                     <Sidebar />
                     <div className="col s10">
                         <div className="row center post-list">
                             { postList }
                         </div>
                     </div>
-                    <Sidebar />
             </div>
         )
     }

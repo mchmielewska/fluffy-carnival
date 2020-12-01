@@ -4,7 +4,7 @@
 }
 
 a.brand-logo, h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inknut Antiqua', serif;
+    font-family: 'Volkhov', serif;
 }
 
 .link {
@@ -73,9 +73,14 @@ i.home {
 }
 
 nav .brand-logo {
-    letter-spacing: 0.7rem;
+    letter-spacing: 0.3rem;
     padding: 0 15px;
     font-size: 1.8rem;
+    color: #000000;
+}
+
+nav a, nav ul a {
+    color: #000000;
 }
 
 a:hover {
@@ -124,15 +129,24 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
     line-height: 63px;
 }
 
+nav {
+    height: 7rem
+}
+
 .nav-wrapper {
     margin-bottom: 1rem;
+    padding: 1.5rem 1rem;
 }
 
  .row .col.s2.sidebar {
     width: 280px;
     max-width: 16%;
     position: relative;
-    
+}
+
+.sidebar-links.row {
+    margin-bottom: 0;
+    margin-left: 0
 }
 
 .sidebar .responsive-img {
@@ -142,6 +156,7 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 
 .user-details {
     font-size: 13px;
+    height: 2rem
 }
 
 .spaced {
@@ -159,8 +174,9 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
     font-size: 10px;
 }
 
-.sidebar-links a, span {
-    padding: 5px 0;
+
+.sidebar-links a, .sidebar-links span {
+    padding: 10px 15px;
     color: #999999;
     font-weight: bold;
 }
@@ -191,7 +207,6 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 }
 
 .description {
-    font-size: 13px;
     text-align: justify;
 }
 
@@ -204,7 +219,6 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 }
 
 p.card-date {
-    font-weight: bold;
     text-align: left;
     font-size: 13px;
     margin-top: 0;
@@ -233,9 +247,8 @@ p.card-date {
     margin: 0;
 }
 
-.post {
-    min-height: 680px;
-    height: 45vw;
+.card-content.text {
+    height: 12rem;
 }
 
 
@@ -294,4 +307,10 @@ p.post-description {
 
 i {
     cursor: default;
+}
+
+.action-button {
+    background-color: #FFFFFF;
+    border: none;
+    cursor: pointer;
 }

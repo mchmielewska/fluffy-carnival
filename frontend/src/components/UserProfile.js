@@ -115,12 +115,13 @@ class UserProfile extends Component {
 
         return (
             <div className="row">
+                <div className="col m2">
+                    <Link className="nav-link btn" to="/users"><i className="material-icons left">keyboard_arrow_left</i>Back</Link>
+                    <SidebarLinks />
+                </div>
+                
                 <div className="col s10">
                     <div className="row profile">
-                            <div className="col m2">
-                                <Link className="nav-link btn" to="/users"><i className="material-icons left">keyboard_arrow_left</i>Back</Link>
-                                
-                            </div>
                             <div className="col m2 center">
                                 {user}
                             </div>
@@ -128,8 +129,8 @@ class UserProfile extends Component {
                                 {postList}
                             </div>
                     </div>
-                    </div>
-                <SidebarLinks />
+                </div>
+                
             </div>
         )
     }

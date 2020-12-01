@@ -16,11 +16,11 @@ class CurrentUser extends Component {
         const id = this.props.id;
         const profileData = currentUser ? (
             <div>
-                <div className="center-align">
-                    <h5 className="spaced">Hello { currentUser.user.name }!</h5>
+                <div className="center-align row">
+                    {/* <h5 className="spaced">Hello { currentUser.user.name }!</h5> */}
                     <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
                     <div className="user-details">
-                        <p className="bold">{ currentUser.user.name } { currentUser.user.surname }</p>
+                        <p>{ currentUser.user.name } { currentUser.user.surname }</p>
                         <p>{ currentUser.user.city }</p>
                         <div className="row center-align">
                             <div className="col m6">
@@ -34,13 +34,15 @@ class CurrentUser extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="sidebar-links">
-                <Link 
-                    className="valign-wrapper" to={ {
-                        pathname: `/users/${id}`
-                    }}>
-                <i className="material-icons">person</i>Profile</Link>
+
+                <div className="sidebar-links row">
+                    <Link 
+                        className="valign-wrapper" to={ {
+                            pathname: `/users/${id}`
+                        }}>
+                    <i className="material-icons">person</i>Profile</Link>
                 </div>
+
             </div>
 
                 
@@ -61,7 +63,7 @@ const mapStateToProps = (state) => {
         id: state.auth.user.id,
         user: state.users.currentUser,
         users: state.users.all,
-        friends: state.friends
+        friends: state.friends.friendsList
     }
 }
 
