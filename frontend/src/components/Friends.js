@@ -112,12 +112,17 @@ class Friends extends Component {
                                 <div className="user-details">
                                     <Link to={'/users/' + friend._id}>
                                         { friend.id }
-                                        <p className="bold">{ friend.name } { friend.surname }</p>
+                                        <p className="bold username">{ friend.name } { friend.surname }</p>
                                     </Link>
                                     <p>{getAge()}, { friend.city }</p>
                                 </div>
+                                <div className="action">
+                                    <button className="action-button" onClick={ (e) => handleRemove(friend._id) }>
+                                        <i className="material-icons tiny">remove_circle_outline</i>remove from friends
+                                    </button>
+                                </div>
                         </div>
-                        <button className="action-button" onClick={ (e) => handleRemove(friend._id) }><i className="material-icons tiny">remove_circle_outline</i>remove from friends</button>
+                        
                     </div>
                 )
             })

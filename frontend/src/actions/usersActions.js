@@ -48,3 +48,16 @@ export const patchUser = (user, history) => dispatch => {
         });
     });
 }
+
+export const patchPassword = (data, history) => dispatch => {
+    axios.patch('http://localhost:9090/users/changepass', data)
+    .then(res => {
+        history.push('/userupdated');
+    })
+    .catch(err => {
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.res
+        });
+    });
+}

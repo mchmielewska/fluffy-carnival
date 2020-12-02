@@ -3,11 +3,28 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUsers } from '../actions/usersActions';
 import Sidebar from '../components/Sidebar'
+import { inviteFriend } from '../actions/friendsActions';
 
 class Users extends Component {
 
     render() {
         this.props.getUsers();
+        const currentUser = this.props.currentUser;
+        const friendsList = this.props.friendsList;
+        const friendsIds = friendsList.map(el => el._id);
+        
+        const handleInvite = (id) => {
+            this.props.inviteFriend(id);
+        }
+
+        function sendInvitation (user) {
+            if (user._id === currentUser || friendsIds.includes(user._id)) return;
+
+            return (
+                <button className="action-button" onClick={ (e) => handleInvite(user._id) }><i className="material-icons tiny">add_circle_outline</i> Add to friends</button>
+            )
+        }
+
         const users = this.props.users;
 
         const userList = users ? (
@@ -19,11 +36,15 @@ class Users extends Component {
                                 <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
                                 <div className="user-details">
                                     <Link to={'/users/' + user._id}>
-                                        <p className="bold">{ user.name } { user.surname }</p>
+                                        <p className="bold username">{ user.name } { user.surname }</p>
                                     </Link>
-                                    <p>{getAge()}, { user.city }</p>
-                                    <p><span className="bold">{ user.friends.length }</span>
-                                    <br></br><span className="uppercase">friends</span></p>
+                                    <p className="small-text">{getAge()}, { user.city }</p>
+                                    <div className="friends-counter">
+                                        <span className="bold">{ user.friends.length }</span>
+                                        <br></br>
+                                        <span className="uppercase">friends</span>
+                                    </div>
+                                    <div className="action">{ sendInvitation(user) }</div>
                                 </div>
 
                         </div>
@@ -51,13 +72,20 @@ class Users extends Component {
 
 
 const mapStateToProps = (state) => {
-    return { users: state.users.all }
+    return {
+        friendsList: state.friends.friendsList,
+        currentUser: state.auth.user.id,
+        users: state.users.all 
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
         return {
         getUsers: () => {
             dispatch(getUsers())
+        },
+        inviteFriend: (id) => {
+            dispatch(inviteFriend(id))
         }
     }
 }

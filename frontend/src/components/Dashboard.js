@@ -70,7 +70,7 @@ class Dashboard extends Component {
                                     {getAuthor(users, post)}
                                 </div>
                                 <div className="col m6 right-align">
-                                    <span title={privacyLevelIcon(post.privacyLevel)}><i className="small material-icons">{privacyLevelIcon(post.privacyLevel)}</i></span>
+                                    <span><i className="small material-icons">favorite_border</i></span>
                                 </div>
                             </div>
                             <div className="card-image">
@@ -85,8 +85,15 @@ class Dashboard extends Component {
                                     <p className="description">{shortenDescription(post.description)}</p>
                                     <p className="center-align">{readMore(post)}</p>
                             </div>
-                            <div className="card-action">
-                            <p className="card-date">{dateBuilder(post.publishDate)}</p>
+                            <div className="card-action row">
+                            
+                                <div className="user-details left-align col m10">
+                                    <p className="card-date">{dateBuilder(post.publishDate)}</p>
+                                </div>
+                                <div className="col m2 right-align privacy-level">
+                                    <span title={privacyLevelIcon(post.privacyLevel)}><i className="material-icons">{privacyLevelIcon(post.privacyLevel)}</i></span>
+                                </div>
+                            
                             </div>
                         </div>
                     </div>

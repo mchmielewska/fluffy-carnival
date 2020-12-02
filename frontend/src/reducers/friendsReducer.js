@@ -1,5 +1,4 @@
-import { ACCEPT_INVITE, DECLINE_INVITE, GET_FRIENDS, GET_PENDING_INVITES, REMOVE_FRIEND } from '../actions/types';
-import isEmpty from '../is-empty';
+import { ACCEPT_INVITE, DECLINE_INVITE, GET_FRIENDS, GET_PENDING_INVITES, REMOVE_FRIEND, SEND_INVITE } from '../actions/types';
 
 const initialState = {
     friendsList: [],
@@ -8,6 +7,10 @@ const initialState = {
 
 export default function (state = initialState, action ) {
      switch(action.type) {
+         case SEND_INVITE:
+            return {
+                ...state
+            }
         case GET_FRIENDS:
             if (state.friendsList === undefined || state.friendsList.length !== action.payload.length)
                 return {

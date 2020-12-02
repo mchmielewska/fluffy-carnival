@@ -108,15 +108,11 @@ exports.getPendingInvites = (req, res, next) => {
 }
 
 exports.deleteFriend = (req, res, next) => {
+    console.log(req.body.id)
     User.findById(loggedUserId)
         .then(user => {
-            if (!user) {
-                res.status(400).json({ success: false, msg: "User not found" });
-            }
 
-            const removedFriend1 = user.friends.find(user => user.requestor == req.body.id);
-            removedFriend1.remove();
-            user.save();
+            console.log(user)
 
             User.findById(req.body.id)
             .then(user => {
@@ -124,10 +120,28 @@ exports.deleteFriend = (req, res, next) => {
                     res.status(400).json({ success: false, msg: "User not found" });
                 }
     
-                const removedFriend2 = user.friends.find(user => user.requested == loggedUserId);
-                removedFriend2.remove();
-                user.save();
+                const removedFriend = user.friends.find(user => (user.requested == loggedUserId));
+
+                if (removedFriend === undefined) {
+                    const removedFriend = user.friends.find(user => user.requested == req.body.id);
+                    removedFriend.remove();
+                    user.save();
+                } else {
+                    removedFriend.remove();
+                    user.save();
+                }
             })
+
+            const removedFriend = user.friends.find(user => user.requestor == req.body.id);
+            
+            if (removedFriend === undefined) {
+                const removedFriend = user.friends.find(user => user.requested == req.body.id);
+                removedFriend.remove();
+                user.save();
+            } else {
+                removedFriend.remove();
+                user.save();
+            }
 
             res.status(200).send("Friend removed");
         })

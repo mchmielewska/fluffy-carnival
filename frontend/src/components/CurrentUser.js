@@ -17,10 +17,9 @@ class CurrentUser extends Component {
         const profileData = currentUser ? (
             <div>
                 <div className="center-align row">
-                    {/* <h5 className="spaced">Hello { currentUser.user.name }!</h5> */}
                     <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
                     <div className="user-details">
-                        <p>{ currentUser.user.name } { currentUser.user.surname }</p>
+                        <p className="username">{ currentUser.user.name } { currentUser.user.surname }</p>
                         <p>{ currentUser.user.city }</p>
                         <div className="row center-align">
                             <div className="col m6">

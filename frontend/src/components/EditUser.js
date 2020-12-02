@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { getUsers, patchUser } from '../actions/usersActions';
+import ChangePassword from './ChangePassword'
 
 import * as M from 'materialize-css';
+import { supportsGoWithoutReloadUsingHash } from 'history/DOMUtils';
 
 class EditUser extends Component {
 
@@ -52,19 +54,29 @@ class EditUser extends Component {
         this.props.getUsers();
         const user = this.props.user;
 
-        console.log(this.props.history)
-        console.log()
-        
+        function handleClick(e) {
+            e.preventDefault();
+            const div = document.getElementById('change-password');
+            const button = document.getElementById('change-password-button');
+            div.classList.remove('hidden');
+            button.classList.add('hidden')
 
+        }
+        
         return (
             <div className="container">
             <div className="center" style={{ marginTop: '50px' }}>
             <h4 style={{marginBottom: '40px'}}>Edit profile</h4>
-            <div className="row valign-wrapper">
+            <div className="row form-wrapper">
             <div className="col m6">
                 <img className="main-img" src="https://i.imgur.com/hvneBJX.png" alt="register" width="100%"></img>
+                <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>
             </div>
             <div className="edit-form col m6">
+                <button id="change-password-button" className="btn" onClick={ (e) => handleClick(e) }>Change password</button>
+                <div id="change-password" className="hidden">
+                    <ChangePassword />
+                </div>
             <form onSubmit={ this.handleSubmit }>
                 <div className="input-field">
                     <span className="left">E-mail</span>
@@ -146,8 +158,6 @@ class EditUser extends Component {
                     </button>
                 </div>
             </form>
-            <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>
-
             </div>
             </div>
         </div>

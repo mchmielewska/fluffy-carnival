@@ -1,10 +1,13 @@
 * {
     font-family: 'Roboto', sans-serif;
-    font-size: 15px
 }
 
 a.brand-logo, h1, h2, h3, h4, h5, h6 {
     font-family: 'Volkhov', serif;
+}
+
+a {
+    color: #999999;
 }
 
 .link {
@@ -40,6 +43,15 @@ i.home {
 .card-action i {
     color: #2196f3;
     font-size: 1.5rem;
+}
+
+.card-action.row {
+    margin: 0;
+    padding: 0.5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .page-header {
@@ -84,7 +96,10 @@ nav a, nav ul a {
 }
 
 a:hover {
-    border-bottom: #2196f3 1px solid;
+    color: #2196f3;
+}
+a.brand-logo:hover {
+    color: #000000;
 }
 
  /* label focus color */
@@ -139,9 +154,9 @@ nav {
 }
 
  .row .col.s2.sidebar {
-    width: 280px;
-    max-width: 16%;
+    width: 215px;
     position: relative;
+    margin-top: 1rem;
 }
 
 .sidebar-links.row {
@@ -156,6 +171,28 @@ nav {
 
 .user-details {
     font-size: 13px;
+}
+
+.row.col.user-details {
+    padding: 0.5rem;
+}
+
+.card .card-content {
+    padding: 0.5rem 1.5rem;
+    padding-top: 1rem;
+}
+
+.user-details p {
+    line-height: normal;
+}
+
+.user-details p.small-text {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.card-content.row .user-details {
     height: 2rem
 }
 
@@ -194,16 +231,26 @@ nav {
     border-bottom: 1px #CCCCCC solid;
 }
 
+.profile-card .user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.friends-counter {
+    margin-bottom: 0.5rem;
+}
+
 .profile-card {
     text-align: center;
     width: 19vw;
-    height: 19vw;
+    height: 25vw;
     flex-direction: column;
     justify-content: center;
 }
 
 .profile-card .responsive-img {
-    width: 35%;
+    width: 100px
 }
 
 .description {
@@ -222,6 +269,8 @@ p.card-date {
     text-align: left;
     font-size: 13px;
     margin-top: 0;
+    padding: 0;
+    margin-bottom: 0
 }
 
 .card-content.row {
@@ -238,17 +287,38 @@ p.card-date {
     font-weight: bold;
 }
 
-.card-content a:hover {
-    border-bottom: solid 1px #999999;
+.card h6.card-title:hover, .card-content a:hover {
+    color: #999999;
+    border: none
+}
+
+.privacy-level i {
+    color: #999999;
+    font-size: 1.3rem;
+}
+
+.col.m2.right-align.privacy-level {
+    display: flex;
+    justify-content: right;
+    align-content: center;
+    height: 1.3rem;
+}
+
+.col.m2.right-align.privacy-level span {
+    padding: 0;
+    margin: 0
 }
 
 .card .card-image img {
-    padding: 0 10px;
-    margin: 0;
+    margin: 0.5rem 0;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
 .card-content.text {
-    height: 12rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
@@ -283,16 +353,16 @@ a.btn:hover {
 .author {
     padding: 15px;
     text-align: center;
-    margin-top: 2rem
 }
 
 .post-title {
-    margin-right: 24px
+    margin-right: 24px;
+    margin-top: 2rem;
+    font-size: 2rem;
 }
 
 .post-date {
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 13px;
     text-align: right;
 }
 
@@ -303,6 +373,8 @@ img.post-image {
 
 p.post-description {
     text-align: justify;
+    line-height: 2;
+    padding: 1rem 0
 }
 
 i {
@@ -313,4 +385,62 @@ i {
     background-color: #FFFFFF;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px
+}
+
+.action-button i {
+    margin-right: 5px;
+}
+nav ul a:hover {
+    border: none;
+    color: #2196f3;
+    background: none;
+}
+
+.row .col.s10 {
+    padding-left: 2rem;
+}
+
+.form-wrapper {
+    display: flex;
+    align-items: end
+}
+
+.hidden {
+    display: none;
+}
+
+.user-details p.username {
+    font-size: 1rem;
+    margin-bottom: 0.5rem
+}
+
+.user-details-flex {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.action {
+    height: 2rem
+}
+
+.action-button {
+    padding: 0.5rem;
+}
+
+.action-button:hover {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+    padding: 0.5rem;
+    color: #999999;
+}
+
+.card.horizontal {
+    box-shadow: none;
+}
+
+.post-image {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
 }

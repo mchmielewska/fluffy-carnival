@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, GET_FRIENDS, GET_PENDING_INVITES, ACCEPT_INVITE, DECLINE_INVITE, REMOVE_FRIEND } from './types';
+import { GET_ERRORS, GET_FRIENDS, GET_PENDING_INVITES, ACCEPT_INVITE, DECLINE_INVITE, REMOVE_FRIEND, SEND_INVITE } from './types';
 
 export const getFriendsList = (user) => dispatch => {
     axios.get('http://localhost:9090/friends/all', user)
@@ -70,13 +70,34 @@ export const declineInvite = (user, token) => dispatch => {
             });
 }
 
-export const removeFriend = (id) => dispatch => {
+export const removeFriend = (id, user) => dispatch => {
 
-    axios.delete(`http://localhost:9090/friends/delete`, { data: { id: id }})
+    axios.delete(`http://localhost:9090/friends/remove`, { data: { id: id }}, user)
         .then(
             res => { 
                 dispatch({
                     type: REMOVE_FRIEND,
+                    payload: res.data
+                });
+                console.log(res)
+            }
+        )
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.res
+            });
+        });
+    
+}
+
+export const inviteFriend = (id, user) => dispatch => {
+
+    axios.post(`http://localhost:9090/friends/invite?id=${id}`, user)
+        .then(
+            res => { 
+                dispatch({
+                    type: SEND_INVITE,
                     payload: res.data
                 });
                 console.log(res)

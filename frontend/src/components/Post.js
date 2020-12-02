@@ -57,6 +57,7 @@ class Post extends Component {
 
         const post = this.props.post ? (
             <div>
+            <h5 className="right-align post-title">{this.props.post.title}</h5>
                 <div className="card horizontal">
                 <div className="author">
                     <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
@@ -66,7 +67,7 @@ class Post extends Component {
                    
                 </div>
                 <div className="card-stacked">
-                    <h5 className="right-align post-title">{this.props.post.title}</h5>
+                    
                     <div className="card-content">
                         <img className="post-image" src="http://placekitten.com/500/500" alt="cat"></img>
                         <p className="post-description">{this.props.post.description}</p>
@@ -111,12 +112,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 }
 
-//to change the state
 const mapDispatchToProps = (dispatch) => {
 return {
-        getCurrentUser: () => {
-            dispatch(getCurrentUser())
-        },
         deletePost: (id) => {
                 dispatch(deletePost(id))
         },
