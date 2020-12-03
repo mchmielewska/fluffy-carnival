@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, patchPost } from '../actions/postsActions';
 import * as M from 'materialize-css'
-import { stopSubmit } from 'redux-form';
-
 
 class EditPost extends Component {
     

@@ -25,8 +25,9 @@ class UserProfile extends Component {
         function isCurrentUser (checkedUser) {
             if (checkedUser._id === currentUser.id) {
 
-                return (<Link 
-                        className="link" to={ {
+                return (
+                    <Link 
+                        className="action-button" to={ {
                             pathname: `/users/${checkedUser._id}/edit`
                         }}>
                     <i className="material-icons tiny">edit</i>Edit profile</Link>
@@ -56,12 +57,15 @@ class UserProfile extends Component {
         }
 
         const user = this.props.user ? ( 
-                        <div className="row">
+                        <div className="row center">
                                 <div className="col s12">
                                     <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
-                                    
                                 </div>
-                                {isCurrentUser(this.props.user)}
+
+                                <div className="col s12">
+                                    {isCurrentUser(this.props.user)}
+                                </div>
+
                                 <div className="col s12">
                                     <p className="bold username">{ this.props.user.name } { this.props.user.surname }</p>
                                     <p>{getAge()}, { this.props.user.city }</p>
@@ -158,7 +162,7 @@ class UserProfile extends Component {
                     <SidebarLinks />
                 </div>
                 
-                <div className="col s10">
+                <div className="col s9">
                     <div className="row profile center">
                             <div className="col m3">
                                 {user}

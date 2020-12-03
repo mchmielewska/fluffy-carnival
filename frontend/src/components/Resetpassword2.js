@@ -5,9 +5,6 @@ import Axios from 'axios';
 import CustomInput from './Customimput';
 
 class ResetPassword2 extends Component {
-    constructor(props) {
-        super(props)
-    }
     state = {
         password: ""
     }

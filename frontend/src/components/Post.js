@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { deletePost } from '../actions/postsActions'
-import { getCurrentUser, getUsers } from '../actions/usersActions'
+import { getUsers } from '../actions/usersActions'
 
 class Post extends Component {
 

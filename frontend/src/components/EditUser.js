@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { getUsers, patchUser } from '../actions/usersActions';
 import ChangePassword from './ChangePassword'
 
 import * as M from 'materialize-css';
-import { supportsGoWithoutReloadUsingHash } from 'history/DOMUtils';
 
 class EditUser extends Component {
 

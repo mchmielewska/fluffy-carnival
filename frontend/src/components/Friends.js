@@ -118,7 +118,7 @@ class Friends extends Component {
                                 </div>
                                 <div className="action">
                                     <button className="action-button" onClick={ (e) => handleRemove(friend._id) }>
-                                        <i className="material-icons tiny">remove_circle_outline</i>remove from friends
+                                        <i className="material-icons tiny">remove_circle_outline</i>Remove from friends
                                     </button>
                                 </div>
                         </div>
