@@ -9,6 +9,14 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authentication';
 
+import * as FilePond from 'filepond';
+import '../node_modules/filepond/dist/filepond.min.css'
+
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginImageResize from 'filepond-plugin-image-resize';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode'
+import '../node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+
 import Home from './components/Home';
 import Header from './components/Header';
 import Register from './components/Register';
@@ -42,9 +50,30 @@ if(localStorage.jwtToken) {
     }
   }
 
+FilePond.registerPlugin(
+  FilePondPluginImagePreview,
+  FilePondPluginImageResize,
+  FilePondPluginFileEncode,
+)
+
+FilePond.setOptions({
+  stylePanelAspectRatio: 150 / 100,
+  imageResizeTargetWidth: 100,
+  imageResizeTargetHeight: 150
+})
+
+FilePond.parse(document.body);
+
+document.addEventListener('FilePond:loaded', e => {
+  console.log('FilePond ready for use', e.detail);
+});
+
 class App extends Component {
 
     render() {
+
+      FilePond.parse(document.body);
+
       return (
         <Provider store = { store }>
           <Router>

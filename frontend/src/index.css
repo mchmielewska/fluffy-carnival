@@ -169,7 +169,8 @@ nav {
 
 .sidebar .responsive-img {
     margin: 10px;
-    width: 40%;
+    border-radius: 50%;
+    width: 150px
 }
 
 .user-details {
@@ -325,12 +326,6 @@ p.card-date {
     justify-content: space-between;
 }
 
-
-.profile .responsive-img {
-    margin-top: 1rem;
-    padding: 1.5rem;
-}
-
 .edit-form {
     font-size: 0.9rem;
 }
@@ -396,7 +391,7 @@ i {
     font-size: 13px;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
     text-transform: uppercase;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.1rem;
     padding: 0.75rem;
 }
 
@@ -453,4 +448,10 @@ nav ul a:hover {
 .sidebar .center-align.row {
     margin-bottom: 0.5rem;
     padding-top: 1rem;
+}
+
+.profile .responsive-img {
+    border-radius: 50%;
+    width: 150px;
+    margin-top: 1rem;
 }

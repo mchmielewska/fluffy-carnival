@@ -9,6 +9,7 @@ import { inviteFriend } from '../actions/friendsActions'
 class UserProfile extends Component {
     
     render() {
+
         this.props.getUsers();
         this.props.getPosts();
 
@@ -16,6 +17,9 @@ class UserProfile extends Component {
         const friendsIds = friendsList.map(el => el._id);
 
         const currentUser = this.props.currentUser;
+
+        console.log(this.props.user)
+
         const getAge = birthDate => Math.floor((new Date() - new Date(this.props.user.birthDate).getTime()) / 3.15576e+10);
 
         const handleInvite = (id) => {
@@ -59,7 +63,7 @@ class UserProfile extends Component {
         const user = this.props.user ? ( 
                         <div className="row center">
                                 <div className="col s12">
-                                    <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                                    <img className="responsive-img" src={this.props.user.profileImagePath} alt="profile"></img>
                                 </div>
 
                                 <div className="col s12">

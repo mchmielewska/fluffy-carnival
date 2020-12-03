@@ -14,7 +14,6 @@ const FriendsRoutes = require('./routers/friends');
 const User = require('./models/users');
 const Post = require('./models/posts');
 
-
 const app = express();
 app.use(bodyparser.json());
 app.use(passport.initialize());
@@ -42,6 +41,8 @@ passport.use(new Strategy(opts, successHandler));
 app.use('/users', UserRoutes);
 app.use('/friends', FriendsRoutes);
 app.use('/posts', PostRoutes);
+
+
 
 app.get('/secret', passport.authenticate('jwt', { session: false }), (req, res, next) => res.send('Secret hello'));
 

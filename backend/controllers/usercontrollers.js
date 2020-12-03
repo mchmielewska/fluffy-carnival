@@ -7,6 +7,8 @@ const mailUtils = require('../utils/mail');
 const friendsUtils = require('../utils/friends');
 const searchParams = require('../utils/search');
 
+const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
+
 exports.postRegisterUser = async (req, res, next) => {
     if (!req.body.email || !req.body.name || !req.body.surname || !req.body.password || !req.body.gender || !req.body.birthDate) {
         res.status(401).send('Missing required data!');
@@ -152,7 +154,7 @@ exports.getFindCurrentUser = (req, res, next) => {
                     res.status(400).json({ success: false, msg: "Posts not found" });
                 }
                 const userPosts = _.map(posts, post => _.pick(post, ['title', 'publishDate', 'description', 'tags']));
-                const currentUser = _.pick(user, ['name', 'surname']);
+                const currentUser = _.pick(user, ['name', 'surname', 'profileImagePath']);
 
                 res.status(200).send({ user: currentUser, posts: userPosts });
             });
@@ -257,7 +259,7 @@ exports.getFindUsers = (req, res, next) => {
             if (!users || (users.length == 0)) {
                 res.status(400).json({ success: false, msg: "Users matching criteria not found" });
             }
-            const foundUsers = _.map(users, user => _.pick(user, ['_id', 'name', 'surname', 'birthDate', 'gender', 'country', 'city', 'friends', 'email']));
+            const foundUsers = _.map(users, user => _.pick(user, ['_id', 'name', 'surname', 'birthDate', 'gender', 'country', 'city', 'friends', 'email', 'profileImagePath']));
 
             res.send(foundUsers);
         })
@@ -277,3 +279,54 @@ exports.putChangeVisibility = (req, res, next) => {
 
         })
 }
+
+
+exports.postProfileImage = (req, res, next) => {
+    app.post('/users/profileImage', upload.single('profileImage'), function (req, res, next) {
+        console.log("hello hardcoded post")
+        console.log(req.file)
+        console.log(req.body)
+      })
+    
+}
+
+exports.patchProfileImage = (req, res, next) => {
+    console.log("--------------------------------------------------------\n\n\npatchProfileImage\n\n\n")
+    console.log("file", req.file)
+    console.log("body", req.body)
+    // console.log("profileImage", req.body.profileImage);
+
+    User.findOne({ _id: loggedUserId })
+        .then(user => {                
+            User.findByIdAndUpdate(loggedUserId)
+                    .then(user => {
+                        console.log("to sie nawet nie otwiera")
+                        const result = saveImage(user, req.file);
+                        if(result) {
+                            res.status(200).json({ success: true, msg: "Profile image updated" });
+                        }
+                        else {
+                            res.status(403).json({ success: false, msg: "something went wrong"});
+                        }
+                        return;
+                    })
+            })
+        }
+
+
+function saveImage(user, file) {
+    console.log("saveImage", user != null, file)
+    var fs = require('fs')
+    const imageEncoded = fs.readFileSync(file.path);
+    if (imageEncoded == null) return false;
+    // const image = JSON.parse(imageEncoded).then(json => console.log(json));
+    // console.log(image != null, image.type, imageMimeTypes)
+    // if (image != null && imageMimeTypes.includes(image.type)) {
+        console.log("hello")
+        user.profileImage = new Buffer.from(imageEncoded, 'base64')
+        user.profileImageType = "jpg"
+        user.save();
+        return true;
+    //   }
+}
+

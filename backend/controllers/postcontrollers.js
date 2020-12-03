@@ -3,8 +3,6 @@ const User = require('../models/users');
 const jwt = require('jsonwebtoken');
 const searchParams = require('../utils/search');
 const _ = require('lodash');
-const fs = require('fs');
-const filesUtils = require('../utils/files');
 
 exports.postAddNew = (req, res, next) => {
     if (!req.body.title || !req.body.description) {

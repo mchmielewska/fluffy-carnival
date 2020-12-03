@@ -3,6 +3,8 @@ const User = require('../models/users');
 const config = require('../config');
 const userControllers = require('../controllers/usercontrollers');
 const authenticate = require('../utils/authenticate');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
 router.post('/register', userControllers.postRegisterUser);
 router.get('/activate', userControllers.getActivateUser);
@@ -16,6 +18,7 @@ router.patch('/update', authenticate.verifyToken, userControllers.patchUpdateUse
 router.patch('/changepass', authenticate.verifyToken, userControllers.patchChangePassword);
 router.delete('/delete', authenticate.verifyToken, userControllers.deleteUser);
 router.put('/visibility', authenticate.verifyToken, userControllers.putChangeVisibility);
-router.get('/find', authenticate.verifyToken, userControllers.getFindUsers);
+router.get('/find', authenticate.verifyToken, userControllers.getFindUsers)
+router.post("/profileImage", authenticate.verifyToken, upload.single("profileImage"), userControllers.patchProfileImage);
 
 module.exports = router;

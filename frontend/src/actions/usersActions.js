@@ -61,3 +61,23 @@ export const patchPassword = (data, history) => dispatch => {
         });
     });
 }
+
+
+export const patchProfileImage = (image, history) => dispatch => {
+    console.log("patchProfileImage image", image);
+    axios.post('http://localhost:9090/users/profileimage', image, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }} 
+    )
+    .then(res => {
+        console.log(res)
+        history.push('/userupdated');
+    })
+    .catch(err => {
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.res
+        });
+    });
+}

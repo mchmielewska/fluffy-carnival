@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getUsers, patchUser } from '../actions/usersActions';
-import ChangePassword from './ChangePassword'
-
+import { getUsers, patchUser, patchProfileImage } from '../actions/usersActions';
+import ChangePassword from './ChangePassword';
+import * as FilePond from 'filepond';
 import * as M from 'materialize-css';
-
+import FormData from 'form-data'
 class EditUser extends Component {
 
     constructor() {
@@ -15,9 +15,11 @@ class EditUser extends Component {
         
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleImageSubmit = this.handleImageSubmit.bind(this);
     }
 
     handleInputChange(e) {
+        console.log("hello");
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -38,6 +40,28 @@ class EditUser extends Component {
         this.props.patchUser(user, this.props.history);
     }
 
+    handleImageSubmit(e) {
+        e.preventDefault();
+        console.log(this.state)
+        console.log(this.state.profileImage)
+
+        let formData = new FormData();
+
+        const profileImage = this.state.profileImage
+        console.log(profileImage)
+
+        formData.append("profileImage", profileImage);
+        formData.append('_method', 'PATCH');
+        console.log("formData local", formData);
+
+        this.props.patchProfileImage(formData, this.props.history)
+    }
+
+    handleFileUpload(e) {
+        let files = e.target.files;
+        this.setState({ profileImage: files[0] }, () => { console.log(this.state.profileImage) });
+    }
+
     componentDidMount() {
             function select() {
                 var elems = document.querySelectorAll('select');
@@ -45,9 +69,28 @@ class EditUser extends Component {
                 var instances = M.FormSelect.init(elems, options);
               }
             select();
+
+              
+            FilePond.setOptions({
+                stylePanelAspectRatio: 100 / 100,
+                imageResizeTargetWidth: 150,
+                imageResizeTargetHeight: 150,
+                server: {
+                    process: {
+                      url: "http://localhost:9090/users/profileimage",
+                      headers: { "token": localStorage.getItem('jwtToken') }
+                    }
+                  }
+              })
+
+            FilePond.parse(document.body);
+              
     }
 
     render() {
+
+        
+
         this.props.getUsers();
         const user = this.props.user;
 
@@ -65,9 +108,30 @@ class EditUser extends Component {
             <div className="center" style={{ marginTop: '50px' }}>
             <h4 style={{marginBottom: '40px'}}>Edit profile</h4>
             <div className="row form-wrapper">
-            <div className="col m6">
-                <img className="main-img" src="https://i.imgur.com/hvneBJX.png" alt="register" width="100%"></img>
-                <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>
+                <div className="col m6">
+                    <div>
+                        {/* <img className="main-img" src="https://i.imgur.com/hvneBJX.png" alt="register" width="100%"></img> */}
+                        <form onSubmit={ this.handleImageSubmit } method="POST" encType="multipart/form-data">
+                        <input type="file"
+       id="profileImage" name="profileImage" onChange={e => this.handleFileUpload(e)}
+       accept="image/png, image/jpeg">
+
+       </input>
+                        <div className="input-field">
+                            <label>Profile picture</label>
+                            <input type="file" name="profileImage" className="filepond" onChange={ e => this.handleFileUpload(e) }></input>
+                        </div>
+                        <div className="input-field">
+                            <button type="submit" className="nav-link btn btn-primary">
+                                Save Image
+                            </button>
+                        </div>
+                        </form>
+                </div>
+
+            <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>   
+                
+                
             </div>
             <div className="edit-form col m6">
                 <button id="change-password-button" className="btn" onClick={ (e) => handleClick(e) }>Change password</button>
@@ -165,6 +229,7 @@ class EditUser extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     let id = ownProps.match.params.user_id;
+    console.log("stan",state)
 
     return {
         currentUser: state.auth.user,
@@ -172,4 +237,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { getUsers, patchUser } )(withRouter(EditUser));
+export default connect(mapStateToProps, { getUsers, patchUser, patchProfileImage } )(withRouter(EditUser));

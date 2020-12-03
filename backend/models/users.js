@@ -80,6 +80,12 @@ const UserSchema = new Schema({
         type: String,
         enum: ["visible", "private"],
         default: "visible"
+    },
+    profileImage: {
+        type: Buffer
+    },
+    profileImageType: {
+        type: String
     }
 })
 
@@ -94,6 +100,13 @@ UserSchema.index({
         bio: 1
     },
 });
+
+UserSchema.virtual('profileImagePath').get(function() {
+    if (this.profileImage != null && this.profileImageType != null) {
+      return `data:${this.profileImageType};charset=utf-8;base64,${this.profileImage.toString('base64')}`
+    }
+  })
+  
 
 UserSchema.methods.comparePassword = function (password) {
     return bcrypt.compare(password, this.password);
