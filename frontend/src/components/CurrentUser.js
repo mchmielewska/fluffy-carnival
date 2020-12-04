@@ -9,10 +9,8 @@ class CurrentUser extends Component {
     render() {
         this.props.getCurrentUser();
         this.props.getFriendsList();
-        this.props.getUsers();
 
         const currentUser = this.props.user;
-        console.log(this.props.user)
         const friends = this.props.friends;
         const id = this.props.id;
         const profileData = currentUser ? (
@@ -48,7 +46,8 @@ class CurrentUser extends Component {
                 
             ) : (
             <div className="center-align">
-                User not found
+                <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                <p>Loading user data...</p>
             </div>
         )
 
@@ -74,9 +73,6 @@ return {
     },
     getFriendsList: () => {
         dispatch(getFriendsList())
-    },
-    getUsers: () => {
-        dispatch(getUsers())
     }
     }
 }

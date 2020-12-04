@@ -455,3 +455,24 @@ nav ul a:hover {
     width: 150px;
     margin-top: 1rem;
 }
+
+.profile-card .responsive-img {
+    border-radius: 50%;
+}
+
+.responsive-img {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+.post-header.responsive-img {
+    border-radius: 50%;
+    margin: 0.1rem;
+    padding: 0;
+    max-width: 2.2rem;
+}
+
+.post-header {
+    border: none;
+    font-size: 13px;
+    height: 2rem;
+}

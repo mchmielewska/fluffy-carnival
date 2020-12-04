@@ -25,6 +25,16 @@ class Users extends Component {
             )
         }
 
+        
+        function profileImage (user) {
+            if (user.profileImagePath === undefined) {
+                return (
+                <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                )} else {
+                return (<img className="responsive-img" src={user.profileImagePath} alt="profile"></img>)
+                }
+        }
+
         const users = this.props.users;
 
         const userList = users ? (
@@ -33,7 +43,7 @@ class Users extends Component {
                 return (
                     <div className="col m3" key={user._id}>
                         <div className="card profile-card valign-wrapper">
-                                <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                                { profileImage (user)}
                                 <div className="user-details">
                                     <Link to={'/users/' + user._id}>
                                         <p className="bold username">{ user.name } { user.surname }</p>

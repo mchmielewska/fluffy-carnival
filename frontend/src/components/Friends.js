@@ -102,13 +102,22 @@ class Friends extends Component {
             </div>
         )
 
+        function profileImage (user) {
+            if (user.profileImagePath === undefined) {
+                return (
+                <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                )} else {
+                return (<img className="responsive-img" src={user.profileImagePath} alt="profile"></img>)
+                }
+        }
+
         const friendsList = friends.length ? (
             friends.map(friend => {
                 const getAge = birthDate => Math.floor((new Date() - new Date(friend.birthDate).getTime()) / 3.15576e+10)
                 return (
                     <div className="col m3" key={friend._id}>
                         <div className="card profile-card valign-wrapper">
-                                <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                                { profileImage(friend)}
                                 <div className="user-details">
                                     <Link to={'/users/' + friend._id}>
                                         { friend.id }

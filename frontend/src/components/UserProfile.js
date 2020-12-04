@@ -2,23 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 import SidebarLinks from './SidebarLinks'
-import { getUsers } from '../actions/usersActions';
-import { getPosts } from '../actions/postsActions';
+// import { getUsers, getCurrentUser } from '../actions/usersActions';
+// import { getPosts } from '../actions/postsActions';
 import { inviteFriend } from '../actions/friendsActions'
 
 class UserProfile extends Component {
     
     render() {
 
-        this.props.getUsers();
-        this.props.getPosts();
+        // this.props.getCurrentUser()
+        // this.props.getUsers();
+        // this.props.getPosts();
 
         const friendsList = this.props.friendsList;
         const friendsIds = friendsList.map(el => el._id);
 
         const currentUser = this.props.currentUser;
-
-        console.log(this.props.user)
 
         const getAge = birthDate => Math.floor((new Date() - new Date(this.props.user.birthDate).getTime()) / 3.15576e+10);
 
@@ -60,10 +59,19 @@ class UserProfile extends Component {
             )
         }
 
+        function profileImage (user) {
+            if (user.profileImagePath === undefined) {
+                return (
+                <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                )} else {
+                return (<img className="responsive-img" src={user.profileImagePath} alt="profile"></img>)
+                }
+        }
+
         const user = this.props.user ? ( 
                         <div className="row center">
                                 <div className="col s12">
-                                    <img className="responsive-img" src={this.props.user.profileImagePath} alt="profile"></img>
+                                    { profileImage(this.props.user)}
                                 </div>
 
                                 <div className="col s12">
@@ -187,6 +195,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         friendsList: state.friends.friendsList,
         currentUser: state.auth.user,
+        id: id,
         user: state.users.all.find(user => user._id === id),
         posts: state.posts.filter(post => post.authorId === id)
     }
@@ -194,17 +203,23 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-    getUsers: () => {
-        dispatch(getUsers())
-    },
-    getPosts: () => {
-        dispatch(getPosts())
-    },
-    inviteFriend: (id) => {
-        dispatch(inviteFriend(id))
-    }
+        // getCurrentUser: () => {
+        //     dispatch(getCurrentUser())
+        // },
+        // getPosts: () => {
+        // dispatch(getPosts())
+        // },
+        // getUsers: () => {
+        //     dispatch(getUsers())
+        // },
+        inviteFriend: (id) => {
+            dispatch(inviteFriend(id))
+        }
 }
 }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserProfile));
+
+
+// 

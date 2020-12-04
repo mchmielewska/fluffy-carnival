@@ -112,11 +112,11 @@ class EditUser extends Component {
                     <div>
                         {/* <img className="main-img" src="https://i.imgur.com/hvneBJX.png" alt="register" width="100%"></img> */}
                         <form onSubmit={ this.handleImageSubmit } method="POST" encType="multipart/form-data">
-                        <input type="file"
-       id="profileImage" name="profileImage" onChange={e => this.handleFileUpload(e)}
-       accept="image/png, image/jpeg">
-
-       </input>
+                        <input 
+                            type="file"
+                            id="profileImage" name="profileImage" onChange={e => this.handleFileUpload(e)}
+                            accept="image/png, image/jpeg">
+                        </input>
                         <div className="input-field">
                             <label>Profile picture</label>
                             <input type="file" name="profileImage" className="filepond" onChange={ e => this.handleFileUpload(e) }></input>
@@ -229,7 +229,6 @@ class EditUser extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     let id = ownProps.match.params.user_id;
-    console.log("stan",state)
 
     return {
         currentUser: state.auth.user,

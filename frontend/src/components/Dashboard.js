@@ -44,15 +44,29 @@ class Dashboard extends Component {
             }
         }
 
+        function profileImage (user) {
+            if (user.profileImagePath === undefined) {
+                return (
+                <img className="responsive-img post-header" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                )} else {
+                return (<img className="responsive-img post-header" src={user.profileImagePath} alt="profile"></img>)
+                }
+        }
+
         function getAuthor(users, post) {
             for (let i=0; i < users.length; i++) {
                 if (users[i]._id === post.authorId) {
                     const author = 
-                    <div>
-                        <Link to={'/users/' + users[i]._id}>
-                            <p className="bold">{ users[i].name } { users[i].surname }</p>
-                        </Link>
-                        <p>{ users[i].city }</p>
+                    <div className="row">
+                        <div className="col m2 post-header">
+                            { profileImage(users[i])}
+                        </div>
+                        <div className="col m10">
+                            <Link to={'/users/' + users[i]._id}>
+                                <p className="bold">{ users[i].name } { users[i].surname }</p>
+                            </Link>
+                            <p>{ users[i].city }</p>
+                        </div>
                     </div>
 
                     return author 
@@ -66,10 +80,10 @@ class Dashboard extends Component {
                     <div className="col m4 s6" key={post.id}>
                         <div className="post card" >
                             <div className="card-content row">
-                                <div className="user-details left-align col m6">
+                                <div className="post-header left-align col m10">
                                     {getAuthor(users, post)}
                                 </div>
-                                <div className="col m6 right-align">
+                                <div className="col m2 right-align">
                                     <span><i className="small material-icons">favorite_border</i></span>
                                 </div>
                             </div>
