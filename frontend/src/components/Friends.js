@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUsers } from '../actions/usersActions';
-import { getFriendsList, getPendingInvites, acceptInvite, declineInvite, removeFriend } from '../actions/friendsActions';
+import { acceptInvite, declineInvite, removeFriend } from '../actions/friendsActions';
 import Sidebar from '../components/Sidebar'
 
 class Friends extends Component {
 
     render() {
-        this.props.getUsers();
-        this.props.getFriendsList();
-        this.props.getPendingInvites();
-
         const users = this.props.users
         const currentUser = this.props.currentUser;
         const friends = this.props.friends;
@@ -170,15 +165,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
         return {
-            getFriendsList: () => {
-                dispatch(getFriendsList())
-            },
-            getPendingInvites: () => {
-                dispatch(getPendingInvites())
-            },
-            getUsers: () => {
-                dispatch(getUsers())
-            },
             acceptInvite: (token) => {
                 dispatch(acceptInvite(token))
             },

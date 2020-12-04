@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getUsers, patchUser, patchProfileImage } from '../actions/usersActions';
+import { patchUser, patchProfileImage } from '../actions/usersActions';
 import ChangePassword from './ChangePassword';
-import * as FilePond from 'filepond';
+import * as FP from 'filepond';
 import * as M from 'materialize-css';
 import FormData from 'form-data'
+
+import { FilePond, registerPlugin } from 'react-filepond';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginImageResize from 'filepond-plugin-image-resize';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 class EditUser extends Component {
 
     constructor() {
@@ -42,13 +48,9 @@ class EditUser extends Component {
 
     handleImageSubmit(e) {
         e.preventDefault();
-        console.log(this.state)
-        console.log(this.state.profileImage)
 
         let formData = new FormData();
-
-        const profileImage = this.state.profileImage
-        console.log(profileImage)
+        const profileImage = this.state.files[0];
 
         formData.append("profileImage", profileImage);
         formData.append('_method', 'PATCH');
@@ -59,6 +61,7 @@ class EditUser extends Component {
 
     handleFileUpload(e) {
         let files = e.target.files;
+        console.log(files);
         this.setState({ profileImage: files[0] }, () => { console.log(this.state.profileImage) });
     }
 
@@ -70,28 +73,21 @@ class EditUser extends Component {
               }
             select();
 
-              
-            FilePond.setOptions({
+            registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginImageResize,
+                FilePondPluginFileEncode,
+              )  
+            
+            FP.setOptions({
                 stylePanelAspectRatio: 100 / 100,
                 imageResizeTargetWidth: 150,
-                imageResizeTargetHeight: 150,
-                server: {
-                    process: {
-                      url: "http://localhost:9090/users/profileimage",
-                      headers: { "token": localStorage.getItem('jwtToken') }
-                    }
-                  }
+                imageResizeTargetHeight: 150
               })
-
-            FilePond.parse(document.body);
               
     }
 
     render() {
-
-        
-
-        this.props.getUsers();
         const user = this.props.user;
 
         function handleClick(e) {
@@ -109,29 +105,41 @@ class EditUser extends Component {
             <h4 style={{marginBottom: '40px'}}>Edit profile</h4>
             <div className="row form-wrapper">
                 <div className="col m6">
-                    <div>
-                        {/* <img className="main-img" src="https://i.imgur.com/hvneBJX.png" alt="register" width="100%"></img> */}
+                <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>
+                    <div className="row image-upload">
+                        <h5 class="profile-edit">Change your profile image</h5>
+                        <div className="col m6">
+                            <img className="profile responsive-img" src={user.profileImagePath} alt="register" width="100%"></img>
+                            <p>current image</p>
+                        </div>
                         <form onSubmit={ this.handleImageSubmit } method="POST" encType="multipart/form-data">
-                        <input 
-                            type="file"
-                            id="profileImage" name="profileImage" onChange={e => this.handleFileUpload(e)}
-                            accept="image/png, image/jpeg">
-                        </input>
-                        <div className="input-field">
-                            <label>Profile picture</label>
-                            <input type="file" name="profileImage" className="filepond" onChange={ e => this.handleFileUpload(e) }></input>
-                        </div>
-                        <div className="input-field">
-                            <button type="submit" className="nav-link btn btn-primary">
-                                Save Image
-                            </button>
-                        </div>
+                            <div className="col m6">
+                            {/* <input 
+                                type="file"
+                                id="profileImage" name="profileImage" onChange={e => this.handleFileUpload(e)}
+                                accept="image/png, image/jpeg">
+                            </input> */}
+                            
+                                <FilePond ref={ref => this.pond = ref}
+                                files={this.state.files}
+                                allowMultiple={false}
+                                maxFiles={1}
+                                onupdatefiles={(fileItems) => {
+                                    // Set current file objects to this.state
+                                    this.setState({
+                                        files: fileItems.map(fileItem => fileItem.file)
+                                    });
+                                }}>
+                                </FilePond>
+                                new image
+                            </div>
+                            <div className="input-field">
+                                <button type="submit" className="nav-link btn btn-primary image-upload">
+                                    Save Image
+                                </button>
+                            </div>
                         </form>
-                </div>
-
-            <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>   
-                
-                
+                    </div>   
             </div>
             <div className="edit-form col m6">
                 <button id="change-password-button" className="btn" onClick={ (e) => handleClick(e) }>Change password</button>
@@ -236,4 +244,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { getUsers, patchUser, patchProfileImage } )(withRouter(EditUser));
+export default connect(mapStateToProps, { patchUser, patchProfileImage } )(withRouter(EditUser));

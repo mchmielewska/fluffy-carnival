@@ -9,7 +9,8 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authentication';
 import { getUsers } from  './actions/usersActions';
-import { getPosts } from './actions/postsActions'
+import { getPosts } from './actions/postsActions';
+import { getFriendsList, getPendingInvites } from './actions/friendsActions';
 
 import { PersistGate } from 'redux-persist5/integration/react'
 import * as FilePond from 'filepond';
@@ -47,6 +48,8 @@ if(localStorage.jwtToken) {
     store.dispatch(setCurrentUser(decoded));
     store.dispatch(getUsers());
     store.dispatch(getPosts());
+    store.dispatch(getFriendsList());
+    store.dispatch(getPendingInvites());
   
     const currentTime = Date.now() / 1000;
     if(decoded.exp < currentTime) {

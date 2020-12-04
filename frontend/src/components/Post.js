@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { deletePost } from '../actions/postsActions'
-import { getUsers } from '../actions/usersActions'
-
 class Post extends Component {
 
     handleClick = () => {
@@ -37,12 +35,22 @@ class Post extends Component {
             return newDate;
         }
 
+        function profileImage (user) {
+            if (user.profileImagePath === undefined) {
+                return (
+                <img className="responsive-img single-post" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                )} else {
+                return (<img className="responsive-img single-post" src={user.profileImagePath} alt="profile"></img>)
+                }
+        }
+
         function getAuthor(users, post) {
             for (let i=0; i < users.length; i++) {
                 if (users[i]._id === post.authorId) {
                     const author = 
                     <div>
                         <Link to={'/users/' + users[i]._id}>
+                            { profileImage(users[i])}
                             <p className="bold">{ users[i].name } { users[i].surname }</p>
                         </Link>
                     </div>
@@ -60,11 +68,7 @@ class Post extends Component {
             <h5 className="right-align post-title">{this.props.post.title}</h5>
                 <div className="card horizontal">
                 <div className="author">
-                    <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
-                    <p>
-                    {getAuthor(users, this.props.post)}
-                    </p>
-                   
+                    {getAuthor(users, this.props.post)}          
                 </div>
                 <div className="card-stacked">
                     
@@ -113,14 +117,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-return {
-        deletePost: (id) => {
-                dispatch(deletePost(id))
-        },
-        getUsers: () => {
-                dispatch(getUsers())
-        }
-}
+    return {
+            deletePost: (id) => {
+                    dispatch(deletePost(id))
+            }
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)

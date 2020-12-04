@@ -2,17 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 import SidebarLinks from './SidebarLinks'
-// import { getUsers, getCurrentUser } from '../actions/usersActions';
-// import { getPosts } from '../actions/postsActions';
 import { inviteFriend } from '../actions/friendsActions'
 
 class UserProfile extends Component {
     
     render() {
-
-        // this.props.getCurrentUser()
-        // this.props.getUsers();
-        // this.props.getPosts();
 
         const friendsList = this.props.friendsList;
         const friendsIds = friendsList.map(el => el._id);
@@ -203,15 +197,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // getCurrentUser: () => {
-        //     dispatch(getCurrentUser())
-        // },
-        // getPosts: () => {
-        // dispatch(getPosts())
-        // },
-        // getUsers: () => {
-        //     dispatch(getUsers())
-        // },
         inviteFriend: (id) => {
             dispatch(inviteFriend(id))
         }

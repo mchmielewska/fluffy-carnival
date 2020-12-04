@@ -12,14 +12,14 @@ export default function (state = initialState, action ) {
                 ...state
             }
         case GET_FRIENDS:
-            if (state.friendsList === undefined || state.friendsList.length !== action.payload.length)
+            if (state.friendsList === undefined || state.friendsList.length !== action.payload.length || (JSON.stringify(state.friendsList) !== JSON.stringify(action.payload)))
                 return {
                     ...state,
                     friendsList: action.payload
                 }
             return state;                
         case GET_PENDING_INVITES:
-            if (state.pending.length !== action.payload.length) 
+            if (state.pending.length !== action.payload.length || (JSON.stringify(state.pending) !== JSON.stringify(action.payload))) 
                 return {
                     ...state,
                     pending: action.payload
