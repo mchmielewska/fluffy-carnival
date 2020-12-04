@@ -153,7 +153,7 @@ exports.getFindCurrentUser = (req, res, next) => {
                 if (!posts) {
                     res.status(400).json({ success: false, msg: "Posts not found" });
                 }
-                const userPosts = _.map(posts, post => _.pick(post, ['title', 'publishDate', 'description', 'tags']));
+                const userPosts = _.map(posts, post => _.pick(post, ['title', 'publishDate', 'description', 'tags', 'postImagePath']));
                 const currentUser = _.pick(user, ['name', 'surname', 'profileImagePath']);
 
                 res.status(200).send({ user: currentUser, posts: userPosts });
@@ -280,27 +280,12 @@ exports.putChangeVisibility = (req, res, next) => {
         })
 }
 
-
-exports.postProfileImage = (req, res, next) => {
-    app.post('/users/profileImage', upload.single('profileImage'), function (req, res, next) {
-        console.log("hello hardcoded post")
-        console.log(req.file)
-        console.log(req.body)
-      })
-    
-}
-
 exports.patchProfileImage = (req, res, next) => {
-    console.log("--------------------------------------------------------\n\n\npatchProfileImage\n\n\n")
-    console.log("file", req.file)
-    console.log("body", req.body)
-    // console.log("profileImage", req.body.profileImage);
 
     User.findOne({ _id: loggedUserId })
         .then(user => {                
             User.findByIdAndUpdate(loggedUserId)
                     .then(user => {
-                        console.log("to sie nawet nie otwiera")
                         const result = saveImage(user, req.file);
                         if(result) {
                             res.status(200).json({ success: true, msg: "Profile image updated" });
@@ -315,18 +300,16 @@ exports.patchProfileImage = (req, res, next) => {
 
 
 function saveImage(user, file) {
-    console.log("saveImage", user != null, file)
     var fs = require('fs')
     const imageEncoded = fs.readFileSync(file.path);
     if (imageEncoded == null) return false;
     // const image = JSON.parse(imageEncoded).then(json => console.log(json));
     // console.log(image != null, image.type, imageMimeTypes)
     // if (image != null && imageMimeTypes.includes(image.type)) {
-        console.log("hello")
-        user.profileImage = new Buffer.from(imageEncoded, 'base64')
-        user.profileImageType = "jpg"
-        user.save();
-        return true;
-    //   }
+        
+    user.profileImage = new Buffer.from(imageEncoded, 'base64')
+    user.profileImageType = "image/jpeg"
+    user.save();
+    return true;
 }
 

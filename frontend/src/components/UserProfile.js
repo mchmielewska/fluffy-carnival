@@ -62,6 +62,16 @@ class UserProfile extends Component {
                 }
         }
 
+        function postImage (post) {
+            if (post.postImagePath === undefined) {
+                return (
+                <img className="post-img" src="http://placekitten.com/300/300" alt="post"></img>
+                )} else {
+                return (<img className="post-img" src={post.postImagePath} alt="post"></img>)
+                }
+        }
+
+
         const user = this.props.user ? ( 
                         <div className="row center">
                                 <div className="col s12">
@@ -131,7 +141,7 @@ class UserProfile extends Component {
                             </div>
                             <div className="card-image">
                                 <Link to={'/posts/' + post.id}>
-                                    <img src="http://placekitten.com/300/300" alt="cat"></img>
+                                    {postImage(post)}
                                 </Link>
                             </div>
                             <div className="card-content text">

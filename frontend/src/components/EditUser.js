@@ -25,7 +25,6 @@ class EditUser extends Component {
     }
 
     handleInputChange(e) {
-        console.log("hello");
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -56,7 +55,7 @@ class EditUser extends Component {
         formData.append('_method', 'PATCH');
         console.log("formData local", formData);
 
-        this.props.patchProfileImage(formData, this.props.history)
+        this.props.patchProfileImage(formData, this.props.history);
     }
 
     handleFileUpload(e) {
@@ -104,16 +103,16 @@ class EditUser extends Component {
             <div className="center" style={{ marginTop: '50px' }}>
             <h4 style={{marginBottom: '40px'}}>Edit profile</h4>
             <div className="row form-wrapper">
-                <div className="col m6">
+                <div className="col edit-form">
                 <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>
+                    <form onSubmit={ this.handleImageSubmit } method="POST" encType="multipart/form-data">
                     <div className="row image-upload">
                         <h5 class="profile-edit">Change your profile image</h5>
                         <div className="col m6">
                             <img className="profile responsive-img" src={user.profileImagePath} alt="register" width="100%"></img>
                             <p>current image</p>
                         </div>
-                        <form onSubmit={ this.handleImageSubmit } method="POST" encType="multipart/form-data">
-                            <div className="col m6">
+                        <div className="col m6">
                             {/* <input 
                                 type="file"
                                 id="profileImage" name="profileImage" onChange={e => this.handleFileUpload(e)}
@@ -132,16 +131,16 @@ class EditUser extends Component {
                                 }}>
                                 </FilePond>
                                 new image
-                            </div>
-                            <div className="input-field">
+                            </div>                
+                    </div>
+                    <div className="input-field">
                                 <button type="submit" className="nav-link btn btn-primary image-upload">
                                     Save Image
                                 </button>
-                            </div>
-                        </form>
-                    </div>   
+                    </div>
+                    </form>   
             </div>
-            <div className="edit-form col m6">
+            <div className="edit-form col">
                 <button id="change-password-button" className="btn" onClick={ (e) => handleClick(e) }>Change password</button>
                 <div id="change-password" className="hidden">
                     <ChangePassword />

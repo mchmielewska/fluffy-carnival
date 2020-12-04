@@ -27,24 +27,36 @@ class AddPost extends Component {
         })
     }
 
+    handleFileUpload(e) {
+        let files = e.target.files;
+        console.log(files);
+        this.setState({ postImage: files[0] }, () => { console.log(this.state.postImage) });
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         const date = new Date();
         const tags = this.state.tags
         const tagsArray = (tags.toLowerCase()).split(', ');
-        
 
         const newPost = {
-            authorId: this.state.userId,
+            authorId: this.props.authorId,
             title: this.state.title,
             description: this.state.description,
             privacyLevel: this.state.privacyLevel,
             publishDate: date,
             state: this.state.state,
-            tags: tagsArray
+            tags: tagsArray,
+            postImage: this.state.postImage
         }
-        console.log(newPost);
-        this.props.addPost(newPost, this.props.history);
+
+        let formData = new FormData();
+        Object.keys(newPost).forEach(function(key) {
+            formData.append(key, newPost[key]);
+          })
+
+        console.log(formData);
+        this.props.addPost(formData, this.props.history);
     }
 
     componentDidMount() {
@@ -57,12 +69,11 @@ class AddPost extends Component {
       }
 
     render() {
-        
         return (
             <div className="container">
-<div className="row">
+            <div className="row">
             <h4 style={{marginBottom: '40px'}} className="page-header">New post</h4>
-            <form className="col s12" onSubmit={ this.handleSubmit }>
+            <form className="col s12" onSubmit={ this.handleSubmit } method="POST" encType="multipart/form-data">
                 <div className="input-field">
                 <i className="material-icons prefix">mode_edit</i>
                     <input
@@ -125,6 +136,14 @@ class AddPost extends Component {
                     value={ this.state.tags }
                     />
                 </div>
+                <div className="input-field">
+                    <input 
+                            type="file"
+                            id="postImage" name="postImage" onChange={e => this.handleFileUpload(e)}
+                            accept="image/jpeg">
+                    </input>
+                </div>
+
                 <div className="input-field">
                     <button type="submit" className="btn btn-primary">
                         Save!

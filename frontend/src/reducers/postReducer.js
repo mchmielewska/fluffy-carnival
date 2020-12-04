@@ -5,8 +5,9 @@ const initialState = []
 export default function (state = initialState, action ) {
      switch(action.type) {
         case GET_POSTS:
-            if (state.length !== action.payload.length || state.length === 0 || (JSON.stringify(state) !== JSON.stringify(action.payload)))
-                return action.payload
+            const newState = action.payload.sort((a,b) => (a.publishDate < b.publishDate));
+            if (state.length !== newState.length || state.length === 0 || (JSON.stringify(state) !== JSON.stringify(newState)))
+                return newState
             return state;
          case DELETE_POST:
              return {
@@ -16,3 +17,5 @@ export default function (state = initialState, action ) {
              return state;
      }
 }
+
+// || (JSON.stringify(state) !== JSON.stringify(action.payload))

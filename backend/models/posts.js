@@ -6,12 +6,6 @@ function arrayLimit(val) {
     return val.length <= 10;
   };
 
-const ImageSchema = mongoose.Schema({
-    type: String,
-    data: Buffer
-    });
-
-mongoose.model('image', ImageSchema, 'image');
 
 const PostSchema = new Schema({
     title: {
@@ -44,14 +38,23 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-    image: {
-        type: mongoose.Schema.Types.Object,
-        ref: 'image'
+    postImage: {
+        type: Buffer
+    },
+    postImageType: {
+        type: String
     }
 
   });
 
   
+  PostSchema.virtual('postImagePath').get(function() {
+    if (this.postImage != null && this.postImageType != null) {
+      return `data:${this.postImageType};charset=utf-8;base64,${this.postImage.toString('base64')}`
+    }
+  })
+  
+
 PostSchema.index({
     title: 'text',
     description: 'text',

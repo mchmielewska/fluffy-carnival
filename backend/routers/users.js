@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const User = require('../models/users');
-const config = require('../config');
+
 const userControllers = require('../controllers/usercontrollers');
 const authenticate = require('../utils/authenticate');
+
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 

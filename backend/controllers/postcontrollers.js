@@ -4,11 +4,26 @@ const jwt = require('jsonwebtoken');
 const searchParams = require('../utils/search');
 const _ = require('lodash');
 
+
+function saveImage(post, file) {
+    var fs = require('fs')
+    const imageEncoded = fs.readFileSync(file.path);
+    if (imageEncoded == null) return false;
+    // const image = JSON.parse(imageEncoded).then(json => console.log(json));
+    // console.log(image != null, image.type, imageMimeTypes)
+    // if (image != null && imageMimeTypes.includes(image.type)) {
+        
+    post.postImage = new Buffer.from(imageEncoded, 'base64')
+    post.postImageType = "image/jpeg"
+}
+
 exports.postAddNew = (req, res, next) => {
-    if (!req.body.title || !req.body.description) {
-        res.status(401).send('Missing required data!');
-        return;
-    }
+    // if (!req.body.title || !req.body.description) {
+    //     res.status(401).send('Missing required data!');
+    //     return;
+    // }
+
+    console.log(req.body)
 
     let NewPost = new Post({
         authorId: loggedUserId,
@@ -20,6 +35,9 @@ exports.postAddNew = (req, res, next) => {
         tags: req.body.tags
     });
 
+    // console.log(NewPost)
+
+    saveImage(NewPost, req.file)
     NewPost.save();
     res.status(200).json({ success: true, msg: "Post created!" });
 };
@@ -32,7 +50,7 @@ exports.getFindPost = async (req, res, next) => {
         return;
     }
 
-    const foundPosts = _.map(posts, post => _.pick(post, ['id','title','publishDate','authorId','description','tags','privacyLevel'])); 
+    const foundPosts = _.map(posts, post => _.pick(post, ['id','title','publishDate','authorId','description','tags','privacyLevel', 'postImagePath'])); 
     res.send(foundPosts);
             
 };

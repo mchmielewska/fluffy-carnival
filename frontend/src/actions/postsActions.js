@@ -19,7 +19,11 @@ export const getPosts = (user) => dispatch => {
 }
 
 export const addPost = (post, history) => dispatch => {
-    axios.post('http://localhost:9090/posts/add', post)
+    console.log(post)
+    axios.post('http://localhost:9090/posts/add', post, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }} )
         .then(
             res => {
                 history.push('/postadded');

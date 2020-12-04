@@ -44,6 +44,16 @@ class Post extends Component {
                 }
         }
 
+        function postImage (post) {
+            if (post.postImagePath === undefined) {
+                return (
+                <img className="post-image" src="http://placekitten.com/500/500" alt="post"></img>
+                )} else {
+                return (<img className="post-image" src={post.postImagePath} alt="post"></img>)
+                }
+        }
+
+
         function getAuthor(users, post) {
             for (let i=0; i < users.length; i++) {
                 if (users[i]._id === post.authorId) {
@@ -73,7 +83,7 @@ class Post extends Component {
                 <div className="card-stacked">
                     
                     <div className="card-content">
-                        <img className="post-image" src="http://placekitten.com/500/500" alt="cat"></img>
+                        { postImage(this.props.post)}
                         <p className="post-description">{this.props.post.description}</p>
                     </div>
                     <div className="card-action">

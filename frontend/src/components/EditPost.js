@@ -57,7 +57,6 @@ class EditPost extends Component {
     render() {
         this.props.getPosts();
         const post = this.props.post;
-        console.log(this.props)
 
         return (
             <div className="container">
