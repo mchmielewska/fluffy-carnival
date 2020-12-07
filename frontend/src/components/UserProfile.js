@@ -65,9 +65,18 @@ class UserProfile extends Component {
         function postImage (post) {
             if (post.postImagePath === undefined) {
                 return (
-                <img className="post-img" src="http://placekitten.com/300/300" alt="post"></img>
+                <div className="image-container">
+                    <Link to={'/posts/' + post.id}>
+                        <img className="post-img" src="http://placekitten.com/300/300" alt="post"></img>
+                    </Link>
+                </div>
                 )} else {
-                return (<img className="post-img" src={post.postImagePath} alt="post"></img>)
+                return (
+                <div className="image-container">
+                    <Link to={'/posts/' + post.id}>
+                        <img className="post-img" src={post.postImagePath} alt="post"></img>
+                    </Link>
+                </div>)
                 }
         }
 

@@ -489,3 +489,22 @@ grid-template-columns: 1fr 1fr;
     font-size: 13px;
     height: 2rem;
 }
+
+.card .card-image {
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    position: relative;
+}
+
+.image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+.post-img {
+    object-fit: cover;
+    height: 100%;
+}

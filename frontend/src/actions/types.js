@@ -10,3 +10,4 @@ export const ACCEPT_INVITE = 'ACCEPT_INVITE';
 export const DECLINE_INVITE = 'DECLINE_INVITE';
 export const REMOVE_FRIEND = 'REMOVE_FRIEND';
 export const SEND_INVITE = 'SEND_INVITE';
+export const LOGOUT_USER = "LOGOUT_USER"

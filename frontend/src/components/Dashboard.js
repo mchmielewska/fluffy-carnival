@@ -77,9 +77,18 @@ class Dashboard extends Component {
         function postImage (post) {
             if (post.postImagePath === undefined) {
                 return (
-                <img className="post-img" src="http://placekitten.com/300/300" alt="post"></img>
+                <div className="image-container">
+                    <Link to={'/posts/' + post.id}>
+                        <img className="post-img" src="http://placekitten.com/300/300" alt="post"></img>
+                    </Link>
+                    </div>
                 )} else {
-                return (<img className="post-img" src={post.postImagePath} alt="post"></img>)
+                return (
+                <div className="image-container">
+                    <Link to={'/posts/' + post.id}>
+                        <img className="post-img" src={post.postImagePath} alt="post"></img>
+                    </Link>
+                </div>)
                 }
         }
 
@@ -97,9 +106,7 @@ class Dashboard extends Component {
                                 </div>
                             </div>
                             <div className="card-image">
-                                <Link to={'/posts/' + post.id}>
-                                    { postImage(post) }
-                                </Link>
+                                    { postImage(post) }                         
                             </div>
                             <div className="card-content text">
                                 <Link to={'/posts/' + post.id}>

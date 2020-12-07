@@ -89,6 +89,15 @@ class EditUser extends Component {
     render() {
         const user = this.props.user;
 
+        function profileImage (user) {
+            if (user.profileImagePath === undefined) {
+                return (
+                <img className="profile responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile" width="100%"></img>
+                )} else {
+                return (<img className="profile responsive-img" src={user.profileImagePath} alt="profile" width="100%"></img>)
+                }
+        }
+
         function handleClick(e) {
             e.preventDefault();
             const div = document.getElementById('change-password');
@@ -107,9 +116,9 @@ class EditUser extends Component {
                 <button className="nav-link btn btn-primary" onClick={() => { this.props.history.goBack()}}><i className="material-icons left">keyboard_arrow_left</i>Back</button>
                     <form onSubmit={ this.handleImageSubmit } method="POST" encType="multipart/form-data">
                     <div className="row image-upload">
-                        <h5 class="profile-edit">Change your profile image</h5>
+                        <h5 className="profile-edit">Change your profile image</h5>
                         <div className="col m6">
-                            <img className="profile responsive-img" src={user.profileImagePath} alt="register" width="100%"></img>
+                            { profileImage(user) }
                             <p>current image</p>
                         </div>
                         <div className="col m6">

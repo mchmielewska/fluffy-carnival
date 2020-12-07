@@ -10,13 +10,22 @@ class CurrentUser extends Component {
         this.props.getCurrentUser();
         this.props.getFriendsList();
 
+        function profileImage (user) {
+            if (user.profileImagePath === undefined) {
+                return (
+                <img className="responsive-img" src="https://i.imgur.com/IJMRjcI.png" alt="profile"></img>
+                )} else {
+                return (<img className="responsive-img" src={user.profileImagePath} alt="profile"></img>)
+                }
+        }
+
         const currentUser = this.props.user;
         const friends = this.props.friends;
         const id = this.props.id;
         const profileData = currentUser ? (
             <div>
                 <div className="center-align row">
-                    <img className="responsive-img" src={ currentUser.user.profileImagePath} alt="profile"></img>
+                    { profileImage(currentUser.user)}
                     <div className="user-details">
                         <p className="username">{ currentUser.user.name } { currentUser.user.surname }</p>
                         <p>{ currentUser.user.city }</p>

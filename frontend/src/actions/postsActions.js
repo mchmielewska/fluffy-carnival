@@ -19,7 +19,6 @@ export const getPosts = (user) => dispatch => {
 }
 
 export const addPost = (post, history) => dispatch => {
-    console.log(post)
     axios.post('http://localhost:9090/posts/add', post, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -47,7 +46,6 @@ export const deletePost = (id) => dispatch => {
                     type: DELETE_POST,
                     payload: res.data
                 });
-                console.log(res)
             }
         )
         .catch(err => {
@@ -60,7 +58,10 @@ export const deletePost = (id) => dispatch => {
 }
 
 export const patchPost = (id, post, history) => dispatch => {
-    axios.patch(`http://localhost:9090/posts/update?id=${id}`, post)
+    axios.patch(`http://localhost:9090/posts/update?id=${id}`, post, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }})
     .then(res => {
         history.push('/postupdated');
     })

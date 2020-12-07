@@ -21,6 +21,12 @@ class EditPost extends Component {
         })
     }
 
+    
+    handleFileUpload(e) {
+        let files = e.target.files;
+        this.setState({ postImage: files[0] }, () => { });
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         
@@ -39,10 +45,17 @@ class EditPost extends Component {
             privacyLevel: this.state.privacyLevel,
             publishDate: this.state.date,
             state: this.state.state,
-            tags: tagsArray
+            tags: tagsArray,
+            postImage: this.state.postImage
         }
         
-        this.props.patchPost(postId, post, this.props.history);
+        let formData = new FormData();
+        Object.keys(post).forEach(function(key) {
+            if (post[key] === undefined) return;
+            formData.append(key, post[key]);
+          })
+
+        this.props.patchPost(postId, formData, this.props.history);
     }
 
     componentDidMount() {
@@ -55,7 +68,7 @@ class EditPost extends Component {
       }
 
     render() {
-        this.props.getPosts();
+        this.props.getPosts()
         const post = this.props.post;
 
         return (
@@ -78,7 +91,6 @@ class EditPost extends Component {
                     <div className="input-field col s12">
                         <i className="material-icons prefix">short_text</i>
                         <textarea
-                        // type="text"
                         placeholder="description"
                         className='materialize-textarea'
                         name="description"
@@ -126,6 +138,13 @@ class EditPost extends Component {
                     />
                 </div>
                 <div className="input-field">
+                    <input 
+                            type="file"
+                            id="postImage" name="postImage" onChange={e => this.handleFileUpload(e)}
+                            accept="image/jpeg">
+                    </input>
+                </div>
+                <div className="input-field">
                     <button type="submit" className="btn btn-primary">
                         Save!
                     </button>
@@ -140,7 +159,6 @@ class EditPost extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log("props:", ownProps);
     let id = ownProps.match.params.post_id;
     return {
         ...ownProps,

@@ -17,5 +17,3 @@ export default function (state = initialState, action ) {
              return state;
      }
 }
-
-// || (JSON.stringify(state) !== JSON.stringify(action.payload))

@@ -5,7 +5,8 @@ import rootReducer from './reducers';
 import { persistStore } from 'redux-persist5'
 import { persistReducer } from 'redux-persist5'
 import { createMigrate } from 'redux-persist5'
-import storage from 'redux-persist5/lib/storage'
+// import storage from 'redux-persist5/lib/storage';
+import localforage from 'localforage';
 import autoMergeLevel2 from 'redux-persist5/lib/stateReconciler/autoMergeLevel2';
 
 const migrations = {
@@ -27,7 +28,7 @@ const migrations = {
 
 const persistConfig = {
     key: 'root',
-    storage: storage,
+    storage: localforage,
     version: 1,
     debug: true,  
     stateReconciler: autoMergeLevel2,

@@ -71,7 +71,6 @@ export const patchProfileImage = (image, history) => dispatch => {
         }} 
     )
     .then(res => {
-        console.log(res)
         history.push('/userupdated');
     })
     .catch(err => {

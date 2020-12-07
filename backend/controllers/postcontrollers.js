@@ -18,10 +18,10 @@ function saveImage(post, file) {
 }
 
 exports.postAddNew = (req, res, next) => {
-    // if (!req.body.title || !req.body.description) {
-    //     res.status(401).send('Missing required data!');
-    //     return;
-    // }
+    if (!req.body.title || !req.body.description) {
+        res.status(401).send('Missing required data!');
+        return;
+    }
 
     console.log(req.body)
 
@@ -35,9 +35,7 @@ exports.postAddNew = (req, res, next) => {
         tags: req.body.tags
     });
 
-    // console.log(NewPost)
-
-    saveImage(NewPost, req.file)
+    saveImage(NewPost, req.file);
     NewPost.save();
     res.status(200).json({ success: true, msg: "Post created!" });
 };
@@ -85,6 +83,7 @@ exports.patchUpdatePost = (req, res, next) => {
                 return;
             }
         
+            saveImage(post, req.file);
             post.save();
             res.status(200).json({ success: true, msg: "Post updated" });
             return;
