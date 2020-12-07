@@ -13,6 +13,12 @@ const FriendSchema = new Schema({
 
 mongoose.model('friend', FriendSchema, 'friends');
 
+const LikedPostSchema = new Schema({
+    postId: mongoose.Schema.Types.ObjectId
+})
+
+mongoose.model('likedPost', LikedPostSchema, 'likedPosts');
+
 const UserSchema = new Schema({
     email: {
         type: String,
@@ -86,6 +92,9 @@ const UserSchema = new Schema({
     },
     profileImageType: {
         type: String
+    },
+    likedPosts: {
+        type: [LikedPostSchema]
     }
 })
 

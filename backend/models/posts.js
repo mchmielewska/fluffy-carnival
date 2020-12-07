@@ -4,8 +4,25 @@ var validate = require('mongoose-validator');
 
 function arrayLimit(val) {
     return val.length <= 10;
-  };
+};
 
+
+const CommentSchema = new Schema({
+    author: mongoose.Schema.Types.ObjectId,
+    comment: String,
+    publishDate: {
+      type: Date,
+      default: Date.now()
+    }
+});
+
+mongoose.model('comment', CommentSchema, 'comments');
+
+const LikeSchema = new Schema({
+    user: mongoose.Schema.Types.ObjectId
+})
+
+mongoose.model('like', LikeSchema, 'likes');
 
 const PostSchema = new Schema({
     title: {
@@ -42,8 +59,13 @@ const PostSchema = new Schema({
     },
     postImageType: {
         type: String
+    },
+    comments: {
+        type: [CommentSchema]
+    },
+    likes: {
+        type: [LikeSchema]
     }
-
   });
 
   
@@ -65,5 +87,6 @@ PostSchema.index({
       tags: 1
     },
   });
+
 
 module.exports = model('Post', PostSchema);

@@ -51,8 +51,6 @@ exports.getFindPost = async (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    console.log("id", req.body.id)
-    console.log("body", req.body)
     Post.findOne({_id: req.body.id})
         .then(post => {
             if (!post) {
@@ -86,3 +84,80 @@ exports.patchUpdatePost = (req, res, next) => {
             return;
         });
 };
+
+exports.postLikePost = (req, res, next) => {
+    Post.findByIdAndUpdate(req.query.id)
+    .then(
+        post => {
+            if (!post) {
+                res.status(400).json({ success: false, msg: "Post not found" });
+                return;
+            }
+            else if (post.likes.includes(loggedUserId)) {
+                res.status(400).json({success: false, msg: "You already liked this post"});
+                return;
+            }
+
+            const like = {
+                user: loggedUserId
+            }
+    
+            post.likes.push(like);
+            post.save();
+
+            User.findById(loggedUserId)
+            .then(user => {
+                    const likedPost = {
+                        postId: req.query.id
+                    }
+                    user.likedPosts.push(likedPost);
+                    user.save();
+            })
+
+            res.status(200).json({ success: true, msg: "Post liked!" });
+            return;
+        }
+    )
+}
+
+exports.deleteUnlikePost = (req, res, next) => {
+    Post.findByIdAndUpdate(req.query.id)
+    .then(
+        post => {
+            if (!post) {
+                res.status(400).json({ success: false, msg: "Post not found" });
+                return;
+            }
+            else if (post.likes.includes(loggedUserId)) {
+                const removedLike = post.likes.find(like => like.user == loggedUserId);
+                removedLike.remove();
+                post.save();
+
+                User.findById(loggedUserId)
+                .then(user => {
+                        const removedLike = user.likedPosts.find(likedPost => likedPost.postId == req.query.id);
+                        removedLike.remove();
+                        user.save();
+                })
+
+                res.status(200).json({ success: true, msg: "Post unliked!" });
+                return;
+            }
+        }
+    )
+}
+
+exports.getPostLikes = (req, res, next) => {
+    Post.findById(req.query.id)
+    .then(
+        post => {
+            if (!post) {
+                res.status(400).json({ success: false, msg: "Post not found" });
+                return;
+            }
+
+        const likes = post.likes
+        res.send(likes);
+        }
+    )
+}
