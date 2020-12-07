@@ -27,8 +27,7 @@ const PostSchema = new Schema({
     },
     state: {
         type: String,
-        enum: ['published', 'draft'],
-        default: 'draft'
+        default: 'published'
     },
     tags: {
         type: [String],

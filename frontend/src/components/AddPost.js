@@ -45,7 +45,7 @@ class AddPost extends Component {
             description: this.state.description,
             privacyLevel: this.state.privacyLevel,
             publishDate: date,
-            state: this.state.state,
+            state: "published",
             tags: tagsArray,
             postImage: this.state.postImage
         }
@@ -112,19 +112,6 @@ class AddPost extends Component {
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="input-field col s12">
-                        <select
-                            onChange={ this.handleInputChange }
-                            defaultValue='draft'
-                            name="state">
-                                <option value="draft">draft</option>
-                                <option value="published">published</option>
-                        </select>
-                        <label>State</label>
-                    </div>
-                </div>
-
                 <div className="input-field">
                     <label>Separate tags with commas!</label>
                     <input
@@ -136,12 +123,19 @@ class AddPost extends Component {
                     value={ this.state.tags }
                     />
                 </div>
-                <div className="input-field">
-                    <input 
+                <div className="input-field file-field">
+                    <div className="btn">
+                        <span>File</span>
+                        <input 
                             type="file"
                             id="postImage" name="postImage" onChange={e => this.handleFileUpload(e)}
                             accept="image/jpeg">
-                    </input>
+                        </input>
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text"></input>
+                    </div>
+
                 </div>
 
                 <div className="input-field">

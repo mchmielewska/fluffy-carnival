@@ -9,9 +9,6 @@ function saveImage(post, file) {
     var fs = require('fs')
     const imageEncoded = fs.readFileSync(file.path);
     if (imageEncoded == null) return false;
-    // const image = JSON.parse(imageEncoded).then(json => console.log(json));
-    // console.log(image != null, image.type, imageMimeTypes)
-    // if (image != null && imageMimeTypes.includes(image.type)) {
         
     post.postImage = new Buffer.from(imageEncoded, 'base64')
     post.postImageType = "image/jpeg"
@@ -86,25 +83,6 @@ exports.patchUpdatePost = (req, res, next) => {
             saveImage(post, req.file);
             post.save();
             res.status(200).json({ success: true, msg: "Post updated" });
-            return;
-        });
-};
-
-exports.patchPublishPost = (req, res, next) => {
-    Post.findById(req.query.id)
-        .then (post => {
-            if (!post) {
-                res.status(400).json({ success: false, msg: "Post not found" });
-                return;
-            }
-            else if (post.authorId != loggedUserId) {
-                res.status(400).json({success: false, msg: "Your not allowed to publish other user's post."});
-                return;
-            }
-        
-            post.state = "published";
-            post.save();
-            res.status(200).json({ success: true, msg: "Post published!" });
             return;
         });
 };

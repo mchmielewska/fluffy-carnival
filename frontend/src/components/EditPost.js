@@ -113,19 +113,6 @@ class EditPost extends Component {
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="input-field col s12">
-                        <select
-                            onChange={ this.handleInputChange }
-                            defaultValue={ post.state }
-                            name="state">
-                                <option value="draft">draft</option>
-                                <option value="published">published</option>
-                        </select>
-                        <label>State</label>
-                    </div>
-                </div>
-
                 <div className="input-field">
                     <label>Separate tags with commas!</label>
                     <input
