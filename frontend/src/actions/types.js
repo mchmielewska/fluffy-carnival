@@ -12,4 +12,5 @@ export const REMOVE_FRIEND = 'REMOVE_FRIEND';
 export const SEND_INVITE = 'SEND_INVITE';
 export const LOGOUT_USER = "LOGOUT_USER";
 export const ADD_LIKE = "ADD_LIKE";
-export const REMOVE_LIKE = "REMOVE_LIKE"
+export const REMOVE_LIKE = "REMOVE_LIKE";
+export const GET_LIKES = "GET_LIKES";

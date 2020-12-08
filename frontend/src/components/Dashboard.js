@@ -4,15 +4,22 @@ import { connect } from 'react-redux';
 import { getPosts } from '../actions/postsActions';
 import { getUsers } from '../actions/usersActions';
 import Sidebar from './Sidebar'
+import { getLikes, addLike, removeLike } from '../actions/likesActions';
 
 class Dashboard extends Component {
 
     render() {
         this.props.getUsers();
         this.props.getPosts();
+        this.props.getLikes();
         
         const posts = this.props.posts;
         const users = this.props.users;
+        const allLikes = this.props.likes;
+        const currentUser = this.props.currentUser.id;
+        console.log(currentUser)
+
+        console.log(allLikes)
 
         function dateBuilder (date) {
             const event = new Date(date);
@@ -92,6 +99,32 @@ class Dashboard extends Component {
                 }
         }
 
+        const handleLike = (e, id) => {
+            e.preventDefault();
+            this.props.addLike(id);
+        }
+    
+        const handleUnlike = (e, id) => {
+            e.preventDefault()
+            this.props.removeLike(id)
+        }
+
+        function likePost(id) {
+            const postLikes = allLikes.find(post => post._id === id);
+
+            for (let i in postLikes.likes) {
+                if (postLikes.likes[i].user === currentUser) {
+                    return (
+                        <button className="like-button liked" onClick={(e) => handleUnlike(e, id)}><i className="small material-icons red-text">favorite_border</i></button>
+                    )
+                }
+            }
+
+            return (
+                <button className="like-button" onClick={ (e) => handleLike(e, id) }><i className="small material-icons">favorite_border</i></button>
+                )
+        }
+
         const postList = posts.length ? (
             (posts.sort((a, b) => (a.publishDate < b.publishDate) ? 1 : -1)).map(post => {
                 return (
@@ -102,7 +135,7 @@ class Dashboard extends Component {
                                     {getAuthor(users, post)}
                                 </div>
                                 <div className="col m2 right-align">
-                                    <span><i className="small material-icons">favorite_border</i></span>
+                                    { likePost(post.id) }
                                 </div>
                             </div>
                             <div className="card-image">
@@ -150,8 +183,11 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
     return { 
+        currentUser: state.auth.user,
         posts: state.posts,
-        users: state.users.all }
+        users: state.users.all,
+        likes: state.likes
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -161,6 +197,15 @@ const mapDispatchToProps = (dispatch) => {
         },
         getUsers: () => {
             dispatch(getUsers())
+        },
+        addLike: (id) => {
+            dispatch(addLike(id))
+        },
+        removeLike: (id) => {
+            dispatch(removeLike(id))
+        },
+        getLikes: () => {
+            dispatch(getLikes())
         }
     }
 }

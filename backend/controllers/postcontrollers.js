@@ -99,7 +99,8 @@ exports.postLikePost = (req, res, next) => {
             }
 
             const like = {
-                user: loggedUserId
+                user: loggedUserId,
+                id: req.query.id
             }
     
             post.likes.push(like);
@@ -128,8 +129,10 @@ exports.deleteUnlikePost = (req, res, next) => {
                 res.status(400).json({ success: false, msg: "Post not found" });
                 return;
             }
-            else if (post.likes.includes(loggedUserId)) {
+            else {
                 const removedLike = post.likes.find(like => like.user == loggedUserId);
+                if (!removedLike) return;
+                
                 removedLike.remove();
                 post.save();
 
@@ -148,15 +151,15 @@ exports.deleteUnlikePost = (req, res, next) => {
 }
 
 exports.getPostLikes = (req, res, next) => {
-    Post.findById(req.query.id)
+    Post.find({ state: "published" })
     .then(
-        post => {
-            if (!post) {
-                res.status(400).json({ success: false, msg: "Post not found" });
+        posts => {
+            if (!posts || posts.length == 0) {
+                res.status(400).json({ success: false, msg: "Posts not found" });
                 return;
             }
 
-        const likes = post.likes
+        const likes= _.map(posts, post => _.pick(post, ['_id','likes']));
         res.send(likes);
         }
     )

@@ -18,7 +18,8 @@ export const addLike = (id) => dispatch => {
 }
 
 export const removeLike = (id) => dispatch => {
-    axios.delete(`http://localhost:9090/posts/like?id=${id}`)
+    console.log('deleting')
+    axios.delete(`http://localhost:9090/posts/unlike?id=${id}`)
     .then(res => {
         dispatch({
             type: REMOVE_LIKE,
@@ -33,8 +34,8 @@ export const removeLike = (id) => dispatch => {
     });
 }
 
-export const getLikes = (id) => dispatch => {
-    axios.get(`http://localhost:9090/posts/likedby?id=${id}`)
+export const getLikes = () => dispatch => {
+    axios.get(`http://localhost:9090/posts/likes`)
     .then(
         res => {
             dispatch({
@@ -48,6 +49,4 @@ export const getLikes = (id) => dispatch => {
                 payload: err.res
             });
         });
-}
-
 }

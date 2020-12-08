@@ -509,3 +509,22 @@ grid-template-columns: 1fr 1fr;
     object-fit: cover;
     height: 100%;
 }
+
+.like-button {
+    color: #000000;
+    background-color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+}
+
+.like-button:hover {
+    color: #999999;
+}
+
+.like-button:focus, .like-button.liked:focus {
+    background-color: #FFFFFF;
+}
+
+.like-button i {
+    cursor: pointer;
+}
