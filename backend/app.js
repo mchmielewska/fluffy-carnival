@@ -57,7 +57,7 @@ app.get(
 
 mongoose
   .connect(process.env.DATABASE_URL || config.database.url, { useNewUrlParser: true })
-  .then(() => app.listen(process.env.SERVER_PORT || config.server.port))
+  .then(() => app.listen(process.env.PORT || config.server.port))
   .then(() =>
     User.create({
       email: 'admin@fluffyadmin.com',
