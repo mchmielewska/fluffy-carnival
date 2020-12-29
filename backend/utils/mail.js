@@ -1,4 +1,12 @@
-const config = require('../config');
+let config;
+try {
+  config = require('../config');
+} catch (e) {
+  if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
+      console.log("Can't load config (skipping)");
+  else
+      throw e;
+}
 const uniqid = require('uniqid');
 const buildUrl = require('build-url');
 const sgMail = require('@sendgrid/mail');

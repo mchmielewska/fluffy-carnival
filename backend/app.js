@@ -2,7 +2,15 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('./config');
+let config;
+try {
+  config = require('./config');
+} catch (e) {
+  if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
+      console.log("Can't load config (skipping)");
+  else
+      throw e;
+}
 const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
 const cors = require('cors');
