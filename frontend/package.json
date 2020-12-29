@@ -17,6 +17,7 @@
     "localforage": "^1.9.0",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.24.0",
+    "prettier": "^2.2.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-filepond": "^7.1.0",
@@ -37,7 +38,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pretty": "prettier --write \"./**/*.{js,jsx,json}\""
   },
   "eslintConfig": {
     "extends": "react-app"

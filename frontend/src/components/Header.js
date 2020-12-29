@@ -5,53 +5,61 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
 
-
 class Header extends Component {
+  onLogout(e) {
+    e.preventDefault();
+    this.props.logoutUser(this.props.history);
+  }
 
-    onLogout(e) {
-        e.preventDefault();
-        this.props.logoutUser(this.props.history);
-    }
-
-    render() {
-        const {isAuthenticated, user} = this.props.auth;
-        const authLinks = (
-            <ul className="navbar-nav right">
-                <li className="nav-item">
-                    <Link className="nav-link" to="/posts">Dashboard</Link>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#" onClick={this.onLogout.bind(this)}>Logout</a>
-                </li>
-            </ul>
-        )
-      const guestLinks = (
-        <ul className="navbar-nav right">
-            <li className="nav-item">
-                <Link className="nav-link" to="/register">Sign Up</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/login">Sign In</Link>
-            </li>
-        </ul>
-      )
-        return(
-            <nav className="nav-wrapper white">
-                <Link className="brand-logo" to="/">Fluffy Carnival</Link>
-                <div className="hide-on-med-and-down" id="navbarSupportedContent">
-                    {isAuthenticated ? authLinks : guestLinks}
-                </div>
-            </nav>
-        )
-    }
+  render() {
+    const { isAuthenticated, user } = this.props.auth;
+    const authLinks = (
+      <ul className="navbar-nav right">
+        <li className="nav-item">
+          <Link className="nav-link" to="/posts">
+            Dashboard
+          </Link>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="#" onClick={this.onLogout.bind(this)}>
+            Logout
+          </a>
+        </li>
+      </ul>
+    );
+    const guestLinks = (
+      <ul className="navbar-nav right">
+        <li className="nav-item">
+          <Link className="nav-link" to="/register">
+            Sign Up
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/login">
+            Sign In
+          </Link>
+        </li>
+      </ul>
+    );
+    return (
+      <nav className="nav-wrapper white">
+        <Link className="brand-logo" to="/">
+          Fluffy Carnival
+        </Link>
+        <div className="hide-on-med-and-down" id="navbarSupportedContent">
+          {isAuthenticated ? authLinks : guestLinks}
+        </div>
+      </nav>
+    );
+  }
 }
 Header.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-}
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
-})
+  auth: state.auth,
+});
 
 export default connect(mapStateToProps, { logoutUser })(withRouter(Header));
