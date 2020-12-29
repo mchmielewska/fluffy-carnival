@@ -1,4 +1,12 @@
-const config = require('../config');
+let config;
+try {
+  config = require('../config');
+} catch (e) {
+  if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
+      console.log("Can't load config (skipping)");
+  else
+      throw e;
+}
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const User = require('../models/users');
@@ -85,7 +93,7 @@ exports.postAuthenticateUser = (req, res, next) => {
       if (result) {
         const token = jwt.sign(
           { email: user.email, id: user._id },
-          config.server.secret,
+          process.env.SERVER_SECRET || config.server.secret,
           { expiresIn: 10000 }
         );
         res.json({
