@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const config = require('./config');
 const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
-const cors = require('cors')
+const cors = require('cors');
 
 const bodyparser = require('body-parser');
 const UserRoutes = require('./routers/users');
@@ -20,21 +20,20 @@ app.use(passport.initialize());
 app.use(cors());
 
 const opts = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
-    secretOrKey: config.server.secret
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
+  secretOrKey: process.env.SERVER_SECRET || config.server.secret,
 };
 
 const successHandler = (jwt_payload, done) => {
-    User.findById(jwt_payload.id)
-        .then(user => {
-            if (!user) {
-                done(null, false);
-                return;
-            }
+  User.findById(jwt_payload.id).then((user) => {
+    if (!user) {
+      done(null, false);
+      return;
+    }
 
-            done(null, user);
-        })
-}
+    done(null, user);
+  });
+};
 
 passport.use(new Strategy(opts, successHandler));
 
@@ -42,28 +41,29 @@ app.use('/users', UserRoutes);
 app.use('/friends', FriendsRoutes);
 app.use('/posts', PostRoutes);
 
-
-
-app.get('/secret', passport.authenticate('jwt', { session: false }), (req, res, next) => res.send('Secret hello'));
+app.get(
+  '/secret',
+  passport.authenticate('jwt', { session: false }),
+  (req, res, next) => res.send('Secret hello')
+);
 
 mongoose
-    .connect(config.database.url, config.database.options)
-    .then(() => app.listen(config.server.port))
-    .then(() =>
-        User.create({
-            email: "admin@fluffyadmin.com",
-            isVerified: true,
-            password: "Admin123!",
-            role: "Admin",
-            name: "Admin",
-            surname: "Adminadmin",
-            gender: "other",
-            birthDate: 1970 - 01 - 01
-
-        }).then((User) =>
-            User.encrypt()
-                .then(() => {
-                    User.save();
-                }))
+  .connect(process.env.DATABASE_URL || config.database.url, { useNewUrlParser: true })
+  .then(() => app.listen(process.env.SERVER_PORT || config.server.port))
+  .then(() =>
+    User.create({
+      email: 'admin@fluffyadmin.com',
+      isVerified: true,
+      password: 'Admin123!',
+      role: 'Admin',
+      name: 'Admin',
+      surname: 'Adminadmin',
+      gender: 'other',
+      birthDate: 1970 - 01 - 01,
+    }).then((User) =>
+      User.encrypt().then(() => {
+        User.save();
+      })
     )
-    .catch(err => console.log(err));    
+  )
+  .catch((err) => console.log(err));

@@ -5,129 +5,131 @@ const validate = require('mongoose-validator');
 const validator = require('validator');
 
 const FriendSchema = new Schema({
-    requestor: mongoose.Schema.Types.ObjectId,
-    requested: mongoose.Schema.Types.ObjectId,
-    status: String,
-    inviteToken: String
+  requestor: mongoose.Schema.Types.ObjectId,
+  requested: mongoose.Schema.Types.ObjectId,
+  status: String,
+  inviteToken: String,
 });
 
 mongoose.model('friend', FriendSchema, 'friends');
 
 const LikedPostSchema = new Schema({
-    postId: mongoose.Schema.Types.ObjectId
-})
+  postId: mongoose.Schema.Types.ObjectId,
+});
 
 mongoose.model('likedPost', LikedPostSchema, 'likedPosts');
 
 const UserSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        validate:
-            [validator.isEmail, 'Email not correct']
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    surname: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    gender: {
-        type: String,
-        enum: ["female", "male", "other"],
-        required: true
-    },
-    birthDate: {
-        type: Date,
-        required: true
-    },
-    bio: {
-        type: String
-    },
-    country: {
-        type: String
-    },
-    city: {
-        type: String
-    },
-    favouriteMovie: {
-        type: String
-    },
-    guid: {
-        type: String
-    },
-    resetPasswordToken: {
-        type: String,
-        default: ""
-    },
-    expirationTokenDate: {
-        type: Date
-    },
-    isVerified: {
-        type: Boolean,
-        default: false
-    },
-    role: {
-        type: String,
-        enum: ["User", "Admin", "Moderator"],
-        default: "User"
-    },
-    friends: {
-        type: [FriendSchema]
-    },
-    visibility: {
-        type: String,
-        enum: ["visible", "private"],
-        default: "visible"
-    },
-    profileImage: {
-        type: Buffer
-    },
-    profileImageType: {
-        type: String
-    },
-    likedPosts: {
-        type: [LikedPostSchema]
-    }
-})
-
-UserSchema.index({
-    name: 'text',
-    surname: 'text',
-    bio: "text"
-}, {
-    weights: {
-        name: 5,
-        surname: 5,
-        bio: 1
-    },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: [validator.isEmail, 'Email not correct'],
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  surname: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    enum: ['female', 'male', 'other'],
+    required: true,
+  },
+  birthDate: {
+    type: Date,
+    required: true,
+  },
+  bio: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  favouriteMovie: {
+    type: String,
+  },
+  guid: {
+    type: String,
+  },
+  resetPasswordToken: {
+    type: String,
+    default: '',
+  },
+  expirationTokenDate: {
+    type: Date,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  role: {
+    type: String,
+    enum: ['User', 'Admin', 'Moderator'],
+    default: 'User',
+  },
+  friends: {
+    type: [FriendSchema],
+  },
+  visibility: {
+    type: String,
+    enum: ['visible', 'private'],
+    default: 'visible',
+  },
+  profileImage: {
+    type: Buffer,
+  },
+  profileImageType: {
+    type: String,
+  },
+  likedPosts: {
+    type: [LikedPostSchema],
+  },
 });
 
-UserSchema.virtual('profileImagePath').get(function() {
-    if (this.profileImage != null && this.profileImageType != null) {
-      return `data:${this.profileImageType};charset=utf-8;base64,${this.profileImage.toString('base64')}`
-    }
-  })
-  
+UserSchema.index(
+  {
+    name: 'text',
+    surname: 'text',
+    bio: 'text',
+  },
+  {
+    weights: {
+      name: 5,
+      surname: 5,
+      bio: 1,
+    },
+  }
+);
+
+UserSchema.virtual('profileImagePath').get(function () {
+  if (this.profileImage != null && this.profileImageType != null) {
+    return `data:${
+      this.profileImageType
+    };charset=utf-8;base64,${this.profileImage.toString('base64')}`;
+  }
+});
 
 UserSchema.methods.comparePassword = function (password) {
-    return bcrypt.compare(password, this.password);
+  return bcrypt.compare(password, this.password);
 };
 
 UserSchema.methods.encrypt = function () {
-    return bcrypt.hash(this.password, 12)
-        .then(hash => this.password = hash);
-}
+  return bcrypt.hash(this.password, 12).then((hash) => (this.password = hash));
+};
 
 UserSchema.statics.findByEmail = function (email) {
-    return this.findOne({ email: email });
-}
+  return this.findOne({ email: email });
+};
 
 module.exports = model('User', UserSchema);
