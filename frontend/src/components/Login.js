@@ -6,7 +6,12 @@ import { connect } from 'react-redux';
 import { loginUser } from '../actions/authentication';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
+import { store } from '../store';
+import { getUsers, getCurrentUser } from '../actions/usersActions';
+import { getPosts } from '../actions/postsActions';
+import { getFriendsList, getPendingInvites } from '../actions/friendsActions';
+import { getLikes } from '../actions/likesActions';
 class Login extends Component {
   constructor() {
     super();
@@ -36,16 +41,24 @@ class Login extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
+      console.log('Did mount?')
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentDidUpdate() {
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
+      store.dispatch(getCurrentUser());
+      store.dispatch(getUsers());
+      store.dispatch(getPosts());
+      store.dispatch(getLikes());
+      store.dispatch(getFriendsList());
+      store.dispatch(getPendingInvites());
     }
   }
 
   render() {
+    console.log('Login props ', this.props)
     return (
       <div className="container">
         <div className="row valign-wrapper">
@@ -110,6 +123,9 @@ Login.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  posts: state.posts,
+  users: state.users.all,
+  likes: state.likes, 
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser })(withRouter(Login));

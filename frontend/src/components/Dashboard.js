@@ -16,9 +16,6 @@ class Dashboard extends Component {
     const users = this.props.users;
     const allLikes = this.props.likes;
     const currentUser = this.props.currentUser.id;
-    console.log(currentUser);
-
-    console.log(allLikes);
 
     function dateBuilder(date) {
       const event = new Date(date);

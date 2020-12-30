@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
-// import aStore from './store'
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authentication';
-import { getUsers } from './actions/usersActions';
+import { getUsers, getCurrentUser } from './actions/usersActions';
 import { getPosts } from './actions/postsActions';
 import { getFriendsList, getPendingInvites } from './actions/friendsActions';
+import { getLikes } from './actions/likesActions';
 
 import { PersistGate } from 'redux-persist5/integration/react';
 import * as FilePond from 'filepond';
@@ -45,9 +45,11 @@ import Friends from './components/Friends';
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
+  store.dispatch(getCurrentUser());
   store.dispatch(setCurrentUser(decoded));
   store.dispatch(getUsers());
   store.dispatch(getPosts());
+  store.dispatch(getLikes());
   store.dispatch(getFriendsList());
   store.dispatch(getPendingInvites());
 

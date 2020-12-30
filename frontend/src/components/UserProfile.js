@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import SidebarLinks from './SidebarLinks';
 import { inviteFriend } from '../actions/friendsActions';
+import { getLikes, addLike, removeLike } from '../actions/likesActions';
 
 class UserProfile extends Component {
   render() {
+    this.props.getLikes();
     const friendsList = this.props.friendsList;
     const friendsIds = friendsList.map((el) => el._id);
+    const allLikes = this.props.likes;
 
     const currentUser = this.props.currentUser;
 
@@ -110,6 +113,40 @@ class UserProfile extends Component {
       }
     }
 
+    const handleLike = (e, id) => {
+      e.preventDefault();
+      this.props.addLike(id);
+    };
+
+    const handleUnlike = (e, id) => {
+      e.preventDefault();
+      this.props.removeLike(id);
+    };
+
+    function likePost(id) {
+      const postLikes = allLikes.find((post) => post._id === id);
+      console.log(postLikes)
+
+      for (let i in postLikes.likes) {
+        if (postLikes.likes[i].user === currentUser.id) {
+          return (
+            <button
+              className="like-button liked"
+              onClick={(e) => handleUnlike(e, id)}
+            >
+              <i className="small material-icons red-text">favorite_border</i>
+            </button>
+          );
+        }
+      }
+
+      return (
+        <button className="like-button" onClick={(e) => handleLike(e, id)}>
+          <i className="small material-icons">favorite_border</i>
+        </button>
+      );
+    }
+
     const user = this.props.user ? (
       <div className="row center">
         <div className="col s12">{profileImage(this.props.user)}</div>
@@ -185,9 +222,7 @@ class UserProfile extends Component {
               <div className="post card">
                 <div className="card-content row">
                   <div className="col s12 right-align">
-                    <span>
-                      <i className="small material-icons">favorite_border</i>
-                    </span>
+                  {likePost(post.id)}
                   </div>
                 </div>
                 <div className="card-image">
@@ -252,6 +287,7 @@ const mapStateToProps = (state, ownProps) => {
     id: id,
     user: state.users.all.find((user) => user._id === id),
     posts: state.posts.filter((post) => post.authorId === id),
+    likes: state.likes,
   };
 };
 
@@ -259,6 +295,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     inviteFriend: (id) => {
       dispatch(inviteFriend(id));
+    },
+    getLikes: () => {
+      dispatch(getLikes())
+    },
+    addLike: (id) => {
+      dispatch(addLike(id));
+    },
+    removeLike: (id) => {
+      dispatch(removeLike(id));
     },
   };
 };

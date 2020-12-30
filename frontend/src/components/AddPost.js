@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addPost } from '../actions/postsActions';
+import { getPosts } from '../actions/postsActions';
 import * as M from 'materialize-css';
 class AddPost extends Component {
   constructor() {
@@ -30,7 +31,6 @@ class AddPost extends Component {
     let files = e.target.files;
     console.log(files);
     this.setState({ postImage: files[0] }, () => {
-      console.log(this.state.postImage);
     });
   }
 
@@ -56,8 +56,8 @@ class AddPost extends Component {
       formData.append(key, newPost[key]);
     });
 
-    console.log(formData);
     this.props.addPost(formData, this.props.history);
+    this.props.getPosts();
   }
 
   componentDidMount() {
@@ -168,4 +168,15 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { addPost })(withRouter(AddPost));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPosts: () => {
+      dispatch(getPosts());
+    },
+    addPost: (formData, history) => {
+      dispatch(addPost(formData, history));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddPost));

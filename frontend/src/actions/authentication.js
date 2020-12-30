@@ -3,6 +3,7 @@ import { GET_ERRORS, LOGOUT_USER, SET_CURRENT_USER } from './types';
 import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
 
+
 export const registerUser = (user, history) => (dispatch) => {
   axios
     .post(`${process.env.SERVER_URL || 'http://localhost:9090' }/users/register/`, user)

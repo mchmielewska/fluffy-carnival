@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { deletePost } from '../actions/postsActions';
 class Post extends Component {
   handleClick = () => {
-    console.log(this.props.post.id);
     this.props.deletePost(this.props.post.id);
     this.props.history.push('/posts/');
   };

@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCurrentUser, getUsers } from '../actions/usersActions';
-import { getFriendsList } from '../actions/friendsActions';
 
 class CurrentUser extends Component {
   render() {
-    this.props.getCurrentUser();
-    this.props.getFriendsList();
 
     function profileImage(user) {
       if (user.profileImagePath === undefined) {
@@ -95,15 +91,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getCurrentUser: () => {
-      dispatch(getCurrentUser());
-    },
-    getFriendsList: () => {
-      dispatch(getFriendsList());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentUser);
+export default connect(mapStateToProps)(CurrentUser);

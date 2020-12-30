@@ -14,6 +14,10 @@ a {
     color: #2196f3;
 }
 
+.link:hover {
+    color: #999999;
+}
+
 .main-img {
     margin: 10px;
 }
