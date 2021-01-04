@@ -27,16 +27,23 @@ exports.postSearch = async (req) => {
     });
     return posts;
   }
-  if (req.query.privacy == 'public') {
+  if (req.query.search) {
+    const user = await User.findById(loggedUserId);
+    const friendsIds = friendsUtils.myFriends(user);
     let posts = await Post.find({
       $and: [
-        { privacyLevel: 'public' },
-        { state: 'published' },
         {
           $or: [
-            { title: { $regex: req.query.search } },
-            { description: { $regex: req.query.search } },
+            { privacyLevel: 'public' },
+            { authorId: loggedUserId },
+            {
+              $and: [{ authorId: friendsIds }, { privacyLevel: 'friendsOnly' }],
+            },
           ],
+        },
+        { state: 'published' },
+        {
+          $text: { $search: `\"${req.query.search}\"`, $caseSensitive: false },
         },
       ],
     });

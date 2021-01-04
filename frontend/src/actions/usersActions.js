@@ -3,7 +3,10 @@ import { GET_ERRORS, GET_USERS, GET_CURRENT_USER } from './types';
 
 export const getUsers = (user) => (dispatch) => {
   axios
-    .get(`${process.env.SERVER_URL || 'http://localhost:9090' }/users/find`, user)
+    .get(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/find`,
+      user
+    )
     .then((res) => {
       dispatch({
         type: GET_USERS,
@@ -20,7 +23,7 @@ export const getUsers = (user) => (dispatch) => {
 
 export const getCurrentUser = (user) => (dispatch) => {
   axios
-    .get(`${process.env.SERVER_URL || 'http://localhost:9090' }/users/me`, user)
+    .get(`${process.env.SERVER_URL || 'http://localhost:9090'}/users/me`, user)
     .then((res) => {
       dispatch({
         type: GET_CURRENT_USER,
@@ -38,7 +41,10 @@ export const getCurrentUser = (user) => (dispatch) => {
 
 export const patchUser = (user, history) => (dispatch) => {
   axios
-    .patch(`${process.env.SERVER_URL || 'http://localhost:9090' }/users/update`, user)
+    .patch(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/update`,
+      user
+    )
     .then((res) => {
       history.push('/userupdated');
     })
@@ -52,7 +58,10 @@ export const patchUser = (user, history) => (dispatch) => {
 
 export const patchPassword = (data, history) => (dispatch) => {
   axios
-    .patch(`${process.env.SERVER_URL || 'http://localhost:9090' }/users/changepass`, data)
+    .patch(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/changepass`,
+      data
+    )
     .then((res) => {
       history.push('/userupdated');
     })
@@ -67,11 +76,15 @@ export const patchPassword = (data, history) => (dispatch) => {
 export const patchProfileImage = (image, history) => (dispatch) => {
   console.log('patchProfileImage image', image);
   axios
-    .post(`${process.env.SERVER_URL || 'http://localhost:9090' }/users/profileimage`, image, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    .post(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/profileimage`,
+      image,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    )
     .then((res) => {
       history.push('/userupdated');
     })

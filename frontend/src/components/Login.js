@@ -41,7 +41,7 @@ class Login extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
-      console.log('Did mount?')
+      console.log('Did mount?');
     }
   }
 
@@ -58,7 +58,7 @@ class Login extends Component {
   }
 
   render() {
-    console.log('Login props ', this.props)
+    console.log('Login props ', this.props);
     return (
       <div className="container">
         <div className="row valign-wrapper">
@@ -125,7 +125,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   posts: state.posts,
   users: state.users.all,
-  likes: state.likes, 
+  likes: state.likes,
 });
 
 export default connect(mapStateToProps, { loginUser })(withRouter(Login));

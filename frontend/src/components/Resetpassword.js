@@ -10,9 +10,12 @@ class ResetPassword extends Component {
   };
 
   onSubmit = () => {
-    Axios.post(`${process.env.SERVER_URL || 'http://localhost:9090' }/user/reset`, {
-      email: this.state.email,
-    })
+    Axios.post(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/user/reset`,
+      {
+        email: this.state.email,
+      }
+    )
       .then((data) => {
         console.log(data);
       })

@@ -44,18 +44,35 @@ exports.getFindPost = async (req, res, next) => {
     return;
   }
 
-  const foundPosts = _.map(posts, (post) =>
-    _.pick(post, [
-      'id',
-      'title',
-      'publishDate',
-      'authorId',
-      'description',
-      'tags',
-      'privacyLevel',
-      'postImagePath',
-    ])
-  );
+  let foundPosts;
+
+  if (req.query.search) {
+    foundPosts = _.map(posts, (post) =>
+      _.pick(post, [
+        'id',
+        'title',
+        'publishDate',
+        'authorId',
+        'description',
+        'tags',
+        'privacyLevel',
+      ])
+    );
+  } else {
+    foundPosts = _.map(posts, (post) =>
+      _.pick(post, [
+        'id',
+        'title',
+        'publishDate',
+        'authorId',
+        'description',
+        'tags',
+        'privacyLevel',
+        'postImagePath',
+      ])
+    );
+  }
+
   res.send(foundPosts);
 };
 
@@ -64,12 +81,10 @@ exports.deletePost = (req, res, next) => {
     if (!post) {
       res.status(400).json({ success: false, msg: 'Post not found' });
     } else if (post.authorId != loggedUserId) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          msg: "Your not allowed to delete other user's post.",
-        });
+      res.status(400).json({
+        success: false,
+        msg: "Your not allowed to delete other user's post.",
+      });
       return;
     }
 
@@ -84,12 +99,10 @@ exports.patchUpdatePost = (req, res, next) => {
       res.status(400).json({ success: false, msg: 'Post not found' });
       return;
     } else if (post.authorId != loggedUserId) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          msg: "Your not allowed to modify other user's post.",
-        });
+      res.status(400).json({
+        success: false,
+        msg: "Your not allowed to modify other user's post.",
+      });
       return;
     }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-export default class PostAdded extends Component {
+import { withRouter } from 'react-router-dom';
+class PostAdded extends Component {
   render() {
     return (
       <div className="container">
@@ -14,3 +15,5 @@ export default class PostAdded extends Component {
     );
   }
 }
+
+export default withRouter(PostAdded);

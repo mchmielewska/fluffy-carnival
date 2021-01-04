@@ -2,10 +2,9 @@ let config;
 try {
   config = require('../config');
 } catch (e) {
-  if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
-      console.log("Can't load config (skipping)");
-  else
-      throw e;
+  if (e instanceof Error && e.code === 'MODULE_NOT_FOUND')
+    console.log("Can't load config (skipping)");
+  else throw e;
 }
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');

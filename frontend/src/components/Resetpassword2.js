@@ -11,9 +11,14 @@ class ResetPassword2 extends Component {
 
   onSubmit = () => {
     const userToken = this.props.location.search;
-    Axios.put(`${process.env.SERVER_URL || 'http://localhost:9090' }/user/reset${userToken}`, {
-      password: this.state.password,
-    }).then((data) => {
+    Axios.put(
+      `${
+        process.env.SERVER_URL || 'http://localhost:9090'
+      }/user/reset${userToken}`,
+      {
+        password: this.state.password,
+      }
+    ).then((data) => {
       console.log(data);
     });
   };

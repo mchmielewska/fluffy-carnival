@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { getUsers } from '../actions/usersActions';
 import Sidebar from '../components/Sidebar';
 import { inviteFriend } from '../actions/friendsActions';
@@ -116,4 +117,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Users));

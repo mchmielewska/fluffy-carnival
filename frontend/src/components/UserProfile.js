@@ -125,7 +125,7 @@ class UserProfile extends Component {
 
     function likePost(id) {
       const postLikes = allLikes.find((post) => post._id === id);
-      console.log(postLikes)
+      console.log(postLikes);
 
       for (let i in postLikes.likes) {
         if (postLikes.likes[i].user === currentUser.id) {
@@ -221,9 +221,7 @@ class UserProfile extends Component {
             <div className="col s6" key={post.id}>
               <div className="post card">
                 <div className="card-content row">
-                  <div className="col s12 right-align">
-                  {likePost(post.id)}
-                  </div>
+                  <div className="col s12 right-align">{likePost(post.id)}</div>
                 </div>
                 <div className="card-image">
                   <Link to={'/posts/' + post.id}>{postImage(post)}</Link>
@@ -297,7 +295,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(inviteFriend(id));
     },
     getLikes: () => {
-      dispatch(getLikes())
+      dispatch(getLikes());
     },
     addLike: (id) => {
       dispatch(addLike(id));
@@ -312,5 +310,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(UserProfile));
-
-//

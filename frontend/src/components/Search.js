@@ -2,21 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getPosts } from '../actions/postsActions';
-import { getCurrentUser, getUsers } from '../actions/usersActions';
 import Sidebar from './Sidebar';
-import { getLikes, addLike, removeLike } from '../actions/likesActions';
 
-class Dashboard extends Component {
+class Search extends Component {
   render() {
-    this.props.getUsers();
-    this.props.getPosts();
-    this.props.getLikes();
-    this.props.getCurrentUser();
-
     const posts = this.props.posts;
     const users = this.props.users;
-    const allLikes = this.props.likes;
     const currentUser = this.props.currentUser.id;
 
     function dateBuilder(date) {
@@ -99,67 +90,6 @@ class Dashboard extends Component {
       }
     }
 
-    function postImage(post) {
-      if (post.postImagePath === undefined) {
-        return (
-          <div className="image-container">
-            <Link to={'/posts/' + post.id}>
-              <img
-                className="post-img"
-                src="http://placekitten.com/300/300"
-                alt="post"
-              ></img>
-            </Link>
-          </div>
-        );
-      } else {
-        return (
-          <div className="image-container">
-            <Link to={'/posts/' + post.id}>
-              <img
-                className="post-img"
-                src={post.postImagePath}
-                alt="post"
-              ></img>
-            </Link>
-          </div>
-        );
-      }
-    }
-
-    const handleLike = (e, id) => {
-      e.preventDefault();
-      this.props.addLike(id);
-    };
-
-    const handleUnlike = (e, id) => {
-      e.preventDefault();
-      this.props.removeLike(id);
-    };
-
-    function likePost(id) {
-      const postLikes = allLikes.find((post) => post._id === id);
-
-      for (let i in postLikes.likes) {
-        if (postLikes.likes[i].user === currentUser) {
-          return (
-            <button
-              className="like-button liked"
-              onClick={(e) => handleUnlike(e, id)}
-            >
-              <i className="small material-icons red-text">favorite_border</i>
-            </button>
-          );
-        }
-      }
-
-      return (
-        <button className="like-button" onClick={(e) => handleLike(e, id)}>
-          <i className="small material-icons">favorite_border</i>
-        </button>
-      );
-    }
-
     const postList = posts.length ? (
       posts
         .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
@@ -171,9 +101,7 @@ class Dashboard extends Component {
                   <div className="post-header left-align col m10">
                     {getAuthor(users, post)}
                   </div>
-                  <div className="col m2 right-align">{likePost(post.id)}</div>
                 </div>
-                <div className="card-image">{postImage(post)}</div>
                 <div className="card-content text">
                   <Link to={'/posts/' + post.id}>
                     <h6 className="card-title">{post.title}</h6>
@@ -217,36 +145,9 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.auth.user,
-    posts: state.posts,
     users: state.users.all,
-    likes: state.likes,
+    posts: state.search,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPosts: () => {
-      dispatch(getPosts());
-    },
-    getUsers: () => {
-      dispatch(getUsers());
-    },
-    addLike: (id) => {
-      dispatch(addLike(id));
-    },
-    removeLike: (id) => {
-      dispatch(removeLike(id));
-    },
-    getLikes: () => {
-      dispatch(getLikes());
-    },
-    getCurrentUser: () => {
-      dispatch(getCurrentUser());
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(Dashboard));
+export default connect(mapStateToProps)(withRouter(Search));

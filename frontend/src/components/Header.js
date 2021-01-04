@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
+import SearchField from './SearchField';
 
 class Header extends Component {
   onLogout(e) {
@@ -15,6 +16,7 @@ class Header extends Component {
     const { isAuthenticated, user } = this.props.auth;
     const authLinks = (
       <ul className="navbar-nav right">
+        <SearchField />
         <li className="nav-item">
           <Link className="nav-link" to="/posts">
             Dashboard

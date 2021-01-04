@@ -3,10 +3,12 @@ import { GET_ERRORS, LOGOUT_USER, SET_CURRENT_USER } from './types';
 import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
 
-
 export const registerUser = (user, history) => (dispatch) => {
   axios
-    .post(`${process.env.SERVER_URL || 'http://localhost:9090' }/users/register/`, user)
+    .post(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/register/`,
+      user
+    )
     .then((res) => history.push('/usercreated'))
     .catch((err) => {
       dispatch({
@@ -18,7 +20,10 @@ export const registerUser = (user, history) => (dispatch) => {
 
 export const loginUser = (user) => (dispatch) => {
   axios
-    .post(`${process.env.SERVER_URL || 'http://localhost:9090' }/users/authenticate`, user)
+    .post(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/authenticate`,
+      user
+    )
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);

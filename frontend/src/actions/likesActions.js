@@ -3,7 +3,9 @@ import { ADD_LIKE, REMOVE_LIKE, GET_LIKES, GET_ERRORS } from './types';
 
 export const addLike = (id) => (dispatch) => {
   axios
-    .post(`${process.env.SERVER_URL || 'http://localhost:9090' }/posts/like?id=${id}`)
+    .post(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/posts/like?id=${id}`
+    )
     .then((res) => {
       dispatch({
         type: ADD_LIKE,
@@ -21,7 +23,11 @@ export const addLike = (id) => (dispatch) => {
 export const removeLike = (id) => (dispatch) => {
   console.log('deleting');
   axios
-    .delete(`${process.env.SERVER_URL || 'http://localhost:9090' }/posts/unlike?id=${id}`)
+    .delete(
+      `${
+        process.env.SERVER_URL || 'http://localhost:9090'
+      }/posts/unlike?id=${id}`
+    )
     .then((res) => {
       dispatch({
         type: REMOVE_LIKE,
@@ -38,7 +44,7 @@ export const removeLike = (id) => (dispatch) => {
 
 export const getLikes = () => (dispatch) => {
   axios
-    .get(`${process.env.SERVER_URL || 'http://localhost:9090' }/posts/likes`)
+    .get(`${process.env.SERVER_URL || 'http://localhost:9090'}/posts/likes`)
     .then((res) => {
       dispatch({
         type: GET_LIKES,

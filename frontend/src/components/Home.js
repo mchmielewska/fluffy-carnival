@@ -9,14 +9,12 @@ import { withRouter } from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 class Home extends Component {
-
   onLogout(e) {
     e.preventDefault();
     this.props.logoutUser(this.props.history);
   }
 
   render() {
-    
     const image = 'https://i.imgur.com/I3SMZXj.png';
     const { isAuthenticated } = this.props.auth;
     const authPage = (
@@ -58,7 +56,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   posts: state.posts,
   users: state.users.all,
-  likes: state.likes, 
+  likes: state.likes,
 });
 
 export default connect(mapStateToProps, { logoutUser })(withRouter(Home));

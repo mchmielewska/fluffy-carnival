@@ -5,6 +5,7 @@ import { reducer as formReducer } from 'redux-form';
 import usersReducer from './usersReducer';
 import friendsReducer from './friendsReducer';
 import likesReducer from './likesReducer';
+import searchReducer from './searchReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   friends: friendsReducer,
   form: formReducer,
   likes: likesReducer,
+  search: searchReducer,
 });
 
 export default rootReducer;

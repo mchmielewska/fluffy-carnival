@@ -6,10 +6,9 @@ let config;
 try {
   config = require('./config');
 } catch (e) {
-  if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
-      console.log("Can't load config (skipping)");
-  else
-      throw e;
+  if (e instanceof Error && e.code === 'MODULE_NOT_FOUND')
+    console.log("Can't load config (skipping)");
+  else throw e;
 }
 const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
@@ -56,7 +55,9 @@ app.get(
 );
 
 mongoose
-  .connect(process.env.DATABASE_URL || config.database.url, { useNewUrlParser: true })
+  .connect(process.env.DATABASE_URL || config.database.url, {
+    useNewUrlParser: true,
+  })
   .then(() => app.listen(process.env.PORT || config.server.port))
   .then(() =>
     User.create({

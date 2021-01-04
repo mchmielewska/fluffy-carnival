@@ -29,9 +29,7 @@ class AddPost extends Component {
 
   handleFileUpload(e) {
     let files = e.target.files;
-    console.log(files);
-    this.setState({ postImage: files[0] }, () => {
-    });
+    this.setState({ postImage: files[0] }, () => {});
   }
 
   handleSubmit(e) {
@@ -57,7 +55,6 @@ class AddPost extends Component {
     });
 
     this.props.addPost(formData, this.props.history);
-    this.props.getPosts();
   }
 
   componentDidMount() {
@@ -170,13 +167,13 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPosts: () => {
-      dispatch(getPosts());
-    },
     addPost: (formData, history) => {
       dispatch(addPost(formData, history));
-    }
+    },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddPost));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(AddPost));

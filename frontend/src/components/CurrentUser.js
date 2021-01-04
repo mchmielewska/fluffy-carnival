@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 class CurrentUser extends Component {
   render() {
-
     function profileImage(user) {
       if (user.profileImagePath === undefined) {
         return (
