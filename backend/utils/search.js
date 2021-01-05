@@ -2,10 +2,20 @@ const Post = require('../models/posts');
 const friendsUtils = require('../utils/friends');
 const User = require('../models/users');
 
-exports.userSearch = (req) => {
-  return (params = {
-    $text: { $search: req.query.search, $caseSensitive: false },
-  });
+exports.userSearch = async (req) => {
+  let users;
+  if (req.query.search) {
+    users = await User.find({
+      $and: [
+        { visibility: 'visible' },
+        { $text: { $search: req.query.search, $caseSensitive: false } },
+      ],
+    });
+    return users;
+  } else {
+    users = await User.find({ visibility: 'visible' });
+    return users;
+  }
 };
 
 exports.postSearch = async (req) => {

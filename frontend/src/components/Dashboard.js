@@ -6,6 +6,14 @@ import { getPosts } from '../actions/postsActions';
 import { getCurrentUser, getUsers } from '../actions/usersActions';
 import Sidebar from './Sidebar';
 import { getLikes, addLike, removeLike } from '../actions/likesActions';
+import {
+  postImage,
+  dateBuilder,
+  privacyLevelIcon,
+  shortenDescription,
+  readMore,
+  getAuthor,
+} from '../utils/postUtils';
 
 class Dashboard extends Component {
   render() {
@@ -18,114 +26,6 @@ class Dashboard extends Component {
     const users = this.props.users;
     const allLikes = this.props.likes;
     const currentUser = this.props.currentUser.id;
-
-    function dateBuilder(date) {
-      const event = new Date(date);
-      const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      };
-      const newDate = `${event.toLocaleDateString(
-        'en-EN',
-        options
-      )} ${event.toLocaleTimeString('en-US', { hour12: false })}`;
-      return newDate;
-    }
-
-    function privacyLevelIcon(privacyLevel) {
-      if (privacyLevel === 'public') {
-        return 'public';
-      } else if (privacyLevel === 'friendsOnly') {
-        return 'people';
-      } else if (privacyLevel === 'private') {
-        return 'lock';
-      }
-    }
-
-    function shortenDescription(text) {
-      if (text.length > 100) {
-        text = text.substring(0, 100) + '...';
-        return text;
-      }
-    }
-
-    function readMore(post) {
-      if (post.description.length > 100) {
-        return <Link to={'/posts/' + post.id}>read more</Link>;
-      }
-    }
-
-    function profileImage(user) {
-      if (user.profileImagePath === undefined) {
-        return (
-          <img
-            className="responsive-img post-header"
-            src="https://i.imgur.com/IJMRjcI.png"
-            alt="profile"
-          ></img>
-        );
-      } else {
-        return (
-          <img
-            className="responsive-img post-header"
-            src={user.profileImagePath}
-            alt="profile"
-          ></img>
-        );
-      }
-    }
-
-    function getAuthor(users, post) {
-      for (let i = 0; i < users.length; i++) {
-        if (users[i]._id === post.authorId) {
-          const author = (
-            <div className="row">
-              <div className="col m2 post-header">{profileImage(users[i])}</div>
-              <div className="col m10">
-                <Link to={'/users/' + users[i]._id}>
-                  <p className="bold">
-                    {users[i].name} {users[i].surname}
-                  </p>
-                </Link>
-                <p>{users[i].city}</p>
-              </div>
-            </div>
-          );
-
-          return author;
-        }
-      }
-    }
-
-    function postImage(post) {
-      if (post.postImagePath === undefined) {
-        return (
-          <div className="image-container">
-            <Link to={'/posts/' + post.id}>
-              <img
-                className="post-img"
-                src="http://placekitten.com/300/300"
-                alt="post"
-              ></img>
-            </Link>
-          </div>
-        );
-      } else {
-        return (
-          <div className="image-container">
-            <Link to={'/posts/' + post.id}>
-              <img
-                className="post-img"
-                src={post.postImagePath}
-                alt="post"
-              ></img>
-            </Link>
-          </div>
-        );
-      }
-    }
 
     const handleLike = (e, id) => {
       e.preventDefault();
@@ -179,9 +79,9 @@ class Dashboard extends Component {
                     <h6 className="card-title">{post.title}</h6>
                   </Link>
                   <p className="description">
-                    {shortenDescription(post.description)}
+                    {shortenDescription(post.description, 100)}
                   </p>
-                  <p className="center-align">{readMore(post)}</p>
+                  <p className="center-align">{readMore(post, 100)}</p>
                 </div>
                 <div className="card-action row">
                   <div className="user-details left-align col m10">

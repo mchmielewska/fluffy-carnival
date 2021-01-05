@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { findPosts } from '../actions/postsActions';
+import { findUsers } from '../actions/usersActions';
 
 class SearchField extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class SearchField extends Component {
     e.preventDefault();
     const query = this.state.search;
     this.props.findPosts(query, this.props.history);
+    this.props.findUsers(query, this.props.history);
   }
 
   render() {
@@ -54,6 +56,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     findPosts: (query, history) => {
       dispatch(findPosts(query, history));
+    },
+    findUsers: (query, history) => {
+      dispatch(findUsers(query, history));
     },
   };
 };

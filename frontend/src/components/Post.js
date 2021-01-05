@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { deletePost } from '../actions/postsActions';
+import {
+  dateBuilder,
+  getAuthorForSinglePostPage,
+  singlePostImage,
+} from '../utils/postUtils';
 class Post extends Component {
   handleClick = () => {
     this.props.deletePost(this.props.post.id);
@@ -30,76 +35,6 @@ class Post extends Component {
       );
     }
 
-    function dateBuilder(date) {
-      const event = new Date(date);
-      const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      };
-      const newDate = `${event.toLocaleDateString(
-        'en-EN',
-        options
-      )} ${event.toLocaleTimeString('en-US', { hour12: false })}`;
-      return newDate;
-    }
-
-    function profileImage(user) {
-      if (user.profileImagePath === undefined) {
-        return (
-          <img
-            className="responsive-img single-post"
-            src="https://i.imgur.com/IJMRjcI.png"
-            alt="profile"
-          ></img>
-        );
-      } else {
-        return (
-          <img
-            className="responsive-img single-post"
-            src={user.profileImagePath}
-            alt="profile"
-          ></img>
-        );
-      }
-    }
-
-    function postImage(post) {
-      if (post.postImagePath === undefined) {
-        return (
-          <img
-            className="post-image"
-            src="http://placekitten.com/500/500"
-            alt="post"
-          ></img>
-        );
-      } else {
-        return (
-          <img className="post-image" src={post.postImagePath} alt="post"></img>
-        );
-      }
-    }
-
-    function getAuthor(users, post) {
-      for (let i = 0; i < users.length; i++) {
-        if (users[i]._id === post.authorId) {
-          const author = (
-            <div>
-              <Link to={'/users/' + users[i]._id}>
-                {profileImage(users[i])}
-                <p className="bold">
-                  {users[i].name} {users[i].surname}
-                </p>
-              </Link>
-            </div>
-          );
-
-          return author;
-        }
-      }
-    }
-
     const currentUser = this.props.currentUser;
     const users = this.props.users;
 
@@ -107,10 +42,12 @@ class Post extends Component {
       <div>
         <h5 className="right-align post-title">{this.props.post.title}</h5>
         <div className="card horizontal">
-          <div className="author">{getAuthor(users, this.props.post)}</div>
+          <div className="author">
+            {getAuthorForSinglePostPage(users, this.props.post)}
+          </div>
           <div className="card-stacked">
             <div className="card-content">
-              {postImage(this.props.post)}
+              {singlePostImage(this.props.post)}
               <p className="post-description">{this.props.post.description}</p>
             </div>
             <div className="card-action">

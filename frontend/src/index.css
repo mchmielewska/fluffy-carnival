@@ -569,3 +569,11 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
     height: 40px;
     line-height: inherit;
 }
+
+.card-content.text.search {
+    height: auto;
+}
+
+.search-item {
+    margin: 0 10%;
+}

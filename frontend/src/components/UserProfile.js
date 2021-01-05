@@ -4,6 +4,14 @@ import { Link, withRouter } from 'react-router-dom';
 import SidebarLinks from './SidebarLinks';
 import { inviteFriend } from '../actions/friendsActions';
 import { getLikes, addLike, removeLike } from '../actions/likesActions';
+import {
+  dateBuilder,
+  shortenDescription,
+  readMore,
+  privacyLevelIcon,
+  postImage,
+} from '../utils/postUtils';
+import { profileImage } from '../utils/userUtils';
 
 class UserProfile extends Component {
   render() {
@@ -65,54 +73,6 @@ class UserProfile extends Component {
       );
     }
 
-    function profileImage(user) {
-      if (user.profileImagePath === undefined) {
-        return (
-          <img
-            className="responsive-img"
-            src="https://i.imgur.com/IJMRjcI.png"
-            alt="profile"
-          ></img>
-        );
-      } else {
-        return (
-          <img
-            className="responsive-img"
-            src={user.profileImagePath}
-            alt="profile"
-          ></img>
-        );
-      }
-    }
-
-    function postImage(post) {
-      if (post.postImagePath === undefined) {
-        return (
-          <div className="image-container">
-            <Link to={'/posts/' + post.id}>
-              <img
-                className="post-img"
-                src="http://placekitten.com/300/300"
-                alt="post"
-              ></img>
-            </Link>
-          </div>
-        );
-      } else {
-        return (
-          <div className="image-container">
-            <Link to={'/posts/' + post.id}>
-              <img
-                className="post-img"
-                src={post.postImagePath}
-                alt="post"
-              ></img>
-            </Link>
-          </div>
-        );
-      }
-    }
-
     const handleLike = (e, id) => {
       e.preventDefault();
       this.props.addLike(id);
@@ -125,7 +85,6 @@ class UserProfile extends Component {
 
     function likePost(id) {
       const postLikes = allLikes.find((post) => post._id === id);
-      console.log(postLikes);
 
       for (let i in postLikes.likes) {
         if (postLikes.likes[i].user === currentUser.id) {
@@ -149,7 +108,9 @@ class UserProfile extends Component {
 
     const user = this.props.user ? (
       <div className="row center">
-        <div className="col s12">{profileImage(this.props.user)}</div>
+        <div className="col s12">
+          {profileImage(this.props.user, 'responsive-img')}
+        </div>
 
         <div className="col s12">{isCurrentUser(this.props.user)}</div>
 
@@ -175,44 +136,6 @@ class UserProfile extends Component {
 
     const userPosts = this.props.posts;
 
-    function dateBuilder(date) {
-      const event = new Date(date);
-      const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      };
-      const newDate = `${event.toLocaleDateString(
-        'en-EN',
-        options
-      )} ${event.toLocaleTimeString('en-US', { hour12: false })}`;
-      return newDate;
-    }
-
-    function privacyLevelIcon(privacyLevel) {
-      if (privacyLevel === 'public') {
-        return 'public';
-      } else if (privacyLevel === 'friendsOnly') {
-        return 'people';
-      } else if (privacyLevel === 'private') {
-        return 'lock';
-      }
-    }
-
-    function shortenDescription(text) {
-      if (text.length > 100) {
-        text = text.substring(0, 100) + '...';
-        return text;
-      }
-    }
-
-    function readMore(post) {
-      if (post.description.length > 100) {
-        return <Link to={'/posts/' + post.id}>read more</Link>;
-      }
-    }
-
     const postList = userPosts.length ? (
       userPosts
         .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
@@ -231,9 +154,9 @@ class UserProfile extends Component {
                     <h6 className="card-title">{post.title}</h6>
                   </Link>
                   <p className="description">
-                    {shortenDescription(post.description)}
+                    {shortenDescription(post.description, 100)}
                   </p>
-                  <p className="center-align">{readMore(post)}</p>
+                  <p className="center-align">{readMore(post, 100)}</p>
                 </div>
 
                 <div className="card-action row">

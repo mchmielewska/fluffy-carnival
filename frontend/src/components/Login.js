@@ -41,7 +41,6 @@ class Login extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
-      console.log('Did mount?');
     }
   }
 
@@ -58,7 +57,6 @@ class Login extends Component {
   }
 
   render() {
-    console.log('Login props ', this.props);
     return (
       <div className="container">
         <div className="row valign-wrapper">

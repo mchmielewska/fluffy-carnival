@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { GET_ERRORS, GET_USERS, GET_CURRENT_USER } from './types';
+import { GET_ERRORS, GET_USERS, GET_CURRENT_USER, FIND_USERS } from './types';
 
 export const getUsers = (user) => (dispatch) => {
   axios
     .get(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/find`,
+      `${
+        process.env.SERVER_URL || 'http://localhost:9090'
+      }/users/find?visibility=visible`,
       user
     )
     .then((res) => {
@@ -14,6 +16,35 @@ export const getUsers = (user) => (dispatch) => {
       });
     })
     .catch((err) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.res,
+      });
+    });
+};
+
+export const findUsers = (query, history) => (dispatch) => {
+  axios
+    .get(
+      `${
+        process.env.SERVER_URL || 'http://localhost:9090'
+      }/users/find?search=${query}`
+    )
+    .then((res) => {
+      dispatch({
+        type: FIND_USERS,
+        payload: res.data,
+      });
+      history.push('/search');
+    })
+    .catch((err) => {
+      if (err.response.status === 400) {
+        dispatch({
+          type: FIND_USERS,
+          payload: [],
+        });
+        history.push('/search');
+      }
       dispatch({
         type: GET_ERRORS,
         payload: err.res,

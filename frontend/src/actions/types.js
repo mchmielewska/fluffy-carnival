@@ -15,3 +15,4 @@ export const ADD_LIKE = 'ADD_LIKE';
 export const REMOVE_LIKE = 'REMOVE_LIKE';
 export const GET_LIKES = 'GET_LIKES';
 export const FIND_POSTS = 'FIND_POSTS';
+export const FIND_USERS = 'FIND_USERS';

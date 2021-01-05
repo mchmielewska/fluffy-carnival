@@ -272,30 +272,30 @@ exports.deleteUser = (req, res, next) => {
   });
 };
 
-exports.getFindUsers = (req, res, next) => {
-  User.find({ visibility: 'visible' }).then((users) => {
-    if (!users || users.length == 0) {
-      res
-        .status(400)
-        .json({ success: false, msg: 'Users matching criteria not found' });
-    }
-    const foundUsers = _.map(users, (user) =>
-      _.pick(user, [
-        '_id',
-        'name',
-        'surname',
-        'birthDate',
-        'gender',
-        'country',
-        'city',
-        'friends',
-        'email',
-        'profileImagePath',
-      ])
-    );
+exports.getFindUsers = async (req, res, next) => {
+  const users = await searchParams.userSearch(req);
 
-    res.send(foundUsers);
-  });
+  if (!users || users.length == 0) {
+    res
+      .status(400)
+      .json({ success: false, msg: 'Users matching criteria not found' });
+  }
+  const foundUsers = _.map(users, (user) =>
+    _.pick(user, [
+      '_id',
+      'name',
+      'surname',
+      'birthDate',
+      'gender',
+      'country',
+      'city',
+      'friends',
+      'email',
+      'profileImagePath',
+    ])
+  );
+
+  res.send(foundUsers);
 };
 
 exports.putChangeVisibility = (req, res, next) => {

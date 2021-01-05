@@ -6,6 +6,8 @@ import {
   acceptInvite,
   declineInvite,
   removeFriend,
+  getFriendsList,
+  getPendingInvites,
 } from '../actions/friendsActions';
 import Sidebar from '../components/Sidebar';
 
@@ -13,6 +15,10 @@ class Friends extends Component {
   render() {
     const users = this.props.users;
     const currentUser = this.props.currentUser;
+
+    this.props.getFriendsList();
+    this.props.getPendingInvites();
+
     const friends = this.props.friends;
     const pendingInvites = this.props.pendingInvites;
 
@@ -84,7 +90,8 @@ class Friends extends Component {
               className="material-icons action-button"
               onClick={(e) => handleRemove(user._id)}
             >
-              remove_circle_outline
+              <i className="material-icons tiny">remove_circle_outline</i>
+              Remove invitation
             </button>
           </div>
         </div>
@@ -207,6 +214,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     removeFriend: (id) => {
       dispatch(removeFriend(id));
+    },
+    getFriendsList: () => {
+      dispatch(getFriendsList());
+    },
+    getPendingInvites: () => {
+      dispatch(getPendingInvites());
     },
   };
 };
