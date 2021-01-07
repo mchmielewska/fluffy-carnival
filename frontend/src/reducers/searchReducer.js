@@ -5,7 +5,7 @@ const initialState = {
   users: [],
 };
 
-export default function (state = initialState, action) {
+const searchReducer = function (state = initialState, action) {
   switch (action.type) {
     case FIND_POSTS:
       return {
@@ -20,4 +20,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default searchReducer;

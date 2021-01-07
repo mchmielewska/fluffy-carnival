@@ -124,7 +124,8 @@ class EditPost extends Component {
                 defaultValue={post.tags}
               />
             </div>
-            <div className="input-field">
+            <div className="input-field file-field">
+              <span>File</span>
               <input
                 type="file"
                 id="postImage"

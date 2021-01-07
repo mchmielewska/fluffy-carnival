@@ -12,7 +12,7 @@ const initialState = {
   pending: [],
 };
 
-export default function (state = initialState, action) {
+const friendsReducer = function (state = initialState, action) {
   switch (action.type) {
     case SEND_INVITE:
       return {
@@ -54,4 +54,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default friendsReducer;

@@ -119,7 +119,7 @@ class AddPost extends Component {
             </div>
 
             <div className="input-field">
-              <label>Separate tags with commas!</label>
+              <label>Separate tags with space and comma! (max 3 tags)</label>
               <input
                 type="text"
                 placeholder="tags"

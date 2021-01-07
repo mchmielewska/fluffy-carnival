@@ -38,12 +38,22 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const inititalState = {};
 
+const actionSanitizer = (action) =>
+  action.type === 'FILE_DOWNLOAD_SUCCESS' && action.data
+    ? { ...action, data: '<<LONG_BLOB>>' }
+    : action;
+
 const store = createStore(
   persistedReducer,
   inititalState,
   compose(
     applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__({
+        actionSanitizer,
+        stateSanitizer: (state) =>
+          state.data ? { ...state, data: '<<LONG_BLOB>>' } : state,
+      })
   )
 );
 

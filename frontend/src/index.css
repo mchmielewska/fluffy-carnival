@@ -349,6 +349,7 @@ a.btn:hover {
 
 .edit-links .btn {
     margin-right: 0;
+    margin-left: 15px;
 }
 
 .edit-links .nav-link {
@@ -581,4 +582,21 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
 .row .col.s10 .user-list {
     margin-left: 9%;
     margin-right: 9%;
+}
+
+.single-tag {
+    color: #999999;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    margin-right: 0.3rem;
+    letter-spacing: 0.1rem;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    margin: 1.5rem;
+    margin-bottom: 0;
+    height: 1rem;
 }

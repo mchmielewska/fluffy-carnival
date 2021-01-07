@@ -47,7 +47,7 @@ const PostSchema = new Schema({
   },
   tags: {
     type: [String],
-    validate: [arrayLimit, 'Tags limited to 10'],
+    validate: [arrayLimit, 'Tags limited to 3'],
   },
   authorId: {
     type: String,

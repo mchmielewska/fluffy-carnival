@@ -2,7 +2,7 @@ import { ADD_LIKE, REMOVE_LIKE, GET_LIKES } from '../actions/types';
 
 const initialState = [];
 
-export default function (state = initialState, action) {
+const likesReducer = function (state = initialState, action) {
   switch (action.type) {
     case ADD_LIKE:
       return [...state];
@@ -19,4 +19,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default likesReducer;

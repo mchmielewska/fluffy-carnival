@@ -13,6 +13,7 @@ import {
   shortenDescription,
   readMore,
   getAuthor,
+  postTags,
 } from '../utils/postUtils';
 
 class Dashboard extends Component {
@@ -81,15 +82,20 @@ class Dashboard extends Component {
                   <div className="col m2 right-align">{likePost(post.id)}</div>
                 </div>
                 <div className="card-image">{postImage(post)}</div>
+                <div className="row tags">
+                  <div className="user-details">{postTags(post)}</div>
+                </div>
                 <div className="card-content text">
                   <Link to={'/posts/' + post.id}>
                     <h6 className="card-title">{post.title}</h6>
                   </Link>
+
                   <p className="description">
                     {shortenDescription(post.description, 100)}
                   </p>
                   <p className="center-align">{readMore(post, 100)}</p>
                 </div>
+
                 <div className="card-action row">
                   <div className="user-details left-align col m10">
                     <p className="card-date">{dateBuilder(post.publishDate)}</p>

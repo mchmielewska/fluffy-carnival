@@ -106,7 +106,8 @@ exports.patchUpdatePost = (req, res, next) => {
       return;
     }
 
-    saveImage(post, req.file);
+    if (req.file) saveImage(post, req.file);
+
     post.save();
     res.status(200).json({ success: true, msg: 'Post updated' });
     return;

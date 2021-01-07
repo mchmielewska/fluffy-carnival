@@ -180,10 +180,15 @@ class UserProfile extends Component {
     return (
       <div className="row">
         <div className="col m2">
-          <Link className="nav-link btn" to="/users">
+          <button
+            className="nav-link btn btn-primary"
+            onClick={() => {
+              this.props.history.goBack();
+            }}
+          >
             <i className="material-icons left">keyboard_arrow_left</i>
             Back
-          </Link>
+          </button>
           <SidebarLinks />
         </div>
 

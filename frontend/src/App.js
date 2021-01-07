@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+// import { createHashHistory } from 'history'
+
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import jwt_decode from 'jwt-decode';
@@ -44,6 +46,9 @@ import Friends from './components/Friends';
 import Search from './components/Search';
 import Favourites from './components/Favourites';
 
+// const history = createHashHistory();
+// console.log(history)
+
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -83,7 +88,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Router>
+          <Router {...this.props}>
             <div>
               <Header />
               <Route exact path="/" component={Home} />

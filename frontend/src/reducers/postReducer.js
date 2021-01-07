@@ -2,7 +2,7 @@ import { DELETE_POST, GET_POSTS } from '../actions/types';
 
 const initialState = [];
 
-export default function (state = initialState, action) {
+const postReducer = function (state = initialState, action) {
   switch (action.type) {
     case GET_POSTS:
       const newState = action.payload.sort(
@@ -22,4 +22,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default postReducer;

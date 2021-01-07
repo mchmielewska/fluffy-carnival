@@ -17,11 +17,6 @@ import {
 
 class Favourites extends Component {
   render() {
-    this.props.getUsers();
-    this.props.getPosts();
-    this.props.getLikes();
-    this.props.getCurrentUser();
-
     const posts = this.props.posts;
 
     const users = this.props.users;

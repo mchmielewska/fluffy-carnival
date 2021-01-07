@@ -2,11 +2,11 @@ import { GET_CURRENT_USER, GET_USERS } from '../actions/types';
 
 const initialState = {};
 
-export default function (state = initialState, action) {
+const usersReducer = function (state = initialState, action) {
   switch (action.type) {
     case GET_CURRENT_USER:
       if (
-        state.currentUser?.user.name == undefined ||
+        state.currentUser?.user.name === undefined ||
         JSON.stringify(state.currentUser) !== JSON.stringify(action.payload)
       )
         return {
@@ -26,4 +26,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default usersReducer;
