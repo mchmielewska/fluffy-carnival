@@ -140,8 +140,8 @@ class AddPost extends Component {
                   accept="image/jpeg"
                 ></input>
               </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text"></input>
+              <div className="file-path-wrapper">
+                <input className="file-path validate" type="text"></input>
               </div>
             </div>
 

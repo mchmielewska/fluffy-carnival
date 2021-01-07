@@ -40,7 +40,7 @@ class SearchField extends Component {
             value={this.state.search}
           ></input>
           <button type="submit" className="btn">
-            <i class="material-icons">search</i>
+            <i className="material-icons">search</i>
           </button>
         </form>
       </li>

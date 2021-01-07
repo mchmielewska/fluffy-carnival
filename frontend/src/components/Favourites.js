@@ -15,7 +15,7 @@ import {
   getAuthor,
 } from '../utils/postUtils';
 
-class Dashboard extends Component {
+class Favourites extends Component {
   render() {
     this.props.getUsers();
     this.props.getPosts();
@@ -23,9 +23,13 @@ class Dashboard extends Component {
     this.props.getCurrentUser();
 
     const posts = this.props.posts;
+
     const users = this.props.users;
     const allLikes = this.props.likes;
     const currentUser = this.props.currentUser.id;
+    const postsLiked = allLikes.filter((post) => post.likes.length !== 0);
+
+    let favouritesArray = [];
 
     const handleLike = (e, id) => {
       e.preventDefault();
@@ -36,6 +40,22 @@ class Dashboard extends Component {
       e.preventDefault();
       this.props.removeLike(id);
     };
+
+    function checkForFavourites() {
+      const allLikedPosts = allLikes.filter((post) => post.likes.length !== 0);
+      const favouritesList = allLikedPosts.filter((post) =>
+        post.likes.find((postLike) => postLike.user === currentUser)
+      );
+      for (let i in favouritesList) {
+        const likedPost = posts.find(
+          (post) => post.id === favouritesList[i]._id
+        );
+        favouritesArray.push(likedPost);
+      }
+      return favouritesArray;
+    }
+
+    const postsLikedByUser = checkForFavourites();
 
     function likePost(id) {
       const postLikes = allLikes.find((post) => post._id === id);
@@ -67,8 +87,8 @@ class Dashboard extends Component {
       }
     }
 
-    const postList = posts.length ? (
-      posts
+    const postList = postsLiked.length ? (
+      postsLikedByUser
         .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
         .map((post) => {
           return (
@@ -156,4 +176,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(Dashboard));
+)(withRouter(Favourites));

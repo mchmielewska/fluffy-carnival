@@ -577,3 +577,8 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
 .search-item {
     margin: 0 10%;
 }
+
+.row .col.s10 .user-list {
+    margin-left: 9%;
+    margin-right: 9%;
+}

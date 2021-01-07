@@ -51,7 +51,7 @@ class Post extends Component {
               <p className="post-description">{this.props.post.description}</p>
             </div>
             <div className="card-action">
-              <p class="post-date">
+              <p className="post-date">
                 {dateBuilder(this.props.post.publishDate)}
               </p>
             </div>

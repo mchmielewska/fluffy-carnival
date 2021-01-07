@@ -42,6 +42,7 @@ import EditPost from './components/EditPost';
 import PostUpdated from './components/PostUpdated';
 import Friends from './components/Friends';
 import Search from './components/Search';
+import Favourites from './components/Favourites';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -56,7 +57,7 @@ if (localStorage.jwtToken) {
 
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    store.dispatch(logoutUser());
+    store.dispatch(logoutUser(this.props.history));
     window.location.href = '/login';
   }
 }
@@ -109,6 +110,7 @@ class App extends Component {
                 <Route exact path="/posts/:post_id/edit" component={EditPost} />
                 <Route path="/friends" component={Friends} />
                 <Route path="/search/" component={Search} />
+                <Route path="/favourites/" component={Favourites} />
               </div>
             </div>
           </Router>

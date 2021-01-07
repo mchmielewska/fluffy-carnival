@@ -8,7 +8,16 @@ exports.userSearch = async (req) => {
     users = await User.find({
       $and: [
         { visibility: 'visible' },
-        { $text: { $search: req.query.search, $caseSensitive: false } },
+        {
+          $or: [
+            {
+              name: { $regex: req.query.search, $options: 'i' },
+            },
+            {
+              surname: { $regex: req.query.search, $options: 'i' },
+            },
+          ],
+        },
       ],
     });
     return users;

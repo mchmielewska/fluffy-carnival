@@ -105,8 +105,8 @@ UserSchema.index(
   },
   {
     weights: {
-      name: 5,
-      surname: 5,
+      name: 3,
+      surname: 3,
       bio: 1,
     },
   }

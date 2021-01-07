@@ -11,7 +11,7 @@ import Sidebar from './Sidebar';
 class Home extends Component {
   onLogout(e) {
     e.preventDefault();
-    this.props.logoutUser(this.props.history);
+    this.props.logoutUser(this.props.history).bind(this);
   }
 
   render() {

@@ -146,9 +146,7 @@ class UserProfile extends Component {
                 <div className="card-content row">
                   <div className="col s12 right-align">{likePost(post.id)}</div>
                 </div>
-                <div className="card-image">
-                  <Link to={'/posts/' + post.id}>{postImage(post)}</Link>
-                </div>
+                <div className="card-image">{postImage(post)}</div>
                 <div className="card-content text">
                   <Link to={'/posts/' + post.id}>
                     <h6 className="card-title">{post.title}</h6>

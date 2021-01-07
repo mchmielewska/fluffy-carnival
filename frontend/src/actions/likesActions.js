@@ -21,7 +21,6 @@ export const addLike = (id) => (dispatch) => {
 };
 
 export const removeLike = (id) => (dispatch) => {
-  console.log('deleting');
   axios
     .delete(
       `${
