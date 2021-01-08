@@ -26,6 +26,7 @@ class SearchField extends Component {
     const query = this.state.search;
     this.props.findPosts(query, this.props.history);
     this.props.findUsers(query, this.props.history);
+    this.setState({ search: '' });
   }
 
   render() {
@@ -38,8 +39,11 @@ class SearchField extends Component {
             name="search"
             onChange={this.handleInputChange}
             value={this.state.search}
+            pattern=".{3,}"
+            required
+            title="3 characters minimum"
           ></input>
-          <button type="submit" className="btn">
+          <button type="submit" className="btn search">
             <i className="material-icons">search</i>
           </button>
         </form>

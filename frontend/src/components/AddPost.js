@@ -69,8 +69,21 @@ class AddPost extends Component {
   render() {
     return (
       <div className="container">
+        <button
+          className="nav-link btn btn-primary back-btn"
+          onClick={() => {
+            this.props.history.goBack();
+          }}
+        >
+          <i className="material-icons left">keyboard_arrow_left</i>
+          Back
+        </button>
+
         <div className="row">
-          <h4 style={{ marginBottom: '40px' }} className="page-header">
+          <h4
+            style={{ marginBottom: '40px', marginLeft: '15px' }}
+            className="page-header"
+          >
             New post
           </h4>
           <form

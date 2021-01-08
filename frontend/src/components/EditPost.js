@@ -70,8 +70,20 @@ class EditPost extends Component {
 
     return (
       <div className="container">
+        <button
+          className="nav-link btn btn-primary back-btn"
+          onClick={() => {
+            this.props.history.goBack();
+          }}
+        >
+          <i className="material-icons left">keyboard_arrow_left</i>
+          Back
+        </button>
         <div className="row">
-          <h4 style={{ marginBottom: '40px' }} className="page-header">
+          <h4
+            style={{ marginBottom: '40px', marginLeft: '15px' }}
+            className="page-header"
+          >
             Edit post
           </h4>
           <form className="col s12" onSubmit={this.handleSubmit}>
@@ -125,14 +137,19 @@ class EditPost extends Component {
               />
             </div>
             <div className="input-field file-field">
-              <span>File</span>
-              <input
-                type="file"
-                id="postImage"
-                name="postImage"
-                onChange={(e) => this.handleFileUpload(e)}
-                accept="image/jpeg"
-              ></input>
+              <div className="btn">
+                <span>File</span>
+                <input
+                  type="file"
+                  id="postImage"
+                  name="postImage"
+                  onChange={(e) => this.handleFileUpload(e)}
+                  accept="image/jpeg"
+                ></input>
+              </div>
+              <div className="file-path-wrapper">
+                <input className="file-path validate" type="text"></input>
+              </div>
             </div>
             <div className="input-field">
               <button type="submit" className="btn btn-primary">
@@ -140,15 +157,6 @@ class EditPost extends Component {
               </button>
             </div>
           </form>
-          <button
-            className="nav-link btn btn-primary"
-            onClick={() => {
-              this.props.history.goBack();
-            }}
-          >
-            <i className="material-icons left">keyboard_arrow_left</i>
-            Back
-          </button>
         </div>
       </div>
     );

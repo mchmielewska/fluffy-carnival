@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-// import { createHashHistory } from 'history'
 
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
@@ -46,26 +45,24 @@ import Friends from './components/Friends';
 import Search from './components/Search';
 import Favourites from './components/Favourites';
 
-// const history = createHashHistory();
-// console.log(history)
+// if (localStorage.jwtToken) {
+//   setAuthToken(localStorage.jwtToken);
+//   const decoded = jwt_decode(localStorage.jwtToken);
+//   store.dispatch(getCurrentUser());
+//   store.dispatch(setCurrentUser(decoded));
+//   store.dispatch(getUsers());
+//   store.dispatch(getPosts());
+//   store.dispatch(getLikes());
+//   store.dispatch(getFriendsList());
+//   store.dispatch(getPendingInvites());
 
-if (localStorage.jwtToken) {
-  setAuthToken(localStorage.jwtToken);
-  const decoded = jwt_decode(localStorage.jwtToken);
-  store.dispatch(getCurrentUser());
-  store.dispatch(setCurrentUser(decoded));
-  store.dispatch(getUsers());
-  store.dispatch(getPosts());
-  store.dispatch(getLikes());
-  store.dispatch(getFriendsList());
-  store.dispatch(getPendingInvites());
-
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    store.dispatch(logoutUser(this.props.history));
-    window.location.href = '/login';
-  }
-}
+//   const currentTime = Date.now() / 1000;
+//   if (decoded.exp < currentTime) {
+//     console.log(this)
+//     store.dispatch(logoutUser(this.props.history));
+//     window.location.href = '/login';
+//   }
+// }
 
 FilePond.registerPlugin(
   FilePondPluginImagePreview,
@@ -82,6 +79,34 @@ FilePond.setOptions({
 FilePond.parse(document.body);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  onLogout() {
+    store.dispatch(logoutUser(this.props.history));
+  }
+
+  componentDidMount() {
+    if (localStorage.jwtToken) {
+      setAuthToken(localStorage.jwtToken);
+      const decoded = jwt_decode(localStorage.jwtToken);
+      store.dispatch(getCurrentUser());
+      store.dispatch(setCurrentUser(decoded));
+      store.dispatch(getUsers());
+      store.dispatch(getPosts());
+      store.dispatch(getLikes());
+      store.dispatch(getFriendsList());
+      store.dispatch(getPendingInvites());
+
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        this.onLogout.bind(this);
+        window.location.href = '/login';
+      }
+    }
+  }
+
   render() {
     FilePond.parse(document.body);
 

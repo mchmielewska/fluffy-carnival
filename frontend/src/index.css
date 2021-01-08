@@ -579,10 +579,10 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
     margin: 0 10%;
 }
 
-.row .col.s10 .user-list {
+/* .row .col.s10 .user-list {
     margin-left: 9%;
     margin-right: 9%;
-}
+} */
 
 .single-tag {
     color: #999999;
@@ -593,10 +593,22 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
     letter-spacing: 0.1rem;
 }
 
-.tags {
+.col .row.tags {
     display: flex;
     flex-direction: row;
     margin: 1.5rem;
     margin-bottom: 0;
     height: 1rem;
+}
+
+.btn.search:focus {
+    background-color: transparent;
+}
+
+.back-btn {
+    margin-left: 15px;
+}
+
+.input-field .prefix.active{
+    color:#2196f3;
 }
