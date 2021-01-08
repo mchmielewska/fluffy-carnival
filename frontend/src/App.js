@@ -79,13 +79,6 @@ FilePond.setOptions({
 FilePond.parse(document.body);
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  onLogout() {
-    store.dispatch(logoutUser(this.props.history));
-  }
 
   componentDidMount() {
     if (localStorage.jwtToken) {
@@ -101,8 +94,7 @@ class App extends Component {
 
       const currentTime = Date.now() / 1000;
       if (decoded.exp < currentTime) {
-        this.onLogout.bind(this);
-        window.location.href = '/login';
+        store.dispatch(logoutUser(this.props.history));
       }
     }
   }
@@ -116,14 +108,10 @@ class App extends Component {
           <Router {...this.props}>
             <div>
               <Header />
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" render={(props) => <Home {...props}/> } />
               <div>
                 <Route exact path="/register" component={Register} />
-                <Route
-                  exact
-                  path="/login"
-                  render={(props) => <Login {...props} />}
-                />
+                <Route exact path="/login" component={Login} />
                 <Route path="/useractivated" component={Useractivated} />
                 <Route path="/usercreated" component={UserCreated} />
                 <Route path="/resetpassword" component={Resetpassword} />
