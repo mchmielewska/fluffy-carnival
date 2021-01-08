@@ -93,7 +93,7 @@ exports.postAuthenticateUser = (req, res, next) => {
         const token = jwt.sign(
           { email: user.email, id: user._id },
           process.env.SERVER_SECRET || config.server.secret,
-          { expiresIn: 10000 }
+          { expiresIn: 1000 }
         );
         res.json({
           auth: true,

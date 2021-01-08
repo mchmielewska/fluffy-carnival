@@ -139,7 +139,7 @@ export function postTags(post) {
 
   const tags = tagsArray
     ? tagsArray.map((tag) => {
-        return <span className="single-tag">{tag}</span>;
+        return <span className="single-tag" key={Math.random()}>{tag}</span>;
       })
     : null;
 

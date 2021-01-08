@@ -80,7 +80,28 @@ FilePond.parse(document.body);
 
 class App extends Component {
 
-  componentDidMount() {
+  // componentDidMount() {
+  //   if (localStorage.jwtToken) {
+  //     setAuthToken(localStorage.jwtToken);
+  //     const decoded = jwt_decode(localStorage.jwtToken);
+  //     store.dispatch(getCurrentUser());
+  //     store.dispatch(setCurrentUser(decoded));
+  //     store.dispatch(getUsers());
+  //     store.dispatch(getPosts());
+  //     store.dispatch(getLikes());
+  //     store.dispatch(getFriendsList());
+  //     store.dispatch(getPendingInvites());
+
+  //     const currentTime = Date.now() / 1000;
+  //     if (decoded.exp < currentTime) {
+  //       store.dispatch(logoutUser(this.props.history));
+  //     }
+  //   }
+  // }
+
+  render() {
+    FilePond.parse(document.body);
+
     if (localStorage.jwtToken) {
       setAuthToken(localStorage.jwtToken);
       const decoded = jwt_decode(localStorage.jwtToken);
@@ -97,10 +118,6 @@ class App extends Component {
         store.dispatch(logoutUser(this.props.history));
       }
     }
-  }
-
-  render() {
-    FilePond.parse(document.body);
 
     return (
       <Provider store={store}>
