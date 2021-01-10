@@ -28,7 +28,7 @@ exports.userSearch = async (req) => {
 };
 
 exports.postSearch = async (req) => {
-  if (req.query.privacy == 'all') {
+  if (req.query.privacy === 'all') {
     const user = await User.findById(loggedUserId);
     const friendsIds = friendsUtils.myFriends(user);
     let posts = await Post.find({
@@ -42,6 +42,26 @@ exports.postSearch = async (req) => {
         },
         { $and: [{ authorId: loggedUserId }, { state: 'published' }] },
         { $and: [{ privacyLevel: 'public' }, { state: 'published' }] },
+      ],
+    });
+    return posts;
+  }
+  if (req.query.tags) {
+    const user = await User.findById(loggedUserId);
+    const friendsIds = friendsUtils.myFriends(user);
+    let tag = req.query.tags;
+    let posts = await Post.find({
+      $or: [
+        {
+          $and: [
+            { authorId: friendsIds },
+            { state: 'published' },
+            { privacyLevel: 'friendsOnly' },
+            { tags: { $in: [tag] } }
+          ],
+        },
+        { $and: [{ authorId: loggedUserId }, { state: 'published' }, { tags: { $in: [tag] } }] },
+        { $and: [{ privacyLevel: 'public' }, { state: 'published' }, { tags: { $in: [tag] } }] },
       ],
     });
     return posts;

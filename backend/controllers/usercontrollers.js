@@ -76,8 +76,10 @@ exports.getActivateUser = (req, res, next) => {
 };
 
 exports.postAuthenticateUser = (req, res, next) => {
+  let start_time = Date.now(); 
   let { email, password } = req.body;
   User.findByEmail(email).then((user) => {
+    console.log(`Took ${Date.now() - start_time} to query db`)
     if (!user) {
       res.status(404).send('User not found');
       return;
@@ -89,6 +91,7 @@ exports.postAuthenticateUser = (req, res, next) => {
     }
 
     user.comparePassword(password).then((result) => {
+      console.log(`Took ${Date.now() - start_time} to query db + compare password`)
       if (result) {
         const token = jwt.sign(
           { email: user.email, id: user._id },
@@ -104,6 +107,7 @@ exports.postAuthenticateUser = (req, res, next) => {
           .status(401)
           .json({ auth: false, token: null, msg: 'Incorrect password' });
       }
+      console.log(`Took ${Date.now() - start_time} to query db + compare password + respond`)
     });
   });
 };

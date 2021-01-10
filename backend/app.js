@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-
+const morganBody = require('morgan-body');
 const express = require('express');
 const mongoose = require('mongoose');
 let config;
@@ -25,6 +25,8 @@ const app = express();
 app.use(bodyparser.json());
 app.use(passport.initialize());
 app.use(cors());
+
+morganBody(app);
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
