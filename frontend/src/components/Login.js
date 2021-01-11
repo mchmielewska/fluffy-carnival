@@ -126,4 +126,4 @@ const mapStateToProps = (state) => ({
   likes: state.likes,
 });
 
-export default connect(mapStateToProps, { loginUser })(withRouter(Login));
+export default withRouter(connect(mapStateToProps, { loginUser })(Login));

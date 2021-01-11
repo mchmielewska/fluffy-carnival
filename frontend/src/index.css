@@ -176,7 +176,8 @@ nav {
 .sidebar .responsive-img {
     margin: 10px;
     border-radius: 50%;
-    width: 150px
+    width: 150px;
+    height: 150px;
 }
 
 .user-details {
@@ -261,7 +262,8 @@ nav {
 }
 
 .profile-card .responsive-img {
-    width: 100px
+    width: 100px;
+    height: 100px
 }
 
 .description {
@@ -400,6 +402,7 @@ i {
     text-transform: uppercase;
     letter-spacing: 0.1rem;
     padding: 0.75rem;
+    margin: 5px;
 }
 
 .action-button i {
@@ -476,13 +479,16 @@ grid-template-columns: 1fr 1fr;
     border-radius: 50%;
 }
 
-.profile .responsive-img {
+.profile.responsive-img, .profile .responsive-img {
     width: 150px;
     margin-top: 1rem;
+    height: 150px;
+    display: inline-block;
 }
 
 .single-post.responsive-img {
-    width: 150px
+    width: 150px;
+    height: 150px;
 }
 
 .post-header.responsive-img {
@@ -612,4 +618,14 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
 
 .input-field .prefix.active{
     color:#2196f3;
+}
+
+button:focus {
+    outline: none;
+    color: #999999;
+    background-color: transparent;
+}
+
+.action-bar {
+    display: flex;
 }

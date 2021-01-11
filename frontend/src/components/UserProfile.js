@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import SidebarLinks from './SidebarLinks';
 import { inviteFriend } from '../actions/friendsActions';
+import { getCurrentUser } from '../actions/usersActions';
 import { getLikes, addLike, removeLike } from '../actions/likesActions';
 import {
   dateBuilder,
@@ -14,8 +15,12 @@ import {
 import { profileImage } from '../utils/userUtils';
 
 class UserProfile extends Component {
-  render() {
+  componentDidMount() {
+    this.props.getCurrentUser();
     this.props.getLikes();
+  }
+
+  render() {
     const friendsList = this.props.friendsList;
     const friendsIds = friendsList.map((el) => el._id);
     const allLikes = this.props.likes;
@@ -229,10 +234,12 @@ const mapDispatchToProps = (dispatch) => {
     removeLike: (id) => {
       dispatch(removeLike(id));
     },
+    getCurrentUser: () => {
+      dispatch(getCurrentUser());
+    },
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(UserProfile));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserProfile)
+);

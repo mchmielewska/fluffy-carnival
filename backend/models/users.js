@@ -92,6 +92,9 @@ const UserSchema = new Schema({
   profileImageType: {
     type: String,
   },
+  profileImageCloudUrl: {
+    type: String,
+  },
   likedPosts: {
     type: [LikedPostSchema],
   },
@@ -113,6 +116,9 @@ UserSchema.index(
 );
 
 UserSchema.virtual('profileImagePath').get(function () {
+  if (this.profileImageCloudUrl) {
+    return this.profileImageCloudUrl;
+  }
   if (this.profileImage != null && this.profileImageType != null) {
     return `data:${
       this.profileImageType

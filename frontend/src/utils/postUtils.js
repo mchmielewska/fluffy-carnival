@@ -9,7 +9,7 @@ export function postImage(post) {
         <Link to={'/posts/' + post.id}>
           <img
             className="post-img"
-            src="http://placekitten.com/300/300"
+            src="https://res.cloudinary.com/fluffy-carnival/image/upload/v1610371508/sincerely-media-FPrniQ84dEk-unsplash_r2f1bx.jpg"
             alt="post"
           ></img>
         </Link>

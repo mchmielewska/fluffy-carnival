@@ -26,16 +26,23 @@ exports.sendActivationEmail = (user) => {
       guid: user.guid,
     },
   });
-
+  console.log(config.SENDGRID_API_KEY);
   sgMail.setApiKey(process.env.SENDGRID_API_KEY || config.SENDGRID_API_KEY);
   const msg = {
     to: user.email,
-    from: 'fluffycarnival@fluffy.com',
+    from: 'happyapimail@gmail.com',
     subject: 'Activation link',
     text: 'Click to activate your account',
     html: `<a href="${generatedURL}">Click</a> to activate your account`,
   };
-  sgMail.send(msg);
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 exports.sendResetPasswordEmail = (user) => {
@@ -53,7 +60,7 @@ exports.sendResetPasswordEmail = (user) => {
   sgMail.setApiKey(config.SENDGRID_API_KEY);
   const msg = {
     to: user.email,
-    from: 'fluffycarnival@fluffy.com',
+    from: 'happyapimail@gmail.com',
     subject: 'Reset link',
     text: 'Click to reset your password',
     html: `<a href="${generatedURL}">Click</a> to reset your password`,
@@ -81,7 +88,7 @@ exports.sendInvitiationEmail = (user) => {
   sgMail.setApiKey(config.SENDGRID_API_KEY);
   const msg = {
     to: user.email,
-    from: 'fluffycarnival@fluffy.com',
+    from: 'happyapimail@gmail.com',
     subject: 'Friend request on Fluffy Carnival',
     text: 'Click to accept invitiation',
     html: `<a href="${generatedURLaccept}">Click</a> to accept invitiation. <a href="${generatedURLdecline}">Click</a> to decline invitiation. `,
@@ -96,7 +103,7 @@ exports.requestAccepted = async (friend) => {
   sgMail.setApiKey(config.SENDGRID_API_KEY);
   const msg = {
     to: requestor[0].email,
-    from: 'fluffycarnival@fluffy.com',
+    from: 'happyapimail@gmail.com',
     subject: 'New friend on Fluffy Carnival',
     text: 'You have a new friend on Fluffy Carnival',
     html: `${requested[0].name} ${requested[0].surname} is your new friend on Fluffy Carnival!`,
@@ -111,7 +118,7 @@ exports.requestDeclined = async (friend) => {
   sgMail.setApiKey(config.SENDGRID_API_KEY);
   const msg = {
     to: requestor[0].email,
-    from: 'fluffycarnival@fluffy.com',
+    from: 'happyapimail@gmail.com',
     subject: 'Invitation declined on Fluffy Carnival',
     text: 'Your invitation has been declined',
     html: `${requested[0].name} ${requested[0].surname} declined your invitation on Fluffy Carnival!`,

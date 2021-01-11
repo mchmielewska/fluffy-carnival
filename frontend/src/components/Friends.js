@@ -53,18 +53,18 @@ class Friends extends Component {
         const token = invite.inviteToken;
 
         return (
-          <div>
+          <div className="action-bar">
             <button
               className="material-icons action-button"
               onClick={(e) => handleClick(token, 'accept')}
             >
-              check
+              <i className="material-icons tiny">check</i>
             </button>
             <button
               className="material-icons action-button"
               onClick={(e) => handleClick(token, 'decline')}
             >
-              clear
+              <i className="material-icons tiny">clear</i>
             </button>
           </div>
         );
@@ -73,10 +73,10 @@ class Friends extends Component {
       }
     }
 
-    function getUserData(userId) {
+    function getUserData(userId, invite, actions) {
       const user = users.find((user) => user._id === userId);
       return (
-        <div>
+        <div key={user._id}>
           {profileImage(user)}
           <div className="user-details">
             <Link to={'/users/' + user._id}>
@@ -93,6 +93,7 @@ class Friends extends Component {
               <i className="material-icons tiny">remove_circle_outline</i>
               Remove invitation
             </button>
+            {actionIcons(invite, actions)}
           </div>
         </div>
       );
@@ -106,9 +107,8 @@ class Friends extends Component {
         return (
           <div className="col m3" key={invite.id}>
             <div className="card profile-card valign-wrapper">
-              {getUserData(userId)}
+              {getUserData(userId, invite, actions)}
             </div>
-            {actionIcons(invite, actions)}
           </div>
         );
       })
@@ -224,7 +224,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(Friends));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Friends)
+);

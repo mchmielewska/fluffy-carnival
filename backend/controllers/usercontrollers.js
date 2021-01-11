@@ -8,6 +8,7 @@ try {
 }
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
+const cloudinary = require('cloudinary').v2;
 const User = require('../models/users');
 const Post = require('../models/posts');
 const mailUtils = require('../utils/mail');
@@ -76,10 +77,10 @@ exports.getActivateUser = (req, res, next) => {
 };
 
 exports.postAuthenticateUser = (req, res, next) => {
-  let start_time = Date.now(); 
+  let start_time = Date.now();
   let { email, password } = req.body;
   User.findByEmail(email).then((user) => {
-    console.log(`Took ${Date.now() - start_time} to query db`)
+    console.log(`Took ${Date.now() - start_time} to query db`);
     if (!user) {
       res.status(404).send('User not found');
       return;
@@ -91,7 +92,9 @@ exports.postAuthenticateUser = (req, res, next) => {
     }
 
     user.comparePassword(password).then((result) => {
-      console.log(`Took ${Date.now() - start_time} to query db + compare password`)
+      console.log(
+        `Took ${Date.now() - start_time} to query db + compare password`
+      );
       if (result) {
         const token = jwt.sign(
           { email: user.email, id: user._id },
@@ -107,7 +110,11 @@ exports.postAuthenticateUser = (req, res, next) => {
           .status(401)
           .json({ auth: false, token: null, msg: 'Incorrect password' });
       }
-      console.log(`Took ${Date.now() - start_time} to query db + compare password + respond`)
+      console.log(
+        `Took ${
+          Date.now() - start_time
+        } to query db + compare password + respond`
+      );
     });
   });
 };
@@ -318,7 +325,7 @@ exports.putChangeVisibility = (req, res, next) => {
 exports.patchProfileImage = (req, res, next) => {
   User.findOne({ _id: loggedUserId }).then((user) => {
     User.findByIdAndUpdate(loggedUserId).then((user) => {
-      const result = saveImage(user, req.file);
+      const result = saveImage(user, req.file.path);
       if (result) {
         res.status(200).json({ success: true, msg: 'Profile image updated' });
       } else {
@@ -330,15 +337,33 @@ exports.patchProfileImage = (req, res, next) => {
 };
 
 function saveImage(user, file) {
-  var fs = require('fs');
-  const imageEncoded = fs.readFileSync(file.path);
-  if (imageEncoded == null) return false;
-  // const image = JSON.parse(imageEncoded).then(json => console.log(json));
-  // console.log(image != null, image.type, imageMimeTypes)
-  // if (image != null && imageMimeTypes.includes(image.type)) {
+  // var fs = require('fs');
+  // const imageEncoded = fs.readFileSync(file.path);
+  // if (imageEncoded == null) return false;
+  // // const image = JSON.parse(imageEncoded).then(json => console.log(json));
+  // // console.log(image != null, image.type, imageMimeTypes)
+  // // if (image != null && imageMimeTypes.includes(image.type)) {
 
-  user.profileImage = new Buffer.from(imageEncoded, 'base64');
-  user.profileImageType = 'image/jpeg';
+  // user.profileImage = new Buffer.from(imageEncoded, 'base64');
+  // user.profileImageType = 'image/jpeg';
+
+  if (file) {
+    cloudinary.uploader.upload(
+      file,
+      { width: 300, height: 300, crop: 'scale' },
+      function (error, result) {
+        console.log('result:', result, 'resultUrl', result.secure_url);
+
+        if (result.secure_url) {
+          // user.profileImage = undefined;
+          user.profileImageCloudUrl = result.secure_url;
+          user.save();
+        }
+
+        console.log(result, error);
+      }
+    );
+  }
   user.save();
   return true;
 }

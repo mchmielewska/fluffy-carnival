@@ -33,21 +33,29 @@ exports.postAddNew = (req, res, next) => {
     tags: req.body.tags,
   });
 
-  cloudinary.uploader.upload(req.file.path, { async: false },
-    function(error, result) {
-      console.log("result:", result, "resultUrl", result.secure_url);
+  if (req.file.path) {
+    cloudinary.uploader.upload(
+      req.file.path,
+      { async: 'false', width: 800 },
+      function (error, result) {
+        console.log('result:', result, 'resultUrl', result.secure_url);
 
-      if (result.secure_url) {
-        NewPost.postImageCloudUrl = result.secure_url;
-        NewPost.save();
-      };
-
-      console.log(result, error)
-    });
-
-  // saveImage(NewPost, req.file);
-  NewPost.save();
-  res.status(200).json({ success: true, msg: 'Post created!' });
+        if (result.secure_url) {
+          NewPost.postImageCloudUrl = result.secure_url;
+          NewPost.save();
+          console.log(result, error);
+          res
+            .status(200)
+            .json({ success: true, msg: 'Post created (with image)' });
+          return;
+        }
+      }
+    );
+  } else {
+    // saveImage(NewPost, req.file);
+    NewPost.save();
+    res.status(200).json({ success: true, msg: 'Post created!' });
+  }
 };
 
 exports.getFindPost = async (req, res, next) => {
@@ -107,7 +115,7 @@ exports.deletePost = (req, res, next) => {
   });
 };
 
-exports.patchUpdatePost = (req, res, next) => {
+exports.patchUpdatePost = async (req, res, next) => {
   Post.findByIdAndUpdate(req.query.id, { $set: req.body }).then((post) => {
     if (!post) {
       res.status(400).json({ success: false, msg: 'Post not found' });
@@ -121,24 +129,31 @@ exports.patchUpdatePost = (req, res, next) => {
     }
 
     // if (req.file) saveImage(post, req.file);
-    if (req.file) { 
-      cloudinary.uploader.upload(req.file.path, { async: false },
-      function(error, result) {
-        console.log("result:", result, "resultUrl", result.secure_url);
-  
-        if (result.secure_url) {
-          post.postImage = undefined;
-          post.postImageCloudUrl = result.secure_url;
-          post.save();
-        };
-  
-        console.log(result, error)
-      });
-    }
+    if (req.file) {
+      cloudinary.uploader.upload(
+        req.file.path,
+        { async: 'false', width: 800 },
+        function (error, result) {
+          console.log('result:', result, 'resultUrl', result.secure_url);
 
-    post.save();
-    res.status(200).json({ success: true, msg: 'Post updated' });
-    return;
+          if (result.secure_url) {
+            // post.postImage = undefined;
+            post.postImageCloudUrl = result.secure_url;
+          }
+
+          console.log(result, error);
+          post.save();
+          res
+            .status(200)
+            .json({ success: true, msg: 'Post updated (with image)' });
+          return;
+        }
+      );
+    } else {
+      post.save();
+      res.status(200).json({ success: true, msg: 'Post updated' });
+      return;
+    }
   });
 };
 

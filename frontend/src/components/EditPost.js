@@ -65,7 +65,6 @@ class EditPost extends Component {
   }
 
   render() {
-    this.props.getPosts();
     const post = this.props.post;
 
     return (
@@ -171,6 +170,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { getPosts, patchPost })(
-  withRouter(EditPost)
-);
+export default withRouter(connect(mapStateToProps, { patchPost })(EditPost));

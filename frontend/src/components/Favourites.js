@@ -16,9 +16,12 @@ import {
 } from '../utils/postUtils';
 
 class Favourites extends Component {
+  componentDidUpdate() {
+    this.props.getLikes();
+  }
+
   render() {
     const posts = this.props.posts;
-
     const users = this.props.users;
     const allLikes = this.props.likes;
     const currentUser = this.props.currentUser.id;
@@ -168,7 +171,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(Favourites));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Favourites)
+);

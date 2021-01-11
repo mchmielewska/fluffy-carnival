@@ -96,6 +96,7 @@ class EditUser extends Component {
             src="https://i.imgur.com/IJMRjcI.png"
             alt="profile"
             width="100%"
+            height="100%"
           ></img>
         );
       } else {
@@ -105,6 +106,7 @@ class EditUser extends Component {
             src={user.profileImagePath}
             alt="profile"
             width="100%"
+            height="100%"
           ></img>
         );
       }
@@ -285,6 +287,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { patchUser, patchProfileImage })(
-  withRouter(EditUser)
+export default withRouter(
+  connect(mapStateToProps, { patchUser, patchProfileImage })(EditUser)
 );

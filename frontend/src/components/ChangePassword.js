@@ -80,6 +80,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { patchPassword })(
-  withRouter(ChangePassword)
+export default withRouter(
+  connect(mapStateToProps, { patchPassword })(ChangePassword)
 );

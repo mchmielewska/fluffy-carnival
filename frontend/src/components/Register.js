@@ -190,4 +190,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default withRouter(connect(mapStateToProps, { registerUser })(Register));

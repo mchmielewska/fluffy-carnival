@@ -74,7 +74,7 @@ PostSchema.virtual('postImagePath').get(function () {
   if (this.postImageCloudUrl) {
     return this.postImageCloudUrl;
   }
-  
+
   if (this.postImage != null && this.postImageType != null) {
     return `data:${
       this.postImageType

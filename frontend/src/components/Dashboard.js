@@ -23,29 +23,28 @@ class Dashboard extends Component {
     if (this.props.tag !== undefined) {
       let tag = this.props.tag;
       this.props.getPostsByTag(tag);
-      this.setState( { tag: undefined })
-    } else { 
+      this.setState({ tag: undefined });
+    } else {
       console.log('all posts');
-      this.props.getPosts(); 
+      this.props.getPosts();
     }
 
     this.props.getLikes();
     this.props.getCurrentUser();
   }
 
-  componentDidUpdate(prevProps) {
-    console.log('update')
-    if (this.props.tag !== undefined) {
-      let tag = this.props.tag;
-      this.props.getPostsByTag(tag);
-    } else { 
-      console.log('all posts');
-      this.props.getPosts(); 
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   console.log('update')
+  //   if (this.props.tag !== undefined) {
+  //     let tag = this.props.tag;
+  //     this.props.getPostsByTag(tag);
+  //   } else {
+  //     console.log('all posts');
+  //     this.props.getPosts();
+  //   }
+  // }
 
   render() {
-
     const posts = this.props.posts;
     const users = this.props.users;
     const allLikes = this.props.likes;
@@ -192,11 +191,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     getPostsByTag: (tag) => {
       dispatch(getPostsByTag(tag));
-    }
+    },
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(Dashboard));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+);

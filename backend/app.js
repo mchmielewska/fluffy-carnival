@@ -35,13 +35,13 @@ const opts = {
   secretOrKey: process.env.SERVER_SECRET || config.server.secret,
 };
 
-console.log(":(((((((((((", config.server)
+console.log(':(((((((((((', config.server);
 
 if (config.cloudinary) {
-  cloudinary.config({ 
-    cloud_name: config.cloudinary.cloud_name, 
-    api_key: config.cloudinary.api_key, 
-    api_secret: config.cloudinary.api_secret 
+  cloudinary.config({
+    cloud_name: config.cloudinary.cloud_name,
+    api_key: config.cloudinary.api_key,
+    api_secret: config.cloudinary.api_secret,
   });
 }
 

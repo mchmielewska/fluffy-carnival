@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { getCurrentUser } from '../actions/usersActions';
 
 class CurrentUser extends Component {
+  componentDidUpdate() {
+    this.props.getCurrentUser();
+  }
+
   render() {
     function profileImage(user) {
       if (user.profileImagePath === undefined) {
         return (
-          <img
-            className="responsive-img"
-            src="https://i.imgur.com/IJMRjcI.png"
-            alt="profile"
-          ></img>
+          <Link
+            to={{
+              pathname: `/users/${id}`,
+            }}
+          >
+            <img
+              className="responsive-img"
+              src="https://i.imgur.com/IJMRjcI.png"
+              alt="profile"
+            ></img>
+          </Link>
         );
       } else {
         return (
-          <img
-            className="responsive-img"
-            src={user.profileImagePath}
-            alt="profile"
-          ></img>
+          <Link
+            to={{
+              pathname: `/users/${id}`,
+            }}
+          >
+            <img
+              className="responsive-img"
+              src={user.profileImagePath}
+              alt="profile"
+            ></img>
+          </Link>
         );
       }
     }
@@ -90,4 +107,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CurrentUser);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCurrentUser: () => {
+      dispatch(getCurrentUser());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentUser);

@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { GET_ERRORS, GET_POSTS, DELETE_POST, FIND_POSTS, GET_POSTS_BY_TAG } from './types';
+import {
+  GET_ERRORS,
+  GET_POSTS,
+  DELETE_POST,
+  FIND_POSTS,
+  GET_POSTS_BY_TAG,
+} from './types';
 
 export const getPosts = (user) => (dispatch) => {
   axios
@@ -23,9 +29,8 @@ export const getPosts = (user) => (dispatch) => {
     });
 };
 
-
 export const getPostsByTag = (tag) => (dispatch) => {
-  console.log('get posts by tag')
+  console.log('get posts by tag');
   axios
     .get(
       `${
@@ -33,7 +38,7 @@ export const getPostsByTag = (tag) => (dispatch) => {
       }/posts/find?tags=${tag}`
     )
     .then((res) => {
-      console.log(res)
+      console.log(res);
       dispatch({
         type: GET_POSTS_BY_TAG,
         payload: res.data,

@@ -1,19 +1,16 @@
 /*jshint esversion: 6 */
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import { Provider } from 'react-redux';
-import { store, persistor } from './store';
-import jwt_decode from 'jwt-decode';
-import setAuthToken from './setAuthToken';
-import { setCurrentUser, logoutUser } from './actions/authentication';
+import { store } from './store';
 import { getUsers, getCurrentUser } from './actions/usersActions';
 import { getPosts } from './actions/postsActions';
 import { getFriendsList, getPendingInvites } from './actions/friendsActions';
 import { getLikes } from './actions/likesActions';
 
-import { PersistGate } from 'redux-persist5/integration/react';
 import * as FilePond from 'filepond';
 import '../node_modules/filepond/dist/filepond.min.css';
 
@@ -45,27 +42,6 @@ import Friends from './components/Friends';
 import Search from './components/Search';
 import Favourites from './components/Favourites';
 
-import { useHistory } from 'react-router-dom';
-
-// if (localStorage.jwtToken) {
-//   setAuthToken(localStorage.jwtToken);
-//   const decoded = jwt_decode(localStorage.jwtToken);
-//   store.dispatch(getCurrentUser());
-//   store.dispatch(setCurrentUser(decoded));
-//   store.dispatch(getUsers());
-//   store.dispatch(getPosts());
-//   store.dispatch(getLikes());
-//   store.dispatch(getFriendsList());
-//   store.dispatch(getPendingInvites());
-
-//   const currentTime = Date.now() / 1000;
-//   if (decoded.exp < currentTime) {
-//     console.log(this)
-//     store.dispatch(logoutUser(this.props.history));
-//     window.location.href = '/login';
-//   }
-// }
-
 FilePond.registerPlugin(
   FilePondPluginImagePreview,
   FilePondPluginImageResize,
@@ -81,76 +57,63 @@ FilePond.setOptions({
 FilePond.parse(document.body);
 
 class App extends Component {
-
-  // componentDidMount() {
-  //   if (localStorage.jwtToken) {
-  //     setAuthToken(localStorage.jwtToken);
-  //     const decoded = jwt_decode(localStorage.jwtToken);
-  //     store.dispatch(getCurrentUser());
-  //     store.dispatch(setCurrentUser(decoded));
-  //     store.dispatch(getUsers());
-  //     store.dispatch(getPosts());
-  //     store.dispatch(getLikes());
-  //     store.dispatch(getFriendsList());
-  //     store.dispatch(getPendingInvites());
-
-  //     const currentTime = Date.now() / 1000;
-  //     if (decoded.exp < currentTime) {
-  //       store.dispatch(logoutUser(this.props.history));
-  //     }
-  //   }
-  // }
-
   render() {
     FilePond.parse(document.body);
 
-    if (localStorage.jwtToken) {
-      setAuthToken(localStorage.jwtToken);
-      const decoded = jwt_decode(localStorage.jwtToken);
-      store.dispatch(getCurrentUser());
-      store.dispatch(setCurrentUser(decoded));
-      store.dispatch(getUsers());
-      store.dispatch(getPosts());
-      store.dispatch(getLikes());
-      store.dispatch(getFriendsList());
-      store.dispatch(getPendingInvites());
-    }
-
     return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Router>
-            <div>
-              <Header />
-              <Route exact path="/" component={Home} />
-              <div>
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
-                <Route path="/useractivated" component={Useractivated} />
-                <Route path="/usercreated" component={UserCreated} />
-                <Route path="/resetpassword" component={Resetpassword} />
-                <Route path="/resetpassword2" component={Resetpassword2} />
-                <Route exact path="/posts/" component={Dashboard} />
-                <Route exact path="/tags/:tag" component={Dashboard} />
-                <Route exact path="/posts/:post_id" component={Post} />
-                <Route path="/postadded" component={PostAdded} />
-                <Route exact path="/post_add" component={AddPost} />
-                <Route exact path="/users" component={Users} />
-                <Route exact path="/users/:user_id" component={UserProfile} />
-                <Route exact path="/users/:user_id/edit" component={EditUser} />
-                <Route path="/userupdated/" component={UserUpdated} />
-                <Route path="/postupdated/" component={PostUpdated} />
-                <Route exact path="/posts/:post_id/edit" component={EditPost} />
-                <Route path="/friends" component={Friends} />
-                <Route path="/search/" component={Search} />
-                <Route path="/favourites/" component={Favourites} />
-              </div>
-            </div>
-          </Router>
-        </PersistGate>
-      </Provider>
+      <div>
+        <Header />
+        <Route exact path="/" component={Home} />
+        <div>
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route path="/useractivated" component={Useractivated} />
+          <Route path="/usercreated" component={UserCreated} />
+          <Route path="/resetpassword" component={Resetpassword} />
+          <Route path="/resetpassword2" component={Resetpassword2} />
+          <Route exact path="/posts/" component={Dashboard} />
+          <Route exact path="/tags/:tag" component={Dashboard} />
+          <Route exact path="/posts/:post_id" component={Post} />
+          <Route path="/postadded" component={PostAdded} />
+          <Route exact path="/post_add" component={AddPost} />
+          <Route exact path="/users" component={Users} />
+          <Route exact path="/users/:user_id" component={UserProfile} />
+          <Route exact path="/users/:user_id/edit" component={EditUser} />
+          <Route path="/userupdated/" component={UserUpdated} />
+          <Route path="/postupdated/" component={PostUpdated} />
+          <Route exact path="/posts/:post_id/edit" component={EditPost} />
+          <Route path="/friends" component={Friends} />
+          <Route path="/search/" component={Search} />
+          <Route path="/favourites/" component={Favourites} />
+        </div>
+      </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  posts: state.posts,
+  users: state.users.all,
+  likes: state.likes,
+  currentUser: state.auth.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPosts: () => {
+      dispatch(getPosts());
+    },
+    getUsers: () => {
+      dispatch(getUsers());
+    },
+    getLikes: () => {
+      dispatch(getLikes());
+    },
+    getCurrentUser: () => {
+      dispatch(getCurrentUser());
+    },
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

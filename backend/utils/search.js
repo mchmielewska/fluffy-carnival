@@ -57,11 +57,23 @@ exports.postSearch = async (req) => {
             { authorId: friendsIds },
             { state: 'published' },
             { privacyLevel: 'friendsOnly' },
-            { tags: { $in: [tag] } }
+            { tags: { $in: [tag] } },
           ],
         },
-        { $and: [{ authorId: loggedUserId }, { state: 'published' }, { tags: { $in: [tag] } }] },
-        { $and: [{ privacyLevel: 'public' }, { state: 'published' }, { tags: { $in: [tag] } }] },
+        {
+          $and: [
+            { authorId: loggedUserId },
+            { state: 'published' },
+            { tags: { $in: [tag] } },
+          ],
+        },
+        {
+          $and: [
+            { privacyLevel: 'public' },
+            { state: 'published' },
+            { tags: { $in: [tag] } },
+          ],
+        },
       ],
     });
     return posts;

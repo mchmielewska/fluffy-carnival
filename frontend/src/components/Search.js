@@ -119,4 +119,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Search));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));

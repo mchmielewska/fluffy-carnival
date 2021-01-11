@@ -13,7 +13,7 @@ export const registerUser = (user, history) => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data,
+        payload: err.response,
       });
     });
 };
@@ -34,7 +34,7 @@ export const loginUser = (user) => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data,
+        payload: err.response,
       });
     });
 };
@@ -52,6 +52,6 @@ export const logoutUser = (history) => (dispatch) => {
   dispatch({
     type: LOGOUT_USER,
   });
-  console.log(history)
+  console.log(history);
   history.push('/login');
 };

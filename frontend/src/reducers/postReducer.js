@@ -17,7 +17,7 @@ const postReducer = function (state = initialState, action) {
       return state;
 
     case GET_POSTS_BY_TAG:
-      console.log(action.payload)
+      console.log(action.payload);
       const newStateTags = action.payload.sort(
         (a, b) => a.publishDate < b.publishDate
       );
