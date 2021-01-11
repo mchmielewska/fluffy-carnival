@@ -33,8 +33,6 @@ exports.postAddNew = (req, res, next) => {
     tags: req.body.tags,
   });
 
-  // console.log(req.file.path)
-
   cloudinary.uploader.upload(req.file.path, { async: false },
     function(error, result) {
       console.log("result:", result, "resultUrl", result.secure_url);
@@ -42,17 +40,12 @@ exports.postAddNew = (req, res, next) => {
       if (result.secure_url) {
         NewPost.postImageCloudUrl = result.secure_url;
         NewPost.save();
-        console.log("tutaj ustawilem wartosc")
       };
 
       console.log(result, error)
     });
 
-  console.log(NewPost);
-
-
   // saveImage(NewPost, req.file);
-  console.log("tutaj koncze wysylac")
   NewPost.save();
   res.status(200).json({ success: true, msg: 'Post created!' });
 };
@@ -127,7 +120,21 @@ exports.patchUpdatePost = (req, res, next) => {
       return;
     }
 
-    if (req.file) saveImage(post, req.file);
+    // if (req.file) saveImage(post, req.file);
+    if (req.file) { 
+      cloudinary.uploader.upload(req.file.path, { async: false },
+      function(error, result) {
+        console.log("result:", result, "resultUrl", result.secure_url);
+  
+        if (result.secure_url) {
+          post.postImage = undefined;
+          post.postImageCloudUrl = result.secure_url;
+          post.save();
+        };
+  
+        console.log(result, error)
+      });
+    }
 
     post.save();
     res.status(200).json({ success: true, msg: 'Post updated' });
