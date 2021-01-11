@@ -15,6 +15,7 @@ class Post extends Component {
   };
 
   render() {
+    console.log(this.props.post);
     function postActionPanel(userId, postId, handleClick) {
       if (userId !== currentUser.id) return '';
 

@@ -52,5 +52,6 @@ export const logoutUser = (history) => (dispatch) => {
   dispatch({
     type: LOGOUT_USER,
   });
+  console.log(history)
   history.push('/login');
 };

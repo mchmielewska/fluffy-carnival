@@ -45,6 +45,8 @@ import Friends from './components/Friends';
 import Search from './components/Search';
 import Favourites from './components/Favourites';
 
+import { useHistory } from 'react-router-dom';
+
 // if (localStorage.jwtToken) {
 //   setAuthToken(localStorage.jwtToken);
 //   const decoded = jwt_decode(localStorage.jwtToken);
@@ -112,20 +114,15 @@ class App extends Component {
       store.dispatch(getLikes());
       store.dispatch(getFriendsList());
       store.dispatch(getPendingInvites());
-
-      const currentTime = Date.now() / 1000;
-      if (decoded.exp < currentTime) {
-        store.dispatch(logoutUser(this.props.history));
-      }
     }
 
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Router {...this.props}>
+          <Router>
             <div>
               <Header />
-              <Route exact path="/" render={(props) => <Home {...props}/> } />
+              <Route exact path="/" component={Home} />
               <div>
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
@@ -134,6 +131,7 @@ class App extends Component {
                 <Route path="/resetpassword" component={Resetpassword} />
                 <Route path="/resetpassword2" component={Resetpassword2} />
                 <Route exact path="/posts/" component={Dashboard} />
+                <Route exact path="/tags/:tag" component={Dashboard} />
                 <Route exact path="/posts/:post_id" component={Post} />
                 <Route path="/postadded" component={PostAdded} />
                 <Route exact path="/post_add" component={AddPost} />

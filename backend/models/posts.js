@@ -59,6 +59,9 @@ const PostSchema = new Schema({
   postImageType: {
     type: String,
   },
+  postImageCloudUrl: {
+    type: String,
+  },
   comments: {
     type: [CommentSchema],
   },
@@ -68,6 +71,10 @@ const PostSchema = new Schema({
 });
 
 PostSchema.virtual('postImagePath').get(function () {
+  if (this.postImageCloudUrl) {
+    return this.postImageCloudUrl;
+  }
+  
   if (this.postImage != null && this.postImageType != null) {
     return `data:${
       this.postImageType

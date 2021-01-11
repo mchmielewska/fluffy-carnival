@@ -5,11 +5,22 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
 import SearchField from './SearchField';
+import jwt_decode from 'jwt-decode';
 
 class Header extends Component {
   onLogout(e) {
     e.preventDefault();
     this.props.logoutUser(this.props.history);
+  }
+
+  componentDidMount() {
+    if (localStorage.jwtToken) {
+      const decoded = jwt_decode(localStorage.jwtToken);
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        this.props.logoutUser(this.props.history);
+      }
+    }
   }
 
   render() {

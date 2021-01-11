@@ -14,6 +14,8 @@ const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
 const cors = require('cors');
 
+const cloudinary = require('cloudinary').v2;
+
 const bodyparser = require('body-parser');
 const UserRoutes = require('./routers/users');
 const PostRoutes = require('./routers/posts');
@@ -32,6 +34,16 @@ const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
   secretOrKey: process.env.SERVER_SECRET || config.server.secret,
 };
+
+console.log(":(((((((((((", config.server)
+
+if (config.cloudinary) {
+  cloudinary.config({ 
+    cloud_name: config.cloudinary.cloud_name, 
+    api_key: config.cloudinary.api_key, 
+    api_secret: config.cloudinary.api_secret 
+  });
+}
 
 const successHandler = (jwt_payload, done) => {
   User.findById(jwt_payload.id).then((user) => {

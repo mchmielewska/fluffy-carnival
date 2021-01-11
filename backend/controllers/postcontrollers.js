@@ -3,6 +3,8 @@ const User = require('../models/users');
 const jwt = require('jsonwebtoken');
 const searchParams = require('../utils/search');
 const _ = require('lodash');
+const cloudinary = require('cloudinary').v2;
+const { post } = require('../routers/users');
 
 function saveImage(post, file) {
   var fs = require('fs');
@@ -31,7 +33,26 @@ exports.postAddNew = (req, res, next) => {
     tags: req.body.tags,
   });
 
-  saveImage(NewPost, req.file);
+  // console.log(req.file.path)
+
+  cloudinary.uploader.upload(req.file.path, { async: false },
+    function(error, result) {
+      console.log("result:", result, "resultUrl", result.secure_url);
+
+      if (result.secure_url) {
+        NewPost.postImageCloudUrl = result.secure_url;
+        NewPost.save();
+        console.log("tutaj ustawilem wartosc")
+      };
+
+      console.log(result, error)
+    });
+
+  console.log(NewPost);
+
+
+  // saveImage(NewPost, req.file);
+  console.log("tutaj koncze wysylac")
   NewPost.save();
   res.status(200).json({ success: true, msg: 'Post created!' });
 };

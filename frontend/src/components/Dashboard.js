@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getPosts } from '../actions/postsActions';
+import { getPosts, getPostsByTag } from '../actions/postsActions';
 import { getCurrentUser, getUsers } from '../actions/usersActions';
 import Sidebar from './Sidebar';
 import { getLikes, addLike, removeLike } from '../actions/likesActions';
@@ -15,13 +15,36 @@ import {
   getAuthor,
   postTags,
 } from '../utils/postUtils';
+import { getFriendsList } from '../actions/friendsActions';
 
 class Dashboard extends Component {
-  render() {
+  componentDidMount() {
     this.props.getUsers();
-    this.props.getPosts();
+    if (this.props.tag !== undefined) {
+      let tag = this.props.tag;
+      this.props.getPostsByTag(tag);
+      this.setState( { tag: undefined })
+    } else { 
+      console.log('all posts');
+      this.props.getPosts(); 
+    }
+
     this.props.getLikes();
     this.props.getCurrentUser();
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log('update')
+    if (this.props.tag !== undefined) {
+      let tag = this.props.tag;
+      this.props.getPostsByTag(tag);
+    } else { 
+      console.log('all posts');
+      this.props.getPosts(); 
+    }
+  }
+
+  render() {
 
     const posts = this.props.posts;
     const users = this.props.users;
@@ -127,13 +150,24 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.auth.user,
-    posts: state.posts,
-    users: state.users.all,
-    likes: state.likes,
-  };
+const mapStateToProps = (state, ownProps) => {
+  let tag = ownProps.match ? ownProps.match.params.tag : undefined;
+  if (tag !== undefined) {
+    return {
+      tag: tag,
+      currentUser: state.auth.user,
+      posts: state.posts,
+      users: state.users.all,
+      likes: state.likes,
+    };
+  } else {
+    return {
+      currentUser: state.auth.user,
+      posts: state.posts,
+      users: state.users.all,
+      likes: state.likes,
+    };
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -156,6 +190,9 @@ const mapDispatchToProps = (dispatch) => {
     getCurrentUser: () => {
       dispatch(getCurrentUser());
     },
+    getPostsByTag: (tag) => {
+      dispatch(getPostsByTag(tag));
+    }
   };
 };
 

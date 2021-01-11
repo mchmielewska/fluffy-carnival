@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, GET_POSTS, DELETE_POST, FIND_POSTS } from './types';
+import { GET_ERRORS, GET_POSTS, DELETE_POST, FIND_POSTS, GET_POSTS_BY_TAG } from './types';
 
 export const getPosts = (user) => (dispatch) => {
   axios
@@ -12,6 +12,30 @@ export const getPosts = (user) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: GET_POSTS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.res,
+      });
+    });
+};
+
+
+export const getPostsByTag = (tag) => (dispatch) => {
+  console.log('get posts by tag')
+  axios
+    .get(
+      `${
+        process.env.SERVER_URL || 'http://localhost:9090'
+      }/posts/find?tags=${tag}`
+    )
+    .then((res) => {
+      console.log(res)
+      dispatch({
+        type: GET_POSTS_BY_TAG,
         payload: res.data,
       });
     })
