@@ -12,10 +12,10 @@ export const addLike = (id) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -33,10 +33,10 @@ export const removeLike = (id) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -50,10 +50,10 @@ export const getLikes = () => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };

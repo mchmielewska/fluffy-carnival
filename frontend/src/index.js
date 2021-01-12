@@ -20,7 +20,6 @@ import { getLikes } from './actions/likesActions';
 import { PersistGate } from 'redux-persist5/integration/react';
 
 if (localStorage.jwtToken) {
-  console.log('index render!');
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
   store.dispatch(getCurrentUser());
@@ -31,8 +30,6 @@ if (localStorage.jwtToken) {
   store.dispatch(getFriendsList());
   store.dispatch(getPendingInvites());
 }
-
-console.log('index');
 
 ReactDOM.render(
   <Provider store={store}>

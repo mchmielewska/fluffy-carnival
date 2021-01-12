@@ -16,11 +16,20 @@ import {
 } from '../utils/postUtils';
 
 class Favourites extends Component {
-  componentDidUpdate() {
+  componentDidMount() {  
+    const previousPathObject = this.props.location
+    const previousPath = previousPathObject.state.from;
+    console.log(previousPath)
+    if (previousPath) {
+      if (previousPath.includes('tags')) {
+        this.props.getPosts();
+      }
+    }
     this.props.getLikes();
   }
 
   render() {
+    
     const posts = this.props.posts;
     const users = this.props.users;
     const allLikes = this.props.likes;
@@ -85,7 +94,14 @@ class Favourites extends Component {
       }
     }
 
-    const postList = postsLiked.length ? (
+    function checkForUndefined(posts) {
+      for (let i in posts) {
+        if (posts[i] === undefined) return true;
+      }
+      return;
+    }
+
+    const postList = postsLiked.length && !checkForUndefined(postsLikedByUser) ? (
       postsLikedByUser
         .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
         .map((post) => {
@@ -130,7 +146,7 @@ class Favourites extends Component {
 
     return (
       <div className="row">
-        <Sidebar />
+        <Sidebar {...this.props}/>
         <div className="col s10">
           <div className="row center post-list">{postList}</div>
         </div>

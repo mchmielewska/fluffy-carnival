@@ -10,10 +10,10 @@ export const registerUser = (user, history) => (dispatch) => {
       user
     )
     .then((res) => history.push('/usercreated'))
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.response,
+        error: error.response.data
       });
     });
 };
@@ -31,10 +31,10 @@ export const loginUser = (user) => (dispatch) => {
       const decoded = jwt_decode(token);
       dispatch(setCurrentUser(decoded));
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.response,
+        error: error.response.data
       });
     });
 };
@@ -52,6 +52,5 @@ export const logoutUser = (history) => (dispatch) => {
   dispatch({
     type: LOGOUT_USER,
   });
-  console.log(history);
   history.push('/login');
 };

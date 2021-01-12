@@ -41,6 +41,7 @@ import PostUpdated from './components/PostUpdated';
 import Friends from './components/Friends';
 import Search from './components/Search';
 import Favourites from './components/Favourites';
+import { cleanErrors } from './actions/errorActions';
 
 FilePond.registerPlugin(
   FilePondPluginImagePreview,
@@ -97,6 +98,7 @@ const mapStateToProps = (state) => ({
   users: state.users.all,
   likes: state.likes,
   currentUser: state.auth.user,
+  errors: state.errors
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -113,6 +115,9 @@ const mapDispatchToProps = (dispatch) => {
     getCurrentUser: () => {
       dispatch(getCurrentUser());
     },
+    cleanErrors: () => {
+      dispatch(cleanErrors())
+    }
   };
 };
 

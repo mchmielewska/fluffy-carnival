@@ -21,7 +21,7 @@ export function profileImage(user, className) {
   }
 }
 
-export function userCard(user, sendInvitation) {
+export function userCard(user, sendInvitation, history) {
   const getAge = (birthDate) =>
     Math.floor((new Date() - new Date(user.birthDate).getTime()) / 3.15576e10);
 
@@ -30,7 +30,9 @@ export function userCard(user, sendInvitation) {
       <div className="card profile-card valign-wrapper">
         {profileImage(user, 'responsive-img')}
         <div className="user-details">
-          <Link to={'/users/' + user._id}>
+          <Link to={{
+            pathname: '/users/' + user._id,
+            state: { from: history }}}>
             <p className="bold username">
               {user.name} {user.surname}
             </p>

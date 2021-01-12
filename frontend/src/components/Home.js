@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
+import { cleanErrors } from '../actions/errorActions';
 import { withRouter } from 'react-router-dom';
 import Dashboard from './Dashboard';
 
@@ -12,6 +13,10 @@ class Home extends Component {
   onLogout(e) {
     e.preventDefault();
     this.props.logoutUser(this.props.history).bind(this);
+  }
+
+  componentDidMount() {
+    this.props.cleanErrors();
   }
 
   render() {
@@ -45,6 +50,7 @@ const mapStateToProps = (state) => ({
   posts: state.posts,
   users: state.users.all,
   likes: state.likes,
+  errors: state.errors
 });
 
-export default withRouter(connect(mapStateToProps, { logoutUser })(Home));
+export default withRouter(connect(mapStateToProps, { cleanErrors, logoutUser })(Home));

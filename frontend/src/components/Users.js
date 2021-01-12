@@ -8,6 +8,9 @@ import { inviteFriend } from '../actions/friendsActions';
 import { userCard } from '../utils/userUtils';
 class Users extends Component {
   render() {
+    // state: { from: this.props.location.state }
+    console.log(this.props.location);
+    console.log(this.props.history)
     this.props.getUsers();
     const currentUser = this.props.currentUser;
     const friendsList = this.props.friendsList;
@@ -35,7 +38,7 @@ class Users extends Component {
 
     const userList = users ? (
       users.map((user) => {
-        return userCard(user, sendInvitation);
+        return userCard(user, sendInvitation, this.props.location.pathname);
       })
     ) : (
       <div className="center">No users found</div>
@@ -43,7 +46,7 @@ class Users extends Component {
 
     return (
       <div className="row">
-        <Sidebar />
+        <Sidebar {...this.props} />
         <div className="col s10">
           <div className="row center">{userList}</div>
         </div>

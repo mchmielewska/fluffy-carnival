@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { registerUser } from '../actions/authentication';
+import { cleanErrors } from '../actions/errorActions';
 import * as M from 'materialize-css';
 class Register extends Component {
   constructor() {
@@ -41,6 +42,7 @@ class Register extends Component {
       birthDate: this.state.birthDate,
     };
     this.props.registerUser(user, this.props.history);
+    this.props.cleanErrors();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,6 +52,8 @@ class Register extends Component {
   }
 
   componentDidMount() {
+    this.props.cleanErrors();
+
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
     }
@@ -62,6 +66,10 @@ class Register extends Component {
   }
 
   render() {
+    const error = this.props.errors;
+    const showError = error ? (
+      <div className="error">{ error.msg }</div>) : null;
+
     return (
       <div className="container">
         <div className="center" style={{ marginTop: '50px' }}>
@@ -168,6 +176,7 @@ class Register extends Component {
                   />
                 </div>
                 <div className="input-field">
+                {showError}
                   <button type="submit" className="btn btn-primary">
                     Register User
                   </button>
@@ -188,6 +197,7 @@ Register.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  errors: state.errors
 });
 
-export default withRouter(connect(mapStateToProps, { registerUser })(Register));
+export default withRouter(connect(mapStateToProps, { registerUser, cleanErrors })(Register));

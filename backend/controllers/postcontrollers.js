@@ -62,7 +62,7 @@ exports.getFindPost = async (req, res, next) => {
   const posts = await searchParams.postSearch(req);
 
   if (!posts || posts.length == 0) {
-    res.status(400).json({ success: false, msg: 'Posts not found' });
+    res.status(400).json({ success: false, msg: 'Not found' });
     return;
   }
 

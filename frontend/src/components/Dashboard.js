@@ -16,6 +16,7 @@ import {
   postTags,
 } from '../utils/postUtils';
 import { getFriendsList } from '../actions/friendsActions';
+import { cleanErrors } from '../actions/errorActions';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -25,7 +26,6 @@ class Dashboard extends Component {
       this.props.getPostsByTag(tag);
       this.setState({ tag: undefined });
     } else {
-      console.log('all posts');
       this.props.getPosts();
     }
 
@@ -140,7 +140,7 @@ class Dashboard extends Component {
 
     return (
       <div className="row">
-        <Sidebar />
+        <Sidebar {...this.props} />
         <div className="col s10">
           <div className="row center post-list">{postList}</div>
         </div>
@@ -158,6 +158,7 @@ const mapStateToProps = (state, ownProps) => {
       posts: state.posts,
       users: state.users.all,
       likes: state.likes,
+      errors: state.errors
     };
   } else {
     return {
@@ -165,6 +166,7 @@ const mapStateToProps = (state, ownProps) => {
       posts: state.posts,
       users: state.users.all,
       likes: state.likes,
+      errors: state.errors
     };
   }
 };
@@ -192,6 +194,9 @@ const mapDispatchToProps = (dispatch) => {
     getPostsByTag: (tag) => {
       dispatch(getPostsByTag(tag));
     },
+    cleanErrors: () => {
+      dispatch(cleanErrors());
+    }
   };
 };
 

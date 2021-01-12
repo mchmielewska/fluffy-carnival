@@ -12,6 +12,7 @@ import { getUsers, getCurrentUser } from '../actions/usersActions';
 import { getPosts } from '../actions/postsActions';
 import { getFriendsList, getPendingInvites } from '../actions/friendsActions';
 import { getLikes } from '../actions/likesActions';
+import { cleanErrors } from '../actions/errorActions';
 class Login extends Component {
   constructor() {
     super();
@@ -19,6 +20,7 @@ class Login extends Component {
       email: '',
       password: '',
     };
+
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -36,6 +38,7 @@ class Login extends Component {
       password: this.state.password,
     };
     this.props.loginUser(user);
+    this.props.cleanErrors();
   }
 
   componentDidMount() {
@@ -45,6 +48,7 @@ class Login extends Component {
   }
 
   componentDidUpdate() {
+
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
       store.dispatch(getCurrentUser());
@@ -57,6 +61,10 @@ class Login extends Component {
   }
 
   render() {
+    const error = this.props.errors;
+    const showError = error ? (
+      <div className="error">{ error.msg }</div>) : null;
+
     return (
       <div className="container">
         <div className="row valign-wrapper">
@@ -92,6 +100,7 @@ class Login extends Component {
                 />
               </div>
               <div className="form-group">
+              { showError }
                 <button
                   type="submit"
                   className="btn btn-primary "
@@ -124,6 +133,12 @@ const mapStateToProps = (state) => ({
   posts: state.posts,
   users: state.users.all,
   likes: state.likes,
+  errors: state.errors
 });
 
-export default withRouter(connect(mapStateToProps, { loginUser })(Login));
+const mapDispatchToProps = (dispatch) => { return {
+  loginUser: (user) => dispatch(loginUser(user)),
+  cleanErrors: () => dispatch(cleanErrors())
+}}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

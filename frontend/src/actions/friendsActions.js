@@ -21,10 +21,10 @@ export const getFriendsList = (user) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -41,10 +41,10 @@ export const getPendingInvites = (user) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -63,10 +63,10 @@ export const acceptInvite = (token) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -85,10 +85,10 @@ export const declineInvite = (user, token) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -105,12 +105,11 @@ export const removeFriend = (id, user) => (dispatch) => {
         type: REMOVE_FRIEND,
         payload: res.data,
       });
-      console.log(res);
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -128,12 +127,11 @@ export const inviteFriend = (id, user) => (dispatch) => {
         type: SEND_INVITE,
         payload: res.data,
       });
-      console.log(res);
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };

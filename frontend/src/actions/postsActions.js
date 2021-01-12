@@ -21,10 +21,10 @@ export const getPosts = (user) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -44,10 +44,10 @@ export const getPostsByTag = (tag) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -66,18 +66,16 @@ export const findPosts = (query, history) => (dispatch) => {
       });
       history.push('/search');
     })
-    .catch((err) => {
-      if (err.response.status === 400) {
-        dispatch({
-          type: FIND_POSTS,
-          payload: [],
-        });
-        history.push('/search');
-      }
+    .catch((error) => {
+      dispatch({
+        type: FIND_POSTS,
+        payload: [],
+      });
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
+      history.push('/search');
     });
 };
 
@@ -95,10 +93,10 @@ export const addPost = (post, history) => (dispatch) => {
     .then((res) => {
       history.push('/postadded');
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -115,10 +113,10 @@ export const deletePost = (id) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -139,10 +137,10 @@ export const patchPost = (id, post, history) => (dispatch) => {
     .then((res) => {
       history.push('/postupdated');
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };

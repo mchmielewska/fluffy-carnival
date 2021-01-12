@@ -6,6 +6,7 @@ import usersReducer from './usersReducer';
 import friendsReducer from './friendsReducer';
 import likesReducer from './likesReducer';
 import searchReducer from './searchReducer';
+import errorReducer from './errorReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   likes: likesReducer,
   search: searchReducer,
+  errors: errorReducer
 });
 
 export default rootReducer;

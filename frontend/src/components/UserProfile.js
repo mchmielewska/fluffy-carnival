@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import SidebarLinks from './SidebarLinks';
 import { inviteFriend } from '../actions/friendsActions';
-import { getCurrentUser } from '../actions/usersActions';
+import { getCurrentUser, getUsers } from '../actions/usersActions';
+import { getPosts } from '../actions/postsActions';
 import { getLikes, addLike, removeLike } from '../actions/likesActions';
 import {
   dateBuilder,
@@ -16,7 +17,13 @@ import { profileImage } from '../utils/userUtils';
 
 class UserProfile extends Component {
   componentDidMount() {
-    this.props.getCurrentUser();
+    const previousPathObject = this.props.location.state;
+    const previousPath = previousPathObject.from;
+    if (previousPath.includes('tags')) {
+      console.log('reloading posts');
+      this.props.getPosts();
+    }
+    this.props.getUsers();
     this.props.getLikes();
   }
 
@@ -194,7 +201,7 @@ class UserProfile extends Component {
             <i className="material-icons left">keyboard_arrow_left</i>
             Back
           </button>
-          <SidebarLinks />
+          <SidebarLinks {...this.props}/>
         </div>
 
         <div className="col s9">
@@ -237,6 +244,12 @@ const mapDispatchToProps = (dispatch) => {
     getCurrentUser: () => {
       dispatch(getCurrentUser());
     },
+    getUsers: () => {
+      dispatch(getUsers());
+    },
+    getPosts: () => {
+      dispatch(getPosts());
+    }
   };
 };
 

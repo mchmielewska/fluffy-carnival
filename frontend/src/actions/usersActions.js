@@ -15,10 +15,10 @@ export const getUsers = (user) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -37,18 +37,16 @@ export const findUsers = (query, history) => (dispatch) => {
       });
       history.push('/search');
     })
-    .catch((err) => {
-      if (err.response.status === 400) {
-        dispatch({
-          type: FIND_USERS,
-          payload: [],
-        });
-        history.push('/search');
-      }
+    .catch((error) => {
+      dispatch({
+        type: FIND_USERS,
+        payload: [],
+      });      
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
+      history.push('/search');
     });
 };
 
@@ -61,11 +59,10 @@ export const getCurrentUser = (user) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -79,10 +76,10 @@ export const patchUser = (user, history) => (dispatch) => {
     .then((res) => {
       history.push('/userupdated');
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -96,10 +93,10 @@ export const patchPassword = (data, history) => (dispatch) => {
     .then((res) => {
       history.push('/userupdated');
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };
@@ -119,10 +116,10 @@ export const patchProfileImage = (image, history) => (dispatch) => {
     .then((res) => {
       history.push('/userupdated');
     })
-    .catch((err) => {
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.res,
+        error: error.response.data
       });
     });
 };

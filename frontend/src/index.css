@@ -629,3 +629,8 @@ button:focus {
 .action-bar {
     display: flex;
 }
+
+.error {
+    color:#F44336;
+    margin: 1rem 0;
+}

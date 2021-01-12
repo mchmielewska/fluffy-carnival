@@ -179,7 +179,7 @@ class Friends extends Component {
 
     return (
       <div className="row">
-        <Sidebar />
+        <Sidebar {...this.props} />
         <div className="col s10">
           <div className="row center">
             <h5 className="left-align">Pending invites:</h5>

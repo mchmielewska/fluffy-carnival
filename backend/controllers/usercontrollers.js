@@ -26,19 +26,19 @@ exports.postRegisterUser = async (req, res, next) => {
     !req.body.gender ||
     !req.body.birthDate
   ) {
-    res.status(401).send('Missing required data!');
+    res.status(401).json({ msg: 'Missing required data!' });
     return;
   }
   if (req.body.password.length < 8) {
-    res.status(401).send('Password too short');
+    res.status(401).json({ msg: 'Password too short' });
     return;
   }
   if (!mailUtils.validatePassword(req.body.password)) {
-    res.status(401).send('Invalid password');
+    res.status(401).json({ msg: 'Invalid password' });
     return;
   }
   if (await User.findByEmail(req.body.email)) {
-    res.status(401).send('Email alredy taken');
+    res.status(401).json({ msg: 'E-mail already taken' });
     return;
   }
   let NewUser = new User({
@@ -61,7 +61,7 @@ exports.postRegisterUser = async (req, res, next) => {
       NewUser.save();
       res.status(201).send('User created');
     })
-    .catch(() => res.status(400).send('Error occurred'));
+    .catch(() => res.status(400).json({ msg: 'Error occured' }));
 };
 
 exports.getActivateUser = (req, res, next) => {
@@ -82,12 +82,24 @@ exports.postAuthenticateUser = (req, res, next) => {
   User.findByEmail(email).then((user) => {
     console.log(`Took ${Date.now() - start_time} to query db`);
     if (!user) {
-      res.status(404).send('User not found');
+      res
+        .status(404)
+        .json({
+          auth: false,
+          token: null,
+          msg: 'Incorrect username or password',
+        });
       return;
     }
 
     if (!user.isVerified) {
-      res.status(404).send('User not verified');
+      res
+        .status(404)
+        .json({
+          auth: false,
+          token: null,
+          msg: 'Incorrect username or password',
+        });
       return;
     }
 
@@ -108,7 +120,11 @@ exports.postAuthenticateUser = (req, res, next) => {
       } else {
         res
           .status(401)
-          .json({ auth: false, token: null, msg: 'Incorrect password' });
+          .json({
+            auth: false,
+            token: null,
+            msg: 'Incorrect username or password',
+          });
       }
       console.log(
         `Took ${
@@ -171,8 +187,8 @@ exports.putResetPassword = (req, res, next) => {
 exports.getFindCurrentUser = (req, res, next) => {
   User.findById(loggedUserId, { password: 0 }, function (err, user) {
     if (err)
-      return res.status(500).send('There was a problem finding the user.');
-    if (!user) return res.status(404).send('No user found.');
+      return res.status(500).json({ msg: 'There was a problem finding the user.' });
+    if (!user) return res.status(404).json({ msg: 'User not found' });
 
     Post.find({ authorId: loggedUserId }).then((posts) => {
       if (!posts) {
@@ -255,7 +271,7 @@ exports.patchChangePassword = (req, res, next) => {
             user.save();
             res.status(201).send('Password changed');
           })
-          .catch(() => res.status(400).send('Error occurred'));
+          .catch(() => res.status(400).json({ msg: 'Error occured' }));
       });
     }
   });
@@ -289,7 +305,7 @@ exports.getFindUsers = async (req, res, next) => {
   if (!users || users.length == 0) {
     res
       .status(400)
-      .json({ success: false, msg: 'Users matching criteria not found' });
+      .json({ success: false, msg: 'Not found' });
   }
   const foundUsers = _.map(users, (user) =>
     _.pick(user, [

@@ -12,8 +12,10 @@ import {
 } from '../utils/postUtils';
 import { userCard } from '../utils/userUtils';
 import { inviteFriend } from '../actions/friendsActions';
+import { cleanErrors } from '../actions/errorActions';
 class Search extends Component {
   render() {
+    const error = this.props.errors;
     const posts = this.props.posts;
     const users = this.props.users;
     const usersFound = this.props.usersFound;
@@ -39,13 +41,16 @@ class Search extends Component {
         </button>
       );
     }
+    
+    const showError = error ? (
+      <span >{ error.msg }</span>) : null;
 
-    const userList = usersFound ? (
+    const userList = usersFound.length ? (
       usersFound.map((user) => {
         return userCard(user, sendInvitation);
       })
     ) : (
-      <div className="center">No users found</div>
+      <div className="center">{showError}</div>
     );
 
     const postList = posts.length ? (
@@ -86,14 +91,16 @@ class Search extends Component {
           );
         })
     ) : (
-      <div className="center">No posts found</div>
+      <div className="center">{showError}</div>
     );
 
     return (
       <div className="row">
-        <Sidebar />
+        <Sidebar {...this.props} />
         <div className="col s10">
+        <h5>Users:</h5>
           <div className="row center user-list">{userList}</div>
+          <h5>Posts:</h5>
           <div className="row center post-list">{postList}</div>
         </div>
       </div>
@@ -108,6 +115,7 @@ const mapStateToProps = (state) => {
     users: state.users.all,
     posts: state.search.posts,
     usersFound: state.search.users,
+    errors: state.errors
   };
 };
 
@@ -116,6 +124,9 @@ const mapDispatchToProps = (dispatch) => {
     inviteFriend: (id) => {
       dispatch(inviteFriend(id));
     },
+    cleanErrors: () => {
+      dispatch(cleanErrors())
+    }
   };
 };
 
