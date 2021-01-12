@@ -24,7 +24,7 @@ export const getPosts = (user) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -47,7 +47,7 @@ export const getPostsByTag = (tag) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -73,7 +73,7 @@ export const findPosts = (query, history) => (dispatch) => {
       });
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
       history.push('/search');
     });
@@ -96,7 +96,7 @@ export const addPost = (post, history) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -116,7 +116,7 @@ export const deletePost = (id) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -140,7 +140,7 @@ export const patchPost = (id, post, history) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };

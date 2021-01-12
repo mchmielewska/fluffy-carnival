@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   likes: likesReducer,
   search: searchReducer,
-  errors: errorReducer
+  errors: errorReducer,
 });
 
 export default rootReducer;

@@ -201,7 +201,7 @@ class UserProfile extends Component {
             <i className="material-icons left">keyboard_arrow_left</i>
             Back
           </button>
-          <SidebarLinks {...this.props}/>
+          <SidebarLinks {...this.props} />
         </div>
 
         <div className="col s9">
@@ -249,7 +249,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     getPosts: () => {
       dispatch(getPosts());
-    }
+    },
   };
 };
 

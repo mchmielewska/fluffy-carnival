@@ -50,7 +50,9 @@ const mapStateToProps = (state) => ({
   posts: state.posts,
   users: state.users.all,
   likes: state.likes,
-  errors: state.errors
+  errors: state.errors,
 });
 
-export default withRouter(connect(mapStateToProps, { cleanErrors, logoutUser })(Home));
+export default withRouter(
+  connect(mapStateToProps, { cleanErrors, logoutUser })(Home)
+);

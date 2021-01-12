@@ -98,7 +98,7 @@ const mapStateToProps = (state) => ({
   users: state.users.all,
   likes: state.likes,
   currentUser: state.auth.user,
-  errors: state.errors
+  errors: state.errors,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -116,8 +116,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(getCurrentUser());
     },
     cleanErrors: () => {
-      dispatch(cleanErrors())
-    }
+      dispatch(cleanErrors());
+    },
   };
 };
 

@@ -18,7 +18,7 @@ export const getUsers = (user) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -41,10 +41,10 @@ export const findUsers = (query, history) => (dispatch) => {
       dispatch({
         type: FIND_USERS,
         payload: [],
-      });      
+      });
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
       history.push('/search');
     });
@@ -62,7 +62,7 @@ export const getCurrentUser = (user) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -79,7 +79,7 @@ export const patchUser = (user, history) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -96,7 +96,7 @@ export const patchPassword = (data, history) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -119,7 +119,7 @@ export const patchProfileImage = (image, history) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };

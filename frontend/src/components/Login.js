@@ -48,7 +48,6 @@ class Login extends Component {
   }
 
   componentDidUpdate() {
-
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
       store.dispatch(getCurrentUser());
@@ -62,8 +61,7 @@ class Login extends Component {
 
   render() {
     const error = this.props.errors;
-    const showError = error ? (
-      <div className="error">{ error.msg }</div>) : null;
+    const showError = error ? <div className="error">{error.msg}</div> : null;
 
     return (
       <div className="container">
@@ -100,7 +98,7 @@ class Login extends Component {
                 />
               </div>
               <div className="form-group">
-              { showError }
+                {showError}
                 <button
                   type="submit"
                   className="btn btn-primary "
@@ -133,12 +131,14 @@ const mapStateToProps = (state) => ({
   posts: state.posts,
   users: state.users.all,
   likes: state.likes,
-  errors: state.errors
+  errors: state.errors,
 });
 
-const mapDispatchToProps = (dispatch) => { return {
-  loginUser: (user) => dispatch(loginUser(user)),
-  cleanErrors: () => dispatch(cleanErrors())
-}}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginUser: (user) => dispatch(loginUser(user)),
+    cleanErrors: () => dispatch(cleanErrors()),
+  };
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

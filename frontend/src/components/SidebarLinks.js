@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 class SidebarLinks extends Component {
-
   render() {
     const history = this.props.location ? this.props.location.pathname : '/';
     return (
@@ -62,7 +61,7 @@ class SidebarLinks extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state
+    ...state,
   };
 };
 

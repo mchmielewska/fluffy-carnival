@@ -24,7 +24,7 @@ export const getFriendsList = (user) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -44,7 +44,7 @@ export const getPendingInvites = (user) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -66,7 +66,7 @@ export const acceptInvite = (token) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -88,7 +88,7 @@ export const declineInvite = (user, token) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -109,7 +109,7 @@ export const removeFriend = (id, user) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -131,7 +131,7 @@ export const inviteFriend = (id, user) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };

@@ -82,24 +82,20 @@ exports.postAuthenticateUser = (req, res, next) => {
   User.findByEmail(email).then((user) => {
     console.log(`Took ${Date.now() - start_time} to query db`);
     if (!user) {
-      res
-        .status(404)
-        .json({
-          auth: false,
-          token: null,
-          msg: 'Incorrect username or password',
-        });
+      res.status(404).json({
+        auth: false,
+        token: null,
+        msg: 'Incorrect username or password',
+      });
       return;
     }
 
     if (!user.isVerified) {
-      res
-        .status(404)
-        .json({
-          auth: false,
-          token: null,
-          msg: 'Incorrect username or password',
-        });
+      res.status(404).json({
+        auth: false,
+        token: null,
+        msg: 'Incorrect username or password',
+      });
       return;
     }
 
@@ -118,13 +114,11 @@ exports.postAuthenticateUser = (req, res, next) => {
           token: `${token}`,
         });
       } else {
-        res
-          .status(401)
-          .json({
-            auth: false,
-            token: null,
-            msg: 'Incorrect username or password',
-          });
+        res.status(401).json({
+          auth: false,
+          token: null,
+          msg: 'Incorrect username or password',
+        });
       }
       console.log(
         `Took ${
@@ -187,7 +181,9 @@ exports.putResetPassword = (req, res, next) => {
 exports.getFindCurrentUser = (req, res, next) => {
   User.findById(loggedUserId, { password: 0 }, function (err, user) {
     if (err)
-      return res.status(500).json({ msg: 'There was a problem finding the user.' });
+      return res
+        .status(500)
+        .json({ msg: 'There was a problem finding the user.' });
     if (!user) return res.status(404).json({ msg: 'User not found' });
 
     Post.find({ authorId: loggedUserId }).then((posts) => {
@@ -303,9 +299,7 @@ exports.getFindUsers = async (req, res, next) => {
   const users = await searchParams.userSearch(req);
 
   if (!users || users.length == 0) {
-    res
-      .status(400)
-      .json({ success: false, msg: 'Not found' });
+    res.status(400).json({ success: false, msg: 'Not found' });
   }
   const foundUsers = _.map(users, (user) =>
     _.pick(user, [

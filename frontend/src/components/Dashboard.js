@@ -158,7 +158,7 @@ const mapStateToProps = (state, ownProps) => {
       posts: state.posts,
       users: state.users.all,
       likes: state.likes,
-      errors: state.errors
+      errors: state.errors,
     };
   } else {
     return {
@@ -166,7 +166,7 @@ const mapStateToProps = (state, ownProps) => {
       posts: state.posts,
       users: state.users.all,
       likes: state.likes,
-      errors: state.errors
+      errors: state.errors,
     };
   }
 };
@@ -196,7 +196,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     cleanErrors: () => {
       dispatch(cleanErrors());
-    }
+    },
   };
 };
 

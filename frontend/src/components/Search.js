@@ -41,9 +41,8 @@ class Search extends Component {
         </button>
       );
     }
-    
-    const showError = error ? (
-      <span >{ error.msg }</span>) : null;
+
+    const showError = error ? <span>{error.msg}</span> : null;
 
     const userList = usersFound.length ? (
       usersFound.map((user) => {
@@ -98,7 +97,7 @@ class Search extends Component {
       <div className="row">
         <Sidebar {...this.props} />
         <div className="col s10">
-        <h5>Users:</h5>
+          <h5>Users:</h5>
           <div className="row center user-list">{userList}</div>
           <h5>Posts:</h5>
           <div className="row center post-list">{postList}</div>
@@ -115,7 +114,7 @@ const mapStateToProps = (state) => {
     users: state.users.all,
     posts: state.search.posts,
     usersFound: state.search.users,
-    errors: state.errors
+    errors: state.errors,
   };
 };
 
@@ -125,8 +124,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(inviteFriend(id));
     },
     cleanErrors: () => {
-      dispatch(cleanErrors())
-    }
+      dispatch(cleanErrors());
+    },
   };
 };
 

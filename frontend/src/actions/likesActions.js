@@ -15,7 +15,7 @@ export const addLike = (id) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -36,7 +36,7 @@ export const removeLike = (id) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };
@@ -53,7 +53,7 @@ export const getLikes = () => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        error: error.response.data
+        error: error.response.data,
       });
     });
 };

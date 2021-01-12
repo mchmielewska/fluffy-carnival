@@ -67,8 +67,7 @@ class Register extends Component {
 
   render() {
     const error = this.props.errors;
-    const showError = error ? (
-      <div className="error">{ error.msg }</div>) : null;
+    const showError = error ? <div className="error">{error.msg}</div> : null;
 
     return (
       <div className="container">
@@ -176,7 +175,7 @@ class Register extends Component {
                   />
                 </div>
                 <div className="input-field">
-                {showError}
+                  {showError}
                   <button type="submit" className="btn btn-primary">
                     Register User
                   </button>
@@ -197,7 +196,9 @@ Register.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 
-export default withRouter(connect(mapStateToProps, { registerUser, cleanErrors })(Register));
+export default withRouter(
+  connect(mapStateToProps, { registerUser, cleanErrors })(Register)
+);

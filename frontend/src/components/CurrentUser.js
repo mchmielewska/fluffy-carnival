@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getCurrentUser } from '../actions/usersActions';
 
 class CurrentUser extends Component {
-
   componentDidUpdate() {
     this.props.getCurrentUser();
   }
@@ -15,7 +14,7 @@ class CurrentUser extends Component {
         return (
           <Link
             to={{
-              pathname: `/users/${id}`
+              pathname: `/users/${id}`,
             }}
           >
             <img
@@ -30,7 +29,8 @@ class CurrentUser extends Component {
           <Link
             to={{
               pathname: `/users/${id}`,
-              state: { from: history }}}
+              state: { from: history },
+            }}
           >
             <img
               className="responsive-img"
@@ -78,7 +78,7 @@ class CurrentUser extends Component {
             className="valign-wrapper"
             to={{
               pathname: `/users/${id}`,
-              state: { from: this.props.location.pathname }
+              state: { from: this.props.location.pathname },
             }}
           >
             <i className="material-icons">person</i>Profile

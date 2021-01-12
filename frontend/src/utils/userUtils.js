@@ -30,9 +30,12 @@ export function userCard(user, sendInvitation, history) {
       <div className="card profile-card valign-wrapper">
         {profileImage(user, 'responsive-img')}
         <div className="user-details">
-          <Link to={{
-            pathname: '/users/' + user._id,
-            state: { from: history }}}>
+          <Link
+            to={{
+              pathname: '/users/' + user._id,
+              state: { from: history },
+            }}
+          >
             <p className="bold username">
               {user.name} {user.surname}
             </p>

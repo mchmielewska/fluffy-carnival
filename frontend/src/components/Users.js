@@ -10,7 +10,7 @@ class Users extends Component {
   render() {
     // state: { from: this.props.location.state }
     console.log(this.props.location);
-    console.log(this.props.history)
+    console.log(this.props.history);
     this.props.getUsers();
     const currentUser = this.props.currentUser;
     const friendsList = this.props.friendsList;
