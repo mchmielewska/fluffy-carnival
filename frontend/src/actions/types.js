@@ -18,3 +18,4 @@ export const GET_LIKES = 'GET_LIKES';
 export const FIND_POSTS = 'FIND_POSTS';
 export const FIND_USERS = 'FIND_USERS';
 export const CLEAN_ERRORS = 'CLEAN_ERRORS';
+export const GET_USER_FAVOURITES = 'GET_USER_FAVOURITES';

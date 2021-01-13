@@ -27,5 +27,10 @@ router.delete(
   postControllers.deleteUnlikePost
 );
 router.get('/likes', authenticate.verifyToken, postControllers.getPostLikes);
+router.get(
+  '/likedbyuser',
+  authenticate.verifyToken,
+  postControllers.getUserFavourites
+);
 
 module.exports = router;

@@ -30,7 +30,10 @@ class Dashboard extends Component {
     }
 
     this.props.getLikes();
-    this.props.getCurrentUser();
+  }
+
+  componentDidUpdate() {
+    this.props.getLikes();
   }
 
   // componentDidUpdate(prevProps) {

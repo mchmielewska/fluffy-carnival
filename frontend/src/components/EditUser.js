@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { patchUser, patchProfileImage } from '../actions/usersActions';
+import {
+  patchUser,
+  patchProfileImage,
+  getUsers,
+} from '../actions/usersActions';
 import ChangePassword from './ChangePassword';
 import * as FP from 'filepond';
 import * as M from 'materialize-css';
@@ -65,6 +69,13 @@ class EditUser extends Component {
   }
 
   componentDidMount() {
+    const previousPathObject = this.props.location;
+    const previousPath = previousPathObject.state.from;
+    if (previousPath) {
+      if (previousPath.includes('edit')) {
+        this.props.getUsers();
+      }
+    }
     function select() {
       var elems = document.querySelectorAll('select');
       var options = {};

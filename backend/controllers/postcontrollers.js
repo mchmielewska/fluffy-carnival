@@ -227,3 +227,39 @@ exports.getPostLikes = (req, res, next) => {
     res.send(likes);
   });
 };
+
+exports.getUserFavourites = (req, res, next) => {
+  Post.find({ state: 'published' }).then((posts) => {
+    if (!posts || posts.length == 0) {
+      res.status(400).json({ success: false, msg: 'Posts not found' });
+      return;
+    }
+    let favouritesArray = [];
+
+    const allLikedPosts = posts.filter((post) => post.likes.length !== 0);
+    console.log(allLikedPosts);
+    const favouritesList = allLikedPosts.filter((post) =>
+      post.likes.find((postLike) => postLike.user == loggedUserId)
+    );
+
+    for (let i in favouritesList) {
+      const likedPost = posts.find((post) => post.id === favouritesList[i].id);
+      favouritesArray.push(likedPost);
+    }
+
+    let foundPosts = _.map(favouritesArray, (post) =>
+      _.pick(post, [
+        'id',
+        'title',
+        'publishDate',
+        'authorId',
+        'description',
+        'tags',
+        'privacyLevel',
+        'postImagePath',
+      ])
+    );
+
+    res.send(foundPosts);
+  });
+};

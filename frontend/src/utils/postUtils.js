@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { profileImage } from './userUtils';
 
 export function postImage(post) {
+  const id = post.id ? post.id : post._id;
   if (post.postImagePath === undefined) {
     return (
       <div className="image-container">
-        <Link to={'/posts/' + post.id}>
+        <Link to={'/posts/' + id}>
           <img
             className="post-img"
             src="https://res.cloudinary.com/fluffy-carnival/image/upload/v1610371508/sincerely-media-FPrniQ84dEk-unsplash_r2f1bx.jpg"
@@ -18,7 +19,7 @@ export function postImage(post) {
   } else {
     return (
       <div className="image-container">
-        <Link to={'/posts/' + post.id}>
+        <Link to={'/posts/' + id}>
           <img className="post-img" src={post.postImagePath} alt="post"></img>
         </Link>
       </div>

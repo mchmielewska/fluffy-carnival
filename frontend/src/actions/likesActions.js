@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { ADD_LIKE, REMOVE_LIKE, GET_LIKES, GET_ERRORS } from './types';
+import {
+  ADD_LIKE,
+  REMOVE_LIKE,
+  GET_LIKES,
+  GET_ERRORS,
+  GET_USER_FAVOURITES,
+} from './types';
 
 export const addLike = (id) => (dispatch) => {
   axios
@@ -47,6 +53,25 @@ export const getLikes = () => (dispatch) => {
     .then((res) => {
       dispatch({
         type: GET_LIKES,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_ERRORS,
+        error: error.response.data,
+      });
+    });
+};
+
+export const getUserFavourites = () => (dispatch) => {
+  axios
+    .get(
+      `${process.env.SERVER_URL || 'http://localhost:9090'}/posts/likedbyuser`
+    )
+    .then((res) => {
+      dispatch({
+        type: GET_USER_FAVOURITES,
         payload: res.data,
       });
     })

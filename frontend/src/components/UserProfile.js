@@ -44,13 +44,14 @@ class UserProfile extends Component {
       this.props.inviteFriend(id);
     };
 
-    function isCurrentUser(checkedUser) {
+    function isCurrentUser(checkedUser, history) {
       if (checkedUser._id === currentUser.id) {
         return (
           <Link
             className="action-button"
             to={{
               pathname: `/users/${checkedUser._id}/edit`,
+              state: { from: history },
             }}
           >
             <i className="material-icons tiny">edit</i>Edit profile
@@ -117,14 +118,14 @@ class UserProfile extends Component {
         </button>
       );
     }
-
+    const history = this.props.location.pathname;
     const user = this.props.user ? (
       <div className="row center">
         <div className="col s12">
           {profileImage(this.props.user, 'responsive-img')}
         </div>
 
-        <div className="col s12">{isCurrentUser(this.props.user)}</div>
+        <div className="col s12">{isCurrentUser(this.props.user, history)}</div>
 
         <div className="col s12">
           <p className="bold username">
