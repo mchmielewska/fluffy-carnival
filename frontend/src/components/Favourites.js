@@ -74,42 +74,44 @@ class Favourites extends Component {
     }
 
     const postList = postsLikedByUser.length ? (
-      postsLikedByUser.map((post) => {
-        return (
-          <div className="col m4 s6" key={post._id}>
-            <div className="post card">
-              <div className="card-content row">
-                <div className="post-header left-align col m10">
-                  {getAuthor(users, post)}
+      postsLikedByUser
+        .map((post) => {
+          const id = post.id ? post.id : post._id;
+          return (
+            <div className="col m4 s6" key={id}>
+              <div className="post card">
+                <div className="card-content row">
+                  <div className="post-header left-align col m10">
+                    {getAuthor(users, post)}
+                  </div>
+                  <div className="col m2 right-align">{likePost(id)}</div>
                 </div>
-                <div className="col m2 right-align">{likePost(post._id)}</div>
-              </div>
-              <div className="card-image">{postImage(post)}</div>
-              <div className="card-content text">
-                <Link to={'/posts/' + post._id}>
-                  <h6 className="card-title">{post.title}</h6>
-                </Link>
-                <p className="description">
-                  {shortenDescription(post.description, 100)}
-                </p>
-                <p className="center-align">{readMore(post, 100)}</p>
-              </div>
-              <div className="card-action row">
-                <div className="user-details left-align col m10">
-                  <p className="card-date">{dateBuilder(post.publishDate)}</p>
+                <div className="card-image">{postImage(post)}</div>
+                <div className="card-content text">
+                  <Link to={'/posts/' + id}>
+                    <h6 className="card-title">{post.title}</h6>
+                  </Link>
+                  <p className="description">
+                    {shortenDescription(post.description, 100)}
+                  </p>
+                  <p className="center-align">{readMore(post, 100)}</p>
                 </div>
-                <div className="col m2 right-align privacy-level">
-                  <span title={privacyLevelIcon(post.privacyLevel)}>
-                    <i className="material-icons">
-                      {privacyLevelIcon(post.privacyLevel)}
-                    </i>
-                  </span>
+                <div className="card-action row">
+                  <div className="user-details left-align col m10">
+                    <p className="card-date">{dateBuilder(post.publishDate)}</p>
+                  </div>
+                  <div className="col m2 right-align privacy-level">
+                    <span title={privacyLevelIcon(post.privacyLevel)}>
+                      <i className="material-icons">
+                        {privacyLevelIcon(post.privacyLevel)}
+                      </i>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })
+          );
+        })
     ) : (
       <div className="center">No posts found</div>
     );
