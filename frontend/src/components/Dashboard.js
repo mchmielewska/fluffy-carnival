@@ -15,8 +15,11 @@ import {
   getAuthor,
   postTags,
 } from '../utils/postUtils';
+import { profileImage } from '../utils/userUtils';
 import { getFriendsList } from '../actions/friendsActions';
 import { cleanErrors } from '../actions/errorActions';
+import Username from './Username';
+import ReactDOMServer from 'react-dom/server';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -26,26 +29,23 @@ class Dashboard extends Component {
       this.props.getPostsByTag(tag);
       this.setState({ tag: undefined });
     } else {
-      this.props.getPosts();
+      this.props.getPosts(this.props.history);
     }
 
     this.props.getLikes();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (this.props.tag !== undefined) {
+      let tag = this.props.tag;
+      this.props.getPostsByTag(tag);
+    } else {
+      console.log('all posts');
+      this.props.getPosts(this.props.history);
+    }
+
     this.props.getLikes();
   }
-
-  // componentDidUpdate(prevProps) {
-  //   console.log('update')
-  //   if (this.props.tag !== undefined) {
-  //     let tag = this.props.tag;
-  //     this.props.getPostsByTag(tag);
-  //   } else {
-  //     console.log('all posts');
-  //     this.props.getPosts();
-  //   }
-  // }
 
   render() {
     const posts = this.props.posts;
@@ -63,32 +63,128 @@ class Dashboard extends Component {
       this.props.removeLike(id);
     };
 
-    function likePost(id) {
+    function getUserName(users, id, props) {
+      for (let i = 0; i < users.length; i++) {
+        if (users[i]._id === id) {
+          return <Username users={props.users} id={id} />;
+        }
+      }
+    }
+
+    const showLikes = (e, id, postLikes, props) => {
+      e.preventDefault();
+      let showDetails = false;
+      showDetails = !showDetails;
+      const divToShow = document.getElementById(id);
+
+      if (showDetails === true) {
+        divToShow.classList.remove('hidden');
+        console.log('show');
+        console.log(divToShow.hidden);
+      } else {
+        divToShow.classList.add('hidden');
+        showDetails = !showDetails;
+        console.log('hide');
+      }
+
+      const allLikesDivs = document.getElementsByClassName('likes-to-show');
+      for (let i = 0; i < allLikesDivs.length; i++) {
+        if (!allLikesDivs[i].classList.contains('hidden')) {
+          allLikesDivs[i].classList.add('hidden');
+        }
+      }
+
+      if (showDetails === true) {
+        divToShow.classList.remove('hidden');
+        console.log('show');
+        console.log(divToShow.hidden);
+        showDetails = !showDetails;
+      } else {
+        divToShow.classList.add('hidden');
+        showDetails = !showDetails;
+        console.log('hide');
+      }
+    };
+
+    const likesPanel = (id, props) => {
+      const postLikes = allLikes.find((post) => post._id === id);
+      const totalLikes = postLikes.likes.length;
+
+      const likes = postLikes.likes.map((like) => {
+        const user = getUserName(users, like.user, props);
+        console.log(user);
+
+        return <div>{user}</div>;
+      });
+
+      const likesButton = totalLikes ? (
+        <div>
+          <div className="likes-to-show hidden" id={id}>
+            {likes}
+          </div>
+          <button
+            className="likes-panel-button like-button"
+            onClick={(e) => showLikes(e, id, postLikes, props)}
+          >
+            {totalLikes}
+          </button>
+        </div>
+      ) : null;
+
+      return likesButton;
+    };
+
+    function likePost(id, props) {
       const postLikes = allLikes.find((post) => post._id === id);
       if (postLikes) {
+        const divId = 'div-' + id;
         for (let i in postLikes.likes) {
           if (postLikes.likes[i].user === currentUser) {
             return (
-              <button
-                className="like-button liked"
-                onClick={(e) => handleUnlike(e, id)}
-              >
-                <i className="small material-icons red-text">favorite_border</i>
-              </button>
+              <div id={divId}>
+                <div className="likes-panel">
+                  {likesPanel(id, props)}
+                  <button
+                    className="like-button liked"
+                    onClick={(e) => handleUnlike(e, id)}
+                  >
+                    <i className="small material-icons red-text">
+                      favorite_border
+                    </i>
+                  </button>
+                </div>
+              </div>
             );
           }
         }
 
         return (
-          <button className="like-button" onClick={(e) => handleLike(e, id)}>
-            <i className="small material-icons">favorite_border</i>
-          </button>
+          <div id={divId}>
+            <div className="likes-panel">
+              {likesPanel(id, props)}
+              <button
+                className="like-button"
+                onClick={(e) => handleLike(e, id)}
+              >
+                <i className="small material-icons">favorite_border</i>
+              </button>
+            </div>
+          </div>
         );
       } else {
+        const divId = 'div-' + id;
         return (
-          <button className="like-button" onClick={(e) => handleLike(e, id)}>
-            <i className="small material-icons">favorite_border</i>
-          </button>
+          <div id={divId}>
+            <div className="likes-panel">
+              {likesPanel(id, props)}
+              <button
+                className="like-button"
+                onClick={(e) => handleLike(e, id)}
+              >
+                <i className="small material-icons">favorite_border</i>
+              </button>
+            </div>
+          </div>
         );
       }
     }
@@ -101,10 +197,12 @@ class Dashboard extends Component {
             <div className="col m4 s6" key={post.id}>
               <div className="post card">
                 <div className="card-content row">
-                  <div className="post-header left-align col m10">
+                  <div className="post-header left-align col m9">
                     {getAuthor(users, post)}
                   </div>
-                  <div className="col m2 right-align">{likePost(post.id)}</div>
+                  <div className="col m3 right-align">
+                    {likePost(post.id, this.props)}
+                  </div>
                 </div>
                 <div className="card-image">{postImage(post)}</div>
                 <div className="row tags">
@@ -176,8 +274,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPosts: () => {
-      dispatch(getPosts());
+    getPosts: (history) => {
+      dispatch(getPosts(history));
     },
     getUsers: () => {
       dispatch(getUsers());

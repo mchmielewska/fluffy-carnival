@@ -18,13 +18,17 @@ import { profileImage } from '../utils/userUtils';
 class UserProfile extends Component {
   componentDidMount() {
     const previousPathObject = this.props.location.state;
-    const previousPath = previousPathObject.from;
+    const previousPath = previousPathObject ? previousPathObject.from : '/';
     if (previousPath.includes('tags')) {
       console.log('reloading posts');
-      this.props.getPosts();
+      this.props.getPosts(this.props.history);
     }
     this.props.getUsers();
     this.props.getLikes();
+  }
+
+  componentDidUpdate() {
+    this.props.getUsers();
   }
 
   render() {
@@ -118,7 +122,9 @@ class UserProfile extends Component {
         </button>
       );
     }
-    const history = this.props.location.pathname;
+    const history = this.props.location.pathname
+      ? this.props.location.pathname
+      : '/';
     const user = this.props.user ? (
       <div className="row center">
         <div className="col s12">
@@ -248,8 +254,8 @@ const mapDispatchToProps = (dispatch) => {
     getUsers: () => {
       dispatch(getUsers());
     },
-    getPosts: () => {
-      dispatch(getPosts());
+    getPosts: (history) => {
+      dispatch(getPosts(history));
     },
   };
 };

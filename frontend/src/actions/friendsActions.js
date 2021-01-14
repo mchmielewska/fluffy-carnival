@@ -22,10 +22,17 @@ export const getFriendsList = (user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      if (error.response.status !== 500) {
+        dispatch({
+          type: GET_ERRORS,
+          error: error.response.data,
+        });
+      } else {
+        console.log(error);
+        console.log(error.response);
+
+        localStorage.removeItem('jwtToken');
+      }
     });
 };
 

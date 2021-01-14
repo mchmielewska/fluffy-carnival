@@ -57,10 +57,14 @@ export const getLikes = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      if (error.response.status !== 500) {
+        dispatch({
+          type: GET_ERRORS,
+          error: error.response.data,
+        });
+      } else {
+        localStorage.removeItem('jwtToken');
+      }
     });
 };
 
@@ -76,9 +80,13 @@ export const getUserFavourites = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      if (error.response.status !== 500) {
+        dispatch({
+          type: GET_ERRORS,
+          error: error.response.data,
+        });
+      } else {
+        localStorage.removeItem('jwtToken');
+      }
     });
 };

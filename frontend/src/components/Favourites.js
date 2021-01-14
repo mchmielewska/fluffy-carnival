@@ -22,7 +22,12 @@ import {
 
 class Favourites extends Component {
   componentDidMount() {
-    this.props.getPosts();
+    this.props.getPosts(this.props.history);
+    this.props.getLikes();
+    this.props.getUserFavourites();
+  }
+
+  componentDidUpdate() {
     this.props.getLikes();
     this.props.getUserFavourites();
   }
@@ -75,6 +80,7 @@ class Favourites extends Component {
 
     const postList = postsLikedByUser.length ? (
       postsLikedByUser
+        .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
         .map((post) => {
           const id = post.id ? post.id : post._id;
           return (
@@ -139,8 +145,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPosts: () => {
-      dispatch(getPosts());
+    getPosts: (history) => {
+      dispatch(getPosts(history));
     },
     getUsers: () => {
       dispatch(getUsers());

@@ -5,9 +5,12 @@ import {
   DELETE_POST,
   FIND_POSTS,
   GET_POSTS_BY_TAG,
+  LOGOUT_USER,
 } from './types';
+import setAuthToken from '../setAuthToken';
 
-export const getPosts = (user) => (dispatch) => {
+export const getPosts = (history, user) => (dispatch) => {
+  console.log(history);
   axios
     .get(
       `${
@@ -22,10 +25,19 @@ export const getPosts = (user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      if (error.response.status !== 500) {
+        dispatch({
+          type: GET_ERRORS,
+          error: error.response.data,
+        });
+      } else {
+        history.push('/login');
+        localStorage.removeItem('jwtToken');
+        setAuthToken(false);
+        dispatch({
+          type: LOGOUT_USER,
+        });
+      }
     });
 };
 

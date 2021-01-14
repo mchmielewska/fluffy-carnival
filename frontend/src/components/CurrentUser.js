@@ -15,6 +15,7 @@ class CurrentUser extends Component {
           <Link
             to={{
               pathname: `/users/${id}`,
+              state: { from: history },
             }}
           >
             <img

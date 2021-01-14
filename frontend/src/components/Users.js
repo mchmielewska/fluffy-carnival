@@ -10,16 +10,9 @@ class Users extends Component {
   componentDidMount() {
     const previousPathObject = this.props.location;
     const previousPath = previousPathObject.state.from;
-    if (previousPath) {
-      if (previousPath.includes('tags')) {
-        this.props.getUsers();
-      }
-    }
+    this.props.getUsers();
   }
   render() {
-    // state: { from: this.props.location.state }
-    console.log(this.props.location);
-    console.log(this.props.history);
     const currentUser = this.props.currentUser;
     const friendsList = this.props.friendsList;
     const friendsIds = friendsList.map((el) => el._id);

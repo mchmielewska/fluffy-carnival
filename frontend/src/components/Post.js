@@ -15,8 +15,7 @@ class Post extends Component {
   };
 
   render() {
-    console.log(this.props.post);
-    function postActionPanel(userId, postId, handleClick) {
+    function postActionPanel(userId, postId, handleClick, history) {
       if (userId !== currentUser.id) return '';
 
       return (
@@ -25,6 +24,7 @@ class Post extends Component {
             className="btn"
             to={{
               pathname: `/posts/${postId}/edit`,
+              state: { from: history },
             }}
           >
             Edit post
@@ -38,6 +38,9 @@ class Post extends Component {
 
     const currentUser = this.props.currentUser;
     const users = this.props.users;
+    const history = this.props.location.pathname
+      ? this.props.location.pathname
+      : '/';
 
     const post = this.props.post ? (
       <div>
@@ -73,7 +76,8 @@ class Post extends Component {
           {postActionPanel(
             this.props.post.authorId,
             this.props.post.id,
-            this.handleClick
+            this.handleClick,
+            history
           )}
         </div>
         {post}

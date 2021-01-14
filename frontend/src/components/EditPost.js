@@ -27,13 +27,6 @@ class EditPost extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    let tagsArray = undefined;
-
-    if (this.state.tags) {
-      const tags = this.state.tags;
-      tagsArray = tags.toLowerCase().split(', ');
-    }
-
     const postId = this.props.post.id;
 
     const post = {
@@ -42,7 +35,7 @@ class EditPost extends Component {
       privacyLevel: this.state.privacyLevel,
       publishDate: this.state.date,
       state: this.state.state,
-      tags: tagsArray,
+      tags: this.state.tags,
       postImage: this.state.postImage,
     };
 
@@ -66,6 +59,7 @@ class EditPost extends Component {
 
   render() {
     const post = this.props.post;
+    const postTags = post.tags.toString().replace(',', ', ');
 
     return (
       <div className="container">
@@ -132,7 +126,7 @@ class EditPost extends Component {
                 className="form-control form-control-lg"
                 name="tags"
                 onChange={this.handleInputChange}
-                defaultValue={post.tags}
+                defaultValue={postTags}
               />
             </div>
             <div className="input-field file-field">

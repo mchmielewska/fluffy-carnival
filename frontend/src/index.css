@@ -634,3 +634,55 @@ button:focus {
     color:#F44336;
     margin: 1rem 0;
 }
+
+button.likes-panel-button {
+    display: inline-block;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    display: relative;
+}
+
+.likes-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.likes-panel-button.like-button {
+    margin: 0;
+}
+
+button.like-button, button.likes-panel-button.like-button {
+    display: inline-block;
+    margin: 0;
+}
+
+.likes-to-show {
+    position: absolute;
+    background: #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+    font-size: 0.9rem;
+    font-weight: normal;
+    min-width: 75%;
+    z-index: 5;
+    top: 4.1rem;
+    right: 0;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.likes-username {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    justify-content: flex-start;
+    line-height: 13px;
+}
+
+a.username {
+    padding: 0;
+    margin-left: 0.5rem;
+}

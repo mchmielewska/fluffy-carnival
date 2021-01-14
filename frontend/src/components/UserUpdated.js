@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 class UserUpdated extends Component {
   render() {
+    console.log(this.props.history.location);
     return (
       <div className="container">
         <div className="center text-center">

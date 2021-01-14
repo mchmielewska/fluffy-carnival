@@ -55,7 +55,6 @@ class EditUser extends Component {
 
     formData.append('profileImage', profileImage);
     formData.append('_method', 'PATCH');
-    console.log('formData local', formData);
 
     this.props.patchProfileImage(formData, this.props.history);
   }
@@ -63,9 +62,7 @@ class EditUser extends Component {
   handleFileUpload(e) {
     let files = e.target.files;
     console.log(files);
-    this.setState({ profileImage: files[0] }, () => {
-      console.log(this.state.profileImage);
-    });
+    this.setState({ profileImage: files[0] }, () => {});
   }
 
   componentDidMount() {
@@ -98,6 +95,10 @@ class EditUser extends Component {
 
   render() {
     const user = this.props.user;
+    const history = this.props.location.pathname
+      ? this.props.location.pathname
+      : '/';
+    console.log(history);
 
     function profileImage(user) {
       if (user.profileImagePath === undefined) {

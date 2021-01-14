@@ -52,7 +52,7 @@ class Login extends Component {
       this.props.history.push('/');
       store.dispatch(getCurrentUser());
       store.dispatch(getUsers());
-      store.dispatch(getPosts());
+      store.dispatch(getPosts(this.props.history));
       store.dispatch(getLikes());
       store.dispatch(getFriendsList());
       store.dispatch(getPendingInvites());

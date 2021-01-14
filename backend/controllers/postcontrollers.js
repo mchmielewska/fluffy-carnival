@@ -150,6 +150,12 @@ exports.patchUpdatePost = async (req, res, next) => {
         }
       );
     } else {
+      const tags = req.body.tags
+        ? req.body.tags.toLowerCase().split(', ')
+        : undefined;
+      post.tags = tags;
+      console.log(post.tags);
+
       post.save();
       res.status(200).json({ success: true, msg: 'Post updated' });
       return;
