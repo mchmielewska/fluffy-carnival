@@ -85,7 +85,7 @@ class Register extends Component {
             <div className="col m6">
               <form onSubmit={this.handleSubmit}>
                 <div className="input-field">
-                  <label htmlFor="email">E-mail</label>
+                  <label htmlFor="email">E-mail *</label>
                   <input
                     type="email"
                     name="email"
@@ -100,7 +100,7 @@ class Register extends Component {
                   ></span>
                 </div>
                 <div className="input-field">
-                  <label htmlFor="name">Name</label>
+                  <label htmlFor="name">Name *</label>
                   <input
                     type="text"
                     name="name"
@@ -110,7 +110,7 @@ class Register extends Component {
                   />
                 </div>
                 <div className="input-field">
-                  <label htmlFor="surname">Surname</label>
+                  <label htmlFor="surname">Surname *</label>
                   <input
                     type="text"
                     name="surname"
@@ -120,7 +120,7 @@ class Register extends Component {
                   />
                 </div>
                 <div className="input-field">
-                  <label htmlFor="birthDate">Birth date</label>
+                  <label htmlFor="birthDate">Birth date *</label>
                   <input
                     type="date"
                     placeholder="DD-MM-YYYY"
@@ -141,11 +141,11 @@ class Register extends Component {
                       <option value="male">male</option>
                       <option value="other">other</option>
                     </select>
-                    <label>Gender</label>
+                    <label>Gender *</label>
                   </div>
                 </div>
                 <div className="input-field">
-                  <label htmlFor="password">Password</label>
+                  <label htmlFor="password">Password *</label>
                   <input
                     type="password"
                     name="password"
@@ -155,7 +155,7 @@ class Register extends Component {
                   />
                 </div>
                 <div className="input-field">
-                  <label htmlFor="country">Country</label>
+                  <label htmlFor="country">Country *</label>
                   <input
                     type="text"
                     name="country"
@@ -165,7 +165,7 @@ class Register extends Component {
                   />
                 </div>
                 <div className="input-field">
-                  <label htmlFor="city">City</label>
+                  <label htmlFor="city">City *</label>
                   <input
                     type="text"
                     name="city"
@@ -175,6 +175,11 @@ class Register extends Component {
                   />
                 </div>
                 <div className="input-field">
+                  <p className="register-info">* required fields</p>
+                  <p className="register-info">
+                    Password must contain at least: 8 characters and one:
+                    uppercase letter, lowercase letter, number and special sign
+                  </p>
                   {showError}
                   <button type="submit" className="btn btn-primary">
                     Register User

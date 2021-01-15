@@ -14,6 +14,7 @@ import {
   postImage,
 } from '../utils/postUtils';
 import { profileImage } from '../utils/userUtils';
+import { likePost } from '../utils/likesUtils';
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -35,6 +36,7 @@ class UserProfile extends Component {
     const friendsList = this.props.friendsList;
     const friendsIds = friendsList.map((el) => el._id);
     const allLikes = this.props.likes;
+    const users = this.props.users;
 
     const currentUser = this.props.currentUser;
 
@@ -100,28 +102,6 @@ class UserProfile extends Component {
       this.props.removeLike(id);
     };
 
-    function likePost(id) {
-      const postLikes = allLikes.find((post) => post._id === id);
-
-      for (let i in postLikes.likes) {
-        if (postLikes.likes[i].user === currentUser.id) {
-          return (
-            <button
-              className="like-button liked"
-              onClick={(e) => handleUnlike(e, id)}
-            >
-              <i className="small material-icons red-text">favorite_border</i>
-            </button>
-          );
-        }
-      }
-
-      return (
-        <button className="like-button" onClick={(e) => handleLike(e, id)}>
-          <i className="small material-icons">favorite_border</i>
-        </button>
-      );
-    }
     const history = this.props.location.pathname
       ? this.props.location.pathname
       : '/';
@@ -163,7 +143,18 @@ class UserProfile extends Component {
             <div className="col s6" key={post.id}>
               <div className="post card">
                 <div className="card-content row">
-                  <div className="col s12 right-align">{likePost(post.id)}</div>
+                  <div className="col s12 right-align">
+                    {' '}
+                    {likePost(
+                      post.id,
+                      this.props,
+                      allLikes,
+                      users,
+                      currentUser,
+                      handleLike,
+                      handleUnlike
+                    )}
+                  </div>
                 </div>
                 <div className="card-image">{postImage(post)}</div>
                 <div className="card-content text">
@@ -231,6 +222,7 @@ const mapStateToProps = (state, ownProps) => {
     user: state.users.all.find((user) => user._id === id),
     posts: state.posts.filter((post) => post.authorId === id),
     likes: state.likes,
+    users: state.users.all,
   };
 };
 

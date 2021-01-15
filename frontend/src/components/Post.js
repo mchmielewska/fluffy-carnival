@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { deletePost } from '../actions/postsActions';
+import { getLikes, addLike, removeLike } from '../actions/likesActions';
 import {
   dateBuilder,
   getAuthorForSinglePostPage,
   singlePostImage,
 } from '../utils/postUtils';
+import { likesPanel } from '../utils/likesUtils';
 class Post extends Component {
   handleClick = () => {
     this.props.deletePost(this.props.post.id);
@@ -15,6 +17,73 @@ class Post extends Component {
   };
 
   render() {
+    const id = this.props.post.id;
+
+    const handleLike = (e, id) => {
+      e.preventDefault();
+      this.props.addLike(id);
+    };
+
+    const handleUnlike = (e, id) => {
+      e.preventDefault();
+      this.props.removeLike(id);
+    };
+
+    function likePost(id, props, allLikes, users, currentUser) {
+      const postLikes = allLikes.find((post) => post._id === id);
+      if (postLikes) {
+        const divId = 'div-' + id;
+        for (let i in postLikes.likes) {
+          if (postLikes.likes[i].user === currentUser.id) {
+            return (
+              <div id={divId}>
+                <div className="likes-panel">
+                  {likesPanel(id, props, allLikes, users)}
+                  <button
+                    className="like-button liked"
+                    onClick={(e) => handleUnlike(e, id)}
+                  >
+                    <i className="small material-icons red-text">
+                      favorite_border
+                    </i>
+                  </button>
+                </div>
+              </div>
+            );
+          }
+        }
+
+        return (
+          <div id={divId}>
+            <div className="likes-panel">
+              {likesPanel(id, props, allLikes, users)}
+              <button
+                className="like-button"
+                onClick={(e) => handleLike(e, id)}
+              >
+                <i className="small material-icons">favorite_border</i>
+              </button>
+            </div>
+          </div>
+        );
+      } else {
+        const divId = 'div-' + id;
+        return (
+          <div id={divId}>
+            <div className="likes-panel">
+              {likesPanel(id, props, allLikes, users)}
+              <button
+                className="like-button"
+                onClick={(e) => handleLike(e, id)}
+              >
+                <i className="small material-icons">favorite_border</i>
+              </button>
+            </div>
+          </div>
+        );
+      }
+    }
+
     function postActionPanel(userId, postId, handleClick, history) {
       if (userId !== currentUser.id) return '';
 
@@ -38,6 +107,7 @@ class Post extends Component {
 
     const currentUser = this.props.currentUser;
     const users = this.props.users;
+    const allLikes = this.props.likes;
     const history = this.props.location.pathname
       ? this.props.location.pathname
       : '/';
@@ -45,6 +115,9 @@ class Post extends Component {
     const post = this.props.post ? (
       <div>
         <h5 className="right-align post-title">{this.props.post.title}</h5>
+        <div className="likes-panel-single-post">
+          {likePost(id, this.props, allLikes, users, currentUser)}
+        </div>
         <div className="card horizontal">
           <div className="author">
             {getAuthorForSinglePostPage(users, this.props.post)}
@@ -92,6 +165,8 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.auth.user,
     users: state.users.all,
     post: state.posts.find((post) => post.id === id),
+    likes: state.likes,
+    posts: state.posts,
   };
 };
 
@@ -99,6 +174,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deletePost: (id) => {
       dispatch(deletePost(id));
+    },
+    addLike: (id) => {
+      dispatch(addLike(id));
+    },
+    removeLike: (id) => {
+      dispatch(removeLike(id));
+    },
+    getLikes: () => {
+      dispatch(getLikes());
     },
   };
 };

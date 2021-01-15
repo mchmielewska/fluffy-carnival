@@ -2,7 +2,6 @@ import React from 'react';
 import { profileImage } from '../utils/userUtils';
 
 const Username = (props) => {
-  console.log(props);
   const users = props.users;
   const id = props.id;
   function getUserName(users, id) {
@@ -21,7 +20,6 @@ const Username = (props) => {
             </div>
           </div>
         );
-        console.log(user);
         return user;
       }
     }

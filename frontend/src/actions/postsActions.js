@@ -10,7 +10,6 @@ import {
 import setAuthToken from '../setAuthToken';
 
 export const getPosts = (history, user) => (dispatch) => {
-  console.log(history);
   axios
     .get(
       `${
@@ -42,7 +41,6 @@ export const getPosts = (history, user) => (dispatch) => {
 };
 
 export const getPostsByTag = (tag) => (dispatch) => {
-  console.log('get posts by tag');
   axios
     .get(
       `${
@@ -50,7 +48,6 @@ export const getPostsByTag = (tag) => (dispatch) => {
       }/posts/find?tags=${tag}`
     )
     .then((res) => {
-      console.log(res);
       dispatch({
         type: GET_POSTS_BY_TAG,
         payload: res.data,
