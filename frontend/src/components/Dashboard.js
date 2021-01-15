@@ -73,36 +73,24 @@ class Dashboard extends Component {
 
     const showLikes = (e, id, postLikes, props) => {
       e.preventDefault();
-      let showDetails = false;
-      showDetails = !showDetails;
+
       const divToShow = document.getElementById(id);
+      // showDetails determines whether we should toggle current likes panel off, or
+      //   whether we should turn the clicked panel on (and hide all the other ones)
 
-      if (showDetails === true) {
-        divToShow.classList.remove('hidden');
-        console.log('show');
-        console.log(divToShow.hidden);
-      } else {
+      let targetElementVisible = !divToShow.classList.contains('hidden');
+
+      if (targetElementVisible) {
         divToShow.classList.add('hidden');
-        showDetails = !showDetails;
-        console.log('hide');
-      }
-
-      const allLikesDivs = document.getElementsByClassName('likes-to-show');
-      for (let i = 0; i < allLikesDivs.length; i++) {
-        if (!allLikesDivs[i].classList.contains('hidden')) {
-          allLikesDivs[i].classList.add('hidden');
+      } else {
+        const allLikesDivs = document.getElementsByClassName('likes-to-show');
+        for (let i = 0; i < allLikesDivs.length; i++) {
+          if (!allLikesDivs[i].classList.contains('hidden')) {
+            allLikesDivs[i].classList.add('hidden');
+          }
         }
-      }
 
-      if (showDetails === true) {
         divToShow.classList.remove('hidden');
-        console.log('show');
-        console.log(divToShow.hidden);
-        showDetails = !showDetails;
-      } else {
-        divToShow.classList.add('hidden');
-        showDetails = !showDetails;
-        console.log('hide');
       }
     };
 
