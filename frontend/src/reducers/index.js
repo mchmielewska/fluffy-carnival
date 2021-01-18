@@ -8,6 +8,7 @@ import likesReducer from './likesReducer';
 import searchReducer from './searchReducer';
 import errorReducer from './errorReducer';
 import singleUserLikesReducer from './singleUserLikesReducer';
+import commentsReducer from './commentsReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   friends: friendsReducer,
   form: formReducer,
   likes: likesReducer,
+  comments: commentsReducer,
   userlikes: singleUserLikesReducer,
   search: searchReducer,
   errors: errorReducer,

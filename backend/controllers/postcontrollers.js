@@ -269,3 +269,36 @@ exports.getUserFavourites = (req, res, next) => {
     res.send(foundPosts);
   });
 };
+
+exports.postAddComment = (req, res, next) => {
+  Post.findByIdAndUpdate(req.query.id).then((post) => {
+    if (!post) {
+      res.status(400).json({ success: false, msg: 'Post not found' });
+      return;
+    }
+
+    const newComment = {
+      author: loggedUserId,
+      comment: req.body.comment,
+      publishDate: Date.now(),
+    };
+
+    post.comments.push(newComment);
+    post.save();
+
+    res.status(200).json({ success: true, msg: 'Comment added!' });
+    return;
+  });
+};
+
+exports.getPostComments = (req, res, next) => {
+  Post.findOne({ _id: req.query.id }).then((post) => {
+    if (!post) {
+      res.status(400).json({ success: false, msg: 'Post not found' });
+      return;
+    }
+
+    const comments = post.comments;
+    res.send(comments);
+  });
+};

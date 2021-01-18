@@ -83,7 +83,7 @@ export function readMore(post, maxLength) {
 
 export function getAuthor(users, post, size = 'm2') {
   for (let i = 0; i < users.length; i++) {
-    if (users[i]._id === post.authorId) {
+    if (users[i]._id === post.authorId || users[i]._id === post.author) {
       const className = `col ${size} post-header`;
       const author = (
         <div className="row">

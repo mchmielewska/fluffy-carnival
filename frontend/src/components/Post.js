@@ -10,10 +10,17 @@ import {
   singlePostImage,
 } from '../utils/postUtils';
 import { likesPanel } from '../utils/likesUtils';
+import AddComment from './AddComment';
+import Comment from './Comment';
+import { getComments } from '../actions/commentsActions';
 class Post extends Component {
   handleClick = () => {
     this.props.deletePost(this.props.post.id);
     this.props.history.push('/posts/');
+  };
+
+  addComment = () => {
+    console.log('add');
   };
 
   render() {
@@ -139,6 +146,22 @@ class Post extends Component {
       <div className="center">Loading post...</div>
     );
 
+    this.props.getComments(id);
+    const postComments = this.props.comments;
+    console.log(postComments);
+
+    const comments = postComments.length
+      ? postComments.map((singleComment) => {
+          const singleCommentData = {
+            author: singleComment.author,
+            comment: singleComment.comment,
+            id: singleComment._id,
+            publishDate: singleComment.publishDate,
+          };
+          return <Comment {...singleCommentData} />;
+        })
+      : null;
+
     return (
       <div className="container">
         <div className="edit-links">
@@ -154,6 +177,10 @@ class Post extends Component {
           )}
         </div>
         {post}
+        <div>
+          {comments}
+          <AddComment {...this.props} />
+        </div>
       </div>
     );
   }
@@ -167,6 +194,7 @@ const mapStateToProps = (state, ownProps) => {
     post: state.posts.find((post) => post.id === id),
     likes: state.likes,
     posts: state.posts,
+    comments: state.comments,
   };
 };
 
@@ -183,6 +211,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getLikes: () => {
       dispatch(getLikes());
+    },
+    getComments: (id) => {
+      dispatch(getComments(id));
     },
   };
 };

@@ -33,7 +33,7 @@ export const showLikes = (e, id) => {
 };
 
 export const likesPanel = (id, props, allLikes, users) => {
-  const postLikes = allLikes.find((post) => post._id === id);
+  const postLikes = allLikes ? allLikes.find((post) => post._id === id) : [];
   const totalLikes = postLikes.likes.length;
 
   const likes = postLikes.likes.map((like) => {
@@ -72,7 +72,9 @@ export function likePost(
   if (postLikes) {
     const divId = 'div-' + id;
     for (let i in postLikes.likes) {
-      if (postLikes.likes[i].user === currentUser) {
+      const currentUserId =
+        typeof currentUser === 'object' ? currentUser.id : currentUser;
+      if (postLikes.likes[i].user === currentUserId) {
         return (
           <div id={divId}>
             <div className="likes-panel">

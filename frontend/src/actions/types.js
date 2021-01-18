@@ -19,3 +19,6 @@ export const FIND_POSTS = 'FIND_POSTS';
 export const FIND_USERS = 'FIND_USERS';
 export const CLEAN_ERRORS = 'CLEAN_ERRORS';
 export const GET_USER_FAVOURITES = 'GET_USER_FAVOURITES';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';

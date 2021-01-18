@@ -144,7 +144,6 @@ class UserProfile extends Component {
               <div className="post card">
                 <div className="card-content row">
                   <div className="col s12 right-align">
-                    {' '}
                     {likePost(
                       post.id,
                       this.props,

@@ -32,5 +32,15 @@ router.get(
   authenticate.verifyToken,
   postControllers.getUserFavourites
 );
+router.post(
+  '/addcomment',
+  authenticate.verifyToken,
+  postControllers.postAddComment
+);
+router.get(
+  '/comments',
+  authenticate.verifyToken,
+  postControllers.getPostComments
+);
 
 module.exports = router;

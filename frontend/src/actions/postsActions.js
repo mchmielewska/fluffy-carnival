@@ -29,12 +29,16 @@ export const getPosts = (history, user) => (dispatch) => {
           type: GET_ERRORS,
           error: error.response.data,
         });
-      } else {
         history.push('/login');
         localStorage.removeItem('jwtToken');
         setAuthToken(false);
         dispatch({
           type: LOGOUT_USER,
+        });
+      } else {
+        dispatch({
+          type: GET_ERRORS,
+          error: error.response.data,
         });
       }
     });
