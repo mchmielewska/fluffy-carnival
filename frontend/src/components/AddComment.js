@@ -32,6 +32,7 @@ class AddComment extends Component {
       publishDate: date,
     };
     this.props.addComment(id, newComment, this.props.history);
+    this.setState({});
   }
 
   render() {

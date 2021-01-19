@@ -19,10 +19,6 @@ class Post extends Component {
     this.props.history.push('/posts/');
   };
 
-  addComment = () => {
-    console.log('add');
-  };
-
   render() {
     const id = this.props.post.id;
 
@@ -157,6 +153,8 @@ class Post extends Component {
             comment: singleComment.comment,
             id: singleComment._id,
             publishDate: singleComment.publishDate,
+            currentUser: this.props.currentUser,
+            postId: this.props.post.id,
           };
           return <Comment {...singleCommentData} />;
         })
@@ -177,7 +175,7 @@ class Post extends Component {
           )}
         </div>
         {post}
-        <div>
+        <div className="comments-container">
           {comments}
           <AddComment {...this.props} />
         </div>

@@ -78,6 +78,7 @@ exports.getFindPost = async (req, res, next) => {
         'description',
         'tags',
         'privacyLevel',
+        'comments',
       ])
     );
   } else {
@@ -91,6 +92,7 @@ exports.getFindPost = async (req, res, next) => {
         'tags',
         'privacyLevel',
         'postImagePath',
+        'comments',
       ])
     );
   }
@@ -243,7 +245,6 @@ exports.getUserFavourites = (req, res, next) => {
     let favouritesArray = [];
 
     const allLikedPosts = posts.filter((post) => post.likes.length !== 0);
-    console.log(allLikedPosts);
     const favouritesList = allLikedPosts.filter((post) =>
       post.likes.find((postLike) => postLike.user == loggedUserId)
     );
@@ -287,6 +288,25 @@ exports.postAddComment = (req, res, next) => {
     post.save();
 
     res.status(200).json({ success: true, msg: 'Comment added!' });
+    return;
+  });
+};
+
+exports.deleteComment = (req, res, next) => {
+  Post.findByIdAndUpdate(req.query.postId).then((post) => {
+    if (!post) {
+      res.status(400).json({ success: false, msg: 'Post not found' });
+      return;
+    }
+
+    const commentToBeRemoved = post.comments.find(
+      (comment) => comment.author == loggedUserId && comment._id == req.query.id
+    );
+
+    commentToBeRemoved.remove();
+    post.save();
+
+    res.status(200).json({ success: true, msg: 'Comment deleted!' });
     return;
   });
 };

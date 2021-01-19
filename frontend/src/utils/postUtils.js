@@ -46,15 +46,14 @@ export function singlePostImage(post) {
 export function dateBuilder(date) {
   const event = new Date(date);
   const options = {
-    weekday: 'long',
     year: 'numeric',
-    month: 'long',
+    month: 'numeric',
     day: 'numeric',
+    hour: '2-digit',
+    hour12: false,
+    minute: '2-digit',
   };
-  const newDate = `${event.toLocaleDateString(
-    'en-EN',
-    options
-  )} ${event.toLocaleTimeString('en-US', { hour12: false })}`;
+  const newDate = `${event.toLocaleDateString('en-GB', options)}`;
   return newDate;
 }
 
@@ -108,7 +107,7 @@ export function getAuthor(users, post, size = 'm2') {
 
 export function getAuthorForSinglePostPage(users, post) {
   for (let i = 0; i < users.length; i++) {
-    if (users[i]._id === post.authorId) {
+    if (users[i]._id === post.authorId || users[i]._id === post.author) {
       const author = (
         <div>
           <Link to={'/users/' + users[i]._id}>

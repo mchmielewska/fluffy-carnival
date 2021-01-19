@@ -37,6 +37,11 @@ router.post(
   authenticate.verifyToken,
   postControllers.postAddComment
 );
+router.delete(
+  '/deletecomment',
+  authenticate.verifyToken,
+  postControllers.deleteComment
+);
 router.get(
   '/comments',
   authenticate.verifyToken,

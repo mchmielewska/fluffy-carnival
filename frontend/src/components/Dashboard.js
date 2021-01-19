@@ -96,12 +96,15 @@ class Dashboard extends Component {
                   </p>
                   <p className="center-align">{readMore(post, 100)}</p>
                 </div>
-
                 <div className="card-action row">
-                  <div className="user-details left-align col m10">
+                  <div className="user-details left-align col m9">
                     <p className="card-date">{dateBuilder(post.publishDate)}</p>
                   </div>
-                  <div className="col m2 right-align privacy-level">
+                  <div className="col m3 right-align privacy-level">
+                    <span title="comments" className="post-comments-icons">
+                      {post.comments.length}
+                      <i className="material-icons">chat_bubble_outline</i>{' '}
+                    </span>
                     <span title={privacyLevelIcon(post.privacyLevel)}>
                       <i className="material-icons">
                         {privacyLevelIcon(post.privacyLevel)}

@@ -6,6 +6,12 @@ function arrayLimit(val) {
   return val.length <= 10;
 }
 
+const LikeSchema = new Schema({
+  user: mongoose.Schema.Types.ObjectId,
+});
+
+mongoose.model('like', LikeSchema, 'likes');
+
 const CommentSchema = new Schema({
   author: mongoose.Schema.Types.ObjectId,
   comment: String,
@@ -13,15 +19,10 @@ const CommentSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  likes: [LikeSchema],
 });
 
 mongoose.model('comment', CommentSchema, 'comments');
-
-const LikeSchema = new Schema({
-  user: mongoose.Schema.Types.ObjectId,
-});
-
-mongoose.model('like', LikeSchema, 'likes');
 
 const PostSchema = new Schema({
   title: {

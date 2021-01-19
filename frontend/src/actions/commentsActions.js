@@ -14,7 +14,6 @@ export const addComment = (id, comment, history) => (dispatch) => {
         type: ADD_COMMENT,
         payload: res.data,
       });
-      history.push(`/posts/${id}`);
     })
     .catch((error) => {
       dispatch({
@@ -24,12 +23,12 @@ export const addComment = (id, comment, history) => (dispatch) => {
     });
 };
 
-export const removeComment = (id) => (dispatch) => {
+export const deleteComment = (postId, commentId) => (dispatch) => {
   axios
     .delete(
       `${
         process.env.SERVER_URL || 'http://localhost:9090'
-      }/posts/removecomment?id=${id}`
+      }/posts/deletecomment?postId=${postId}&id=${commentId}`
     )
     .then((res) => {
       dispatch({
