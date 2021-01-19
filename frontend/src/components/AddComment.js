@@ -32,27 +32,26 @@ class AddComment extends Component {
       publishDate: date,
     };
     this.props.addComment(id, newComment, this.props.history);
-    this.setState({});
+    this.setState({ comment: '' });
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="add-comment-container">
         <div className="row">
           <form className="col s12" onSubmit={this.handleSubmit} method="POST">
             <div className="input-field">
-              <i className="material-icons prefix">mode_edit</i>
-              <input
+              <textarea
                 type="text"
-                placeholder="comment"
-                className="form-control form-control-lg "
+                className="materialize-textarea"
                 name="comment"
                 onChange={this.handleInputChange}
                 value={this.state.comment}
               />
+              <label htmlFor="comment">Comment</label>
             </div>
 
-            <div className="input-field">
+            <div className="input-field add-comment">
               <button type="submit" className="btn btn-primary">
                 Add comment!
               </button>

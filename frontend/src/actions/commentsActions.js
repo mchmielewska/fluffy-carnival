@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { ADD_COMMENT, REMOVE_COMMENT, GET_COMMENTS, GET_ERRORS } from './types';
+import {
+  ADD_COMMENT,
+  REMOVE_COMMENT,
+  GET_COMMENTS,
+  GET_ERRORS,
+  LIKE_COMMENT,
+  UNLIKE_COMMENT,
+} from './types';
 
 export const addComment = (id, comment, history) => (dispatch) => {
   axios
@@ -33,6 +40,48 @@ export const deleteComment = (postId, commentId) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: REMOVE_COMMENT,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_ERRORS,
+        error: error.response.data,
+      });
+    });
+};
+
+export const likeComment = (postId, commentId) => (dispatch) => {
+  axios
+    .post(
+      `${
+        process.env.SERVER_URL || 'http://localhost:9090'
+      }/posts/likecomment?postId=${postId}&id=${commentId}`
+    )
+    .then((res) => {
+      dispatch({
+        type: LIKE_COMMENT,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_ERRORS,
+        error: error.response.data,
+      });
+    });
+};
+
+export const unlikeComment = (postId, commentId) => (dispatch) => {
+  axios
+    .delete(
+      `${
+        process.env.SERVER_URL || 'http://localhost:9090'
+      }/posts/unlikecomment?postId=${postId}&id=${commentId}`
+    )
+    .then((res) => {
+      dispatch({
+        type: UNLIKE_COMMENT,
         payload: res.data,
       });
     })

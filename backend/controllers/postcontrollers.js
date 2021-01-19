@@ -322,3 +322,53 @@ exports.getPostComments = (req, res, next) => {
     res.send(comments);
   });
 };
+
+exports.postLikeComment = (req, res, next) => {
+  Post.findByIdAndUpdate(req.query.postId).then((post) => {
+    if (!post) {
+      res.status(400).json({ success: false, msg: 'Post not found' });
+      return;
+    }
+
+    const like = {
+      user: loggedUserId,
+    };
+
+    const commentToBeLiked = post.comments.find(
+      (comment) => comment._id == req.query.id
+    );
+    console.log(commentToBeLiked);
+
+    commentToBeLiked.likes.push(like);
+    commentToBeLiked.save();
+    post.save();
+
+    res.status(200).json({ success: true, msg: 'Comment liked!' });
+    return;
+  });
+};
+
+exports.deleteLikeUnlikeComment = (req, res, next) => {
+  Post.findByIdAndUpdate(req.query.postId).then((post) => {
+    if (!post) {
+      res.status(400).json({ success: false, msg: 'Post not found' });
+      return;
+    }
+
+    const comment = post.comments.find(
+      (comment) => comment._id == req.query.id
+    );
+    console.log(comment);
+    const commentToBeUnliked = comment.likes.find(
+      (like) => like.user == loggedUserId
+    );
+    console.log(commentToBeUnliked);
+
+    commentToBeUnliked.remove();
+    post.save();
+    console.log(post.comments);
+
+    res.status(200).json({ success: true, msg: 'Comment unliked!' });
+    return;
+  });
+};

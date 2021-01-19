@@ -152,6 +152,7 @@ class Post extends Component {
             author: singleComment.author,
             comment: singleComment.comment,
             id: singleComment._id,
+            likes: singleComment.likes,
             publishDate: singleComment.publishDate,
             currentUser: this.props.currentUser,
             postId: this.props.post.id,

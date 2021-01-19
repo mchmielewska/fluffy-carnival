@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { dateBuilder, getAuthorForSinglePostPage } from '../utils/postUtils';
-import { deleteComment } from '../actions/commentsActions';
+import {
+  deleteComment,
+  likeComment,
+  unlikeComment,
+} from '../actions/commentsActions';
 class Comment extends Component {
   render() {
     const commentAuthorId = this.props.author;
@@ -13,31 +17,73 @@ class Comment extends Component {
       this.props.deleteComment(postId, commentId);
     };
 
-    function commentsActionPanel(userId, currentUser, handleRemove) {
-      if (userId !== currentUser)
-        return (
-          <div className="right-align">
-            <button className="btn comments-action">
+    const commentLikes = () => {
+      const commentLikes = this.props.likes;
+      if (commentLikes.length) {
+        for (let i in commentLikes) {
+          console.log(commentLikes[i].user === currentUser);
+          if (commentLikes[i].user === currentUser) {
+            return (
+              <button
+                className="btn comments-action liked"
+                onClick={(e) => handleUnlike(e, postId, commentId)}
+                title="unlike comment"
+              >
+                <i className="material-icons">favorite_border</i>
+              </button>
+            );
+          }
+          return (
+            <button
+              className="btn comments-action"
+              onClick={(e) => handleLike(e, postId, commentId)}
+              title="like comment"
+            >
               <i className="material-icons">favorite_border</i>
             </button>
-          </div>
+          );
+        }
+      } else {
+        return (
+          <button
+            className="btn comments-action"
+            onClick={(e) => handleLike(e, postId, commentId)}
+            title="like comment"
+          >
+            <i className="material-icons">favorite_border</i>
+          </button>
         );
+      }
+    };
+
+    const handleLike = (e, postId, commentId) => {
+      e.preventDefault();
+      this.props.likeComment(postId, commentId);
+    };
+
+    const handleUnlike = (e, postId, commentId) => {
+      e.preventDefault();
+      this.props.unlikeComment(postId, commentId);
+    };
+
+    const commentsActionPanel = (userId, currentUser) => {
+      if (userId !== currentUser) {
+        return <div className="right-align">{commentLikes()}</div>;
+      }
 
       return (
         <div className="right-align">
-          <button className="btn comments-action">
-            <i className="material-icons">favorite_border</i>
-          </button>
           <button
             className="btn comments-action"
             onClick={(e) => handleRemove(e, postId, commentId)}
+            title="remove comment"
           >
-            <i className="material-icons">delete</i>
+            <i className="material-icons">clear</i>
           </button>
+          {commentLikes()}
         </div>
       );
-    }
-    console.log(this.props);
+    };
     const users = this.props.users;
     const currentUser = this.props.currentUser.id;
     return (
@@ -54,7 +100,7 @@ class Comment extends Component {
               <p className="post-date">{dateBuilder(this.props.publishDate)}</p>
             </div>
             <div className="col m3">
-              {commentsActionPanel(commentAuthorId, currentUser, handleRemove)}
+              {commentsActionPanel(commentAuthorId, currentUser)}
             </div>
           </div>
         </div>
@@ -73,6 +119,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteComment: (postId, commentId) => {
       dispatch(deleteComment(postId, commentId));
+    },
+    likeComment: (postId, commentId) => {
+      dispatch(likeComment(postId, commentId));
+    },
+    unlikeComment: (postId, commentId) => {
+      dispatch(unlikeComment(postId, commentId));
     },
   };
 };

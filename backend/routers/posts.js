@@ -47,5 +47,15 @@ router.get(
   authenticate.verifyToken,
   postControllers.getPostComments
 );
+router.post(
+  '/likecomment',
+  authenticate.verifyToken,
+  postControllers.postLikeComment
+);
+router.delete(
+  '/unlikecomment',
+  authenticate.verifyToken,
+  postControllers.deleteLikeUnlikeComment
+);
 
 module.exports = router;

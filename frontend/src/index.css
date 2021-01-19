@@ -764,6 +764,13 @@ a.username {
 .btn.comments-action {
     min-width: auto;
     box-shadow: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 0.5rem;
+}
+
+.btn.comments-action:focus {
+    background-color: #FFFFFF;
 }
 
 .btn.comments-action i {
@@ -771,13 +778,13 @@ a.username {
 }
 
 .btn.comments-action i:hover {
-    color: #2196f3;
+    color: #000000;
     cursor: pointer;
 }
 
 .btn.comments-action:hover {
     background-color: transparent;
-    color: #2196f3;
+    color: #000000;
 }
 
 .post-comments-icons {
@@ -795,4 +802,34 @@ a.username {
 .privacy-level {
     display: flex;
     justify-content: right;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: #999999
+}
+
+.add-comment button.btn.btn-primary {
+    margin-right: 0;
+}
+
+.add-comment {
+    text-align: right;
+}
+
+.add-comment-container .row .col.s12 {
+    padding: 0.5rem 0;
+}
+
+textarea.materialize-textarea {
+    font-size: 13px;
+    line-height: 2;
+    text-align: justify;
+}
+
+.btn.comments-action.liked i {
+    color: #F44336;
+}
+
+.btn.comments-action.liked i:hover {
+    color: #000000;
 }
