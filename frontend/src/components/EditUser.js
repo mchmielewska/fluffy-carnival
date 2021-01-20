@@ -98,7 +98,6 @@ class EditUser extends Component {
     const history = this.props.location.pathname
       ? this.props.location.pathname
       : '/';
-    console.log(history);
 
     function profileImage(user) {
       if (user.profileImagePath === undefined) {

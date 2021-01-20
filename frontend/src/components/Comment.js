@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { dateBuilder, getAuthorForSinglePostPage } from '../utils/postUtils';
+import { dateBuilder } from '../utils/postUtils';
+import AuthorSinglePostPage from './AuthorSinglePostPage';
 import CommentsActionPanel from './CommentsActionPanel';
 class Comment extends Component {
   render() {
     const users = this.props.users;
+    const authorProps = {
+      users: users,
+      post: this.props,
+    };
     return (
       <div key={this.props.id} className="single-comment card horizontal">
-        <div className="author">
-          {getAuthorForSinglePostPage(users, this.props)}
-        </div>
+        <AuthorSinglePostPage {...authorProps} />
         <div className="card-stacked">
           <div className="card-content">
             <p>{this.props.comment}</p>

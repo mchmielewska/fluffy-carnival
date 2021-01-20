@@ -30,7 +30,7 @@ class UserCard extends Component {
       );
     }
 
-    const getAge = (birthDate) =>
+    const getAge = () =>
       Math.floor(
         (new Date() - new Date(user.birthDate).getTime()) / 3.15576e10
       );
@@ -39,6 +39,7 @@ class UserCard extends Component {
       user: this.props.user,
       class: 'responsive-img',
     };
+
     return (
       <div className="col m3" key={user._id}>
         <div className="card profile-card valign-wrapper">

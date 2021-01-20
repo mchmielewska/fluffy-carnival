@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addPost } from '../actions/postsActions';
-import { getPosts } from '../actions/postsActions';
 import * as M from 'materialize-css';
 class AddPost extends Component {
   constructor() {

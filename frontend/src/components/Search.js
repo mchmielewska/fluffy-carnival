@@ -8,45 +8,26 @@ import {
   privacyLevelIcon,
   shortenDescription,
   readMore,
-  getAuthor,
 } from '../utils/postUtils';
-import { userCard } from '../utils/userUtils';
+import UserCard from './UserCard';
 import { inviteFriend } from '../actions/friendsActions';
 import { cleanErrors } from '../actions/errorActions';
+import Author from './Author';
 class Search extends Component {
   render() {
     const error = this.props.errors;
     const posts = this.props.posts;
     const users = this.props.users;
     const usersFound = this.props.usersFound;
-    const currentUser = this.props.currentUser.id;
-
-    const friendsList = this.props.friendsList;
-    const friendsIds = friendsList.map((el) => el._id);
-
-    const handleInvite = (id) => {
-      this.props.inviteFriend(id);
-    };
-
-    function sendInvitation(user) {
-      if (user._id === currentUser || friendsIds.includes(user._id)) return;
-
-      return (
-        <button
-          className="action-button"
-          onClick={(e) => handleInvite(user._id)}
-        >
-          <i className="material-icons tiny">add_circle_outline</i> Add to
-          friends
-        </button>
-      );
-    }
-
     const showError = error ? <span>{error.msg}</span> : null;
 
     const userList = usersFound.length ? (
       usersFound.map((user) => {
-        return userCard(user, sendInvitation);
+        const userProps = {
+          ...this.props,
+          user: user,
+        };
+        return <UserCard {...userProps} key={user._id} />;
       })
     ) : (
       <div className="center">{showError}</div>
@@ -56,12 +37,17 @@ class Search extends Component {
       posts
         .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
         .map((post) => {
+          const authorProps = {
+            users: users,
+            post: post,
+            class: 'm1',
+          };
           return (
             <div className="col search-item" key={post.id}>
               <div className="post card">
                 <div className="card-content row">
                   <div className="post-header left-align col m10">
-                    {getAuthor(users, post, 'm1')}
+                    <Author {...authorProps} />
                   </div>
                 </div>
                 <div className="card-content text search">
