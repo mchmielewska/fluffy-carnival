@@ -1,45 +1,25 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getUsers } from '../actions/usersActions';
 import Sidebar from '../components/Sidebar';
-import { inviteFriend } from '../actions/friendsActions';
-import { userCard } from '../utils/userUtils';
+import UserCard from './UserCard';
 class Users extends Component {
   componentDidMount() {
-    const previousPathObject = this.props.location;
-    const previousPath = previousPathObject.state.from;
+    // const previousPathObject = this.props.location;
+    // const previousPath = previousPathObject.state.from;
     this.props.getUsers();
   }
   render() {
-    const currentUser = this.props.currentUser;
-    const friendsList = this.props.friendsList;
-    const friendsIds = friendsList.map((el) => el._id);
-
-    const handleInvite = (id) => {
-      this.props.inviteFriend(id);
-    };
-
-    function sendInvitation(user) {
-      if (user._id === currentUser || friendsIds.includes(user._id)) return;
-
-      return (
-        <button
-          className="action-button"
-          onClick={(e) => handleInvite(user._id)}
-        >
-          <i className="material-icons tiny">add_circle_outline</i> Add to
-          friends
-        </button>
-      );
-    }
-
     const users = this.props.users;
 
     const userList = users ? (
       users.map((user) => {
-        return userCard(user, sendInvitation, this.props.location.pathname);
+        const userProps = {
+          ...this.props,
+          user: user,
+        };
+        return <UserCard {...userProps} key={user._id} />;
       })
     ) : (
       <div className="center">No users found</div>
@@ -68,9 +48,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUsers: () => {
       dispatch(getUsers());
-    },
-    inviteFriend: (id) => {
-      dispatch(inviteFriend(id));
     },
   };
 };

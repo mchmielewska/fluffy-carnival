@@ -10,11 +10,13 @@ import PostImage from './PostImage';
 class SinglePostCard extends Component {
   render() {
     const post = this.props.post;
+    const classList = this.props.classList;
     const likesProps = {
       id: post.id,
     };
+
     return (
-      <div className="col m4 s6">
+      <div className={classList}>
         <div className="post card">
           <div className="card-content row">
             <PostCardAuthor {...this.props} />

@@ -48,6 +48,7 @@ class Dashboard extends Component {
             users: users,
             allLikes: allLikes,
             currentUser: currentUser,
+            classList: 'col m4 s6',
           };
           return <SinglePostCard {...props} key={post.id} />;
         })
