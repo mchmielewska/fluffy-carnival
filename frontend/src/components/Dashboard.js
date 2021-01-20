@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, getPostsByTag } from '../actions/postsActions';
 import { getCurrentUser, getUsers } from '../actions/usersActions';
 import Sidebar from './Sidebar';
-import { getLikes, addLike, removeLike } from '../actions/likesActions';
-import {
-  postImage,
-  dateBuilder,
-  privacyLevelIcon,
-  shortenDescription,
-  readMore,
-  getAuthor,
-  postTags,
-} from '../utils/postUtils';
+import { getLikes } from '../actions/likesActions';
 import { cleanErrors } from '../actions/errorActions';
-import { likePost } from '../utils/likesUtils';
+import SinglePostCard from './SinglePostCard';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -49,72 +39,17 @@ class Dashboard extends Component {
     const allLikes = this.props.likes;
     const currentUser = this.props.currentUser.id;
 
-    const handleLike = (e, id) => {
-      e.preventDefault();
-      this.props.addLike(id);
-    };
-
-    const handleUnlike = (e, id) => {
-      e.preventDefault();
-      this.props.removeLike(id);
-    };
-
     const postList = posts.length ? (
       posts
         .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
         .map((post) => {
-          return (
-            <div className="col m4 s6" key={post.id}>
-              <div className="post card">
-                <div className="card-content row">
-                  <div className="post-header left-align col m9">
-                    {getAuthor(users, post)}
-                  </div>
-                  <div className="col m3 right-align">
-                    {likePost(
-                      post.id,
-                      this.props,
-                      allLikes,
-                      users,
-                      currentUser,
-                      handleLike,
-                      handleUnlike
-                    )}
-                  </div>
-                </div>
-                <div className="card-image">{postImage(post)}</div>
-                <div className="row tags">
-                  <div className="user-details">{postTags(post)}</div>
-                </div>
-                <div className="card-content text">
-                  <Link to={'/posts/' + post.id}>
-                    <h6 className="card-title">{post.title}</h6>
-                  </Link>
-
-                  <p className="description">
-                    {shortenDescription(post.description, 100)}
-                  </p>
-                  <p className="center-align">{readMore(post, 100)}</p>
-                </div>
-                <div className="card-action row">
-                  <div className="user-details left-align col m9">
-                    <p className="card-date">{dateBuilder(post.publishDate)}</p>
-                  </div>
-                  <div className="col m3 right-align privacy-level">
-                    <span title="comments" className="post-comments-icons">
-                      {post.comments.length}
-                      <i className="material-icons">chat_bubble_outline</i>{' '}
-                    </span>
-                    <span title={privacyLevelIcon(post.privacyLevel)}>
-                      <i className="material-icons">
-                        {privacyLevelIcon(post.privacyLevel)}
-                      </i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
+          const props = {
+            post: post,
+            users: users,
+            allLikes: allLikes,
+            currentUser: currentUser,
+          };
+          return <SinglePostCard {...props} key={post.id} />;
         })
     ) : (
       <div className="center">No posts found</div>
@@ -160,12 +95,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     getUsers: () => {
       dispatch(getUsers());
-    },
-    addLike: (id) => {
-      dispatch(addLike(id));
-    },
-    removeLike: (id) => {
-      dispatch(removeLike(id));
     },
     getLikes: () => {
       dispatch(getLikes());

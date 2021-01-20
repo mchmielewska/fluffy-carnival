@@ -6,15 +6,10 @@ import { inviteFriend } from '../actions/friendsActions';
 import { getCurrentUser, getUsers } from '../actions/usersActions';
 import { getPosts } from '../actions/postsActions';
 import { getLikes, addLike, removeLike } from '../actions/likesActions';
-import {
-  dateBuilder,
-  shortenDescription,
-  readMore,
-  privacyLevelIcon,
-  postImage,
-} from '../utils/postUtils';
+import { shortenDescription, readMore, postImage } from '../utils/postUtils';
 import { profileImage } from '../utils/userUtils';
 import { likePost } from '../utils/likesUtils';
+import PostDetails from './PostDetails';
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -166,18 +161,7 @@ class UserProfile extends Component {
                   <p className="center-align">{readMore(post, 100)}</p>
                 </div>
 
-                <div className="card-action row">
-                  <div className="user-details left-align col m10">
-                    <p className="card-date">{dateBuilder(post.publishDate)}</p>
-                  </div>
-                  <div className="col m2 right-align privacy-level">
-                    <span title={privacyLevelIcon(post.privacyLevel)}>
-                      <i className="material-icons">
-                        {privacyLevelIcon(post.privacyLevel)}
-                      </i>
-                    </span>
-                  </div>
-                </div>
+                <PostDetails {...post} />
               </div>
             </div>
           );

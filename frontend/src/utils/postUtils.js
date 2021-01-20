@@ -123,29 +123,3 @@ export function getAuthorForSinglePostPage(users, post) {
     }
   }
 }
-
-export function postTags(post) {
-  let tagsArray = [];
-  for (let i in post.tags) {
-    if (post.tags[i].includes(',')) {
-      tagsArray.push(post.tags[i].split(','));
-    } else if (post.tags[i] === '') {
-      return;
-    } else {
-      tagsArray.push(post.tags[i]);
-    }
-    tagsArray = tagsArray.flat();
-  }
-
-  const tags = tagsArray
-    ? tagsArray.map((tag) => {
-        return (
-          <span className="single-tag" key={Math.random()}>
-            <Link to={'/tags/' + tag}>{tag}</Link>
-          </span>
-        );
-      })
-    : null;
-
-  return tags;
-}
