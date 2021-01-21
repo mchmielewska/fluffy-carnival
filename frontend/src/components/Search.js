@@ -19,7 +19,7 @@ class Search extends Component {
     const posts = this.props.posts;
     const users = this.props.users;
     const usersFound = this.props.usersFound;
-    const showError = error ? <span>{error.msg}</span> : null;
+    const showError = error ? <span>{error.message}</span> : null;
 
     const userList = usersFound.length ? (
       usersFound.map((user) => {

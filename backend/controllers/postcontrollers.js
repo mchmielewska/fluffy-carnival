@@ -46,7 +46,7 @@ exports.postAddNew = (req, res, next) => {
           console.log(result, error);
           res
             .status(200)
-            .json({ success: true, msg: 'Post created (with image)' });
+            .json({ success: true, message: 'Post created (with image)' });
           return;
         }
       }
@@ -54,7 +54,7 @@ exports.postAddNew = (req, res, next) => {
   } else {
     // saveImage(NewPost, req.file);
     NewPost.save();
-    res.status(200).json({ success: true, msg: 'Post created!' });
+    res.status(200).json({ success: true, message: 'Post created!' });
   }
 };
 
@@ -62,7 +62,7 @@ exports.getFindPost = async (req, res, next) => {
   const posts = await searchParams.postSearch(req);
 
   if (!posts || posts.length == 0) {
-    res.status(400).json({ success: false, msg: 'Not found' });
+    res.status(400).json({ success: false, message: 'Not found' });
     return;
   }
 
@@ -103,11 +103,11 @@ exports.getFindPost = async (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   Post.findOne({ _id: req.body.id }).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
     } else if (post.authorId != loggedUserId) {
       res.status(400).json({
         success: false,
-        msg: "Your not allowed to delete other user's post.",
+        message: "Your not allowed to delete other user's post.",
       });
       return;
     }
@@ -120,12 +120,12 @@ exports.deletePost = (req, res, next) => {
 exports.patchUpdatePost = async (req, res, next) => {
   Post.findByIdAndUpdate(req.query.id, { $set: req.body }).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
       return;
     } else if (post.authorId != loggedUserId) {
       res.status(400).json({
         success: false,
-        msg: "Your not allowed to modify other user's post.",
+        message: "Your not allowed to modify other user's post.",
       });
       return;
     }
@@ -147,7 +147,7 @@ exports.patchUpdatePost = async (req, res, next) => {
           post.save();
           res
             .status(200)
-            .json({ success: true, msg: 'Post updated (with image)' });
+            .json({ success: true, message: 'Post updated (with image)' });
           return;
         }
       );
@@ -159,7 +159,7 @@ exports.patchUpdatePost = async (req, res, next) => {
       console.log(post.tags);
 
       post.save();
-      res.status(200).json({ success: true, msg: 'Post updated' });
+      res.status(200).json({ success: true, message: 'Post updated' });
       return;
     }
   });
@@ -168,12 +168,12 @@ exports.patchUpdatePost = async (req, res, next) => {
 exports.postLikePost = (req, res, next) => {
   Post.findByIdAndUpdate(req.query.id).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
       return;
     } else if (post.likes.includes(loggedUserId)) {
       res
         .status(400)
-        .json({ success: false, msg: 'You already liked this post' });
+        .json({ success: false, message: 'You already liked this post' });
       return;
     }
 
@@ -193,7 +193,7 @@ exports.postLikePost = (req, res, next) => {
       user.save();
     });
 
-    res.status(200).json({ success: true, msg: 'Post liked!' });
+    res.status(200).json({ success: true, message: 'Post liked!' });
     return;
   });
 };
@@ -201,7 +201,7 @@ exports.postLikePost = (req, res, next) => {
 exports.deleteUnlikePost = (req, res, next) => {
   Post.findByIdAndUpdate(req.query.id).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
       return;
     } else {
       const removedLike = post.likes.find((like) => like.user == loggedUserId);
@@ -218,7 +218,7 @@ exports.deleteUnlikePost = (req, res, next) => {
         user.save();
       });
 
-      res.status(200).json({ success: true, msg: 'Post unliked!' });
+      res.status(200).json({ success: true, message: 'Post unliked!' });
       return;
     }
   });
@@ -227,7 +227,7 @@ exports.deleteUnlikePost = (req, res, next) => {
 exports.getPostLikes = (req, res, next) => {
   Post.find({ state: 'published' }).then((posts) => {
     if (!posts || posts.length == 0) {
-      res.status(400).json({ success: false, msg: 'Posts not found' });
+      res.status(400).json({ success: false, message: 'Posts not found' });
       return;
     }
 
@@ -239,7 +239,7 @@ exports.getPostLikes = (req, res, next) => {
 exports.getUserFavourites = (req, res, next) => {
   Post.find({ state: 'published' }).then((posts) => {
     if (!posts || posts.length == 0) {
-      res.status(400).json({ success: false, msg: 'Posts not found' });
+      res.status(400).json({ success: false, message: 'Posts not found' });
       return;
     }
     let favouritesArray = [];
@@ -274,7 +274,7 @@ exports.getUserFavourites = (req, res, next) => {
 exports.postAddComment = (req, res, next) => {
   Post.findByIdAndUpdate(req.query.id).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
       return;
     }
 
@@ -287,7 +287,7 @@ exports.postAddComment = (req, res, next) => {
     post.comments.push(newComment);
     post.save();
 
-    res.status(200).json({ success: true, msg: 'Comment added!' });
+    res.status(200).json({ success: true, message: 'Comment added!' });
     return;
   });
 };
@@ -295,7 +295,7 @@ exports.postAddComment = (req, res, next) => {
 exports.deleteComment = (req, res, next) => {
   Post.findByIdAndUpdate(req.query.postId).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
       return;
     }
 
@@ -306,7 +306,7 @@ exports.deleteComment = (req, res, next) => {
     commentToBeRemoved.remove();
     post.save();
 
-    res.status(200).json({ success: true, msg: 'Comment deleted!' });
+    res.status(200).json({ success: true, message: 'Comment deleted!' });
     return;
   });
 };
@@ -314,7 +314,7 @@ exports.deleteComment = (req, res, next) => {
 exports.getPostComments = (req, res, next) => {
   Post.findOne({ _id: req.query.id }).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
       return;
     }
 
@@ -326,7 +326,7 @@ exports.getPostComments = (req, res, next) => {
 exports.postLikeComment = (req, res, next) => {
   Post.findByIdAndUpdate(req.query.postId).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
       return;
     }
 
@@ -343,7 +343,7 @@ exports.postLikeComment = (req, res, next) => {
     commentToBeLiked.save();
     post.save();
 
-    res.status(200).json({ success: true, msg: 'Comment liked!' });
+    res.status(200).json({ success: true, message: 'Comment liked!' });
     return;
   });
 };
@@ -351,7 +351,7 @@ exports.postLikeComment = (req, res, next) => {
 exports.deleteLikeUnlikeComment = (req, res, next) => {
   Post.findByIdAndUpdate(req.query.postId).then((post) => {
     if (!post) {
-      res.status(400).json({ success: false, msg: 'Post not found' });
+      res.status(400).json({ success: false, message: 'Post not found' });
       return;
     }
 
@@ -368,7 +368,7 @@ exports.deleteLikeUnlikeComment = (req, res, next) => {
     post.save();
     console.log(post.comments);
 
-    res.status(200).json({ success: true, msg: 'Comment unliked!' });
+    res.status(200).json({ success: true, message: 'Comment unliked!' });
     return;
   });
 };

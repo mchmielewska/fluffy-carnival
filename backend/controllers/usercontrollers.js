@@ -26,19 +26,19 @@ exports.postRegisterUser = async (req, res, next) => {
     !req.body.gender ||
     !req.body.birthDate
   ) {
-    res.status(401).json({ msg: 'Missing required data!' });
+    res.status(401).json({ message: 'Missing required data!' });
     return;
   }
   if (req.body.password.length < 8) {
-    res.status(401).json({ msg: 'Password too short' });
+    res.status(401).json({ message: 'Password too short' });
     return;
   }
   if (!mailUtils.validatePassword(req.body.password)) {
-    res.status(401).json({ msg: 'Invalid password' });
+    res.status(401).json({ message: 'Invalid password' });
     return;
   }
   if (await User.findByEmail(req.body.email)) {
-    res.status(401).json({ msg: 'E-mail already taken' });
+    res.status(401).json({ message: 'E-mail already taken' });
     return;
   }
   let NewUser = new User({
@@ -61,13 +61,13 @@ exports.postRegisterUser = async (req, res, next) => {
       NewUser.save();
       res.status(201).send('User created');
     })
-    .catch(() => res.status(400).json({ msg: 'Error occured' }));
+    .catch(() => res.status(400).json({ message: 'Error occured' }));
 };
 
 exports.getActivateUser = (req, res, next) => {
   User.findOne({ guid: req.query.guid }).then((user) => {
     if (!user) {
-      res.status(400).json({ success: false, msg: 'User not found' });
+      res.status(400).json({ success: false, message: 'User not found' });
     }
     user.isVerified = true;
     user.guid = '';
@@ -85,7 +85,7 @@ exports.postAuthenticateUser = (req, res, next) => {
       res.status(404).json({
         auth: false,
         token: null,
-        msg: 'Incorrect username or password',
+        message: 'Incorrect username or password',
       });
       return;
     }
@@ -94,7 +94,7 @@ exports.postAuthenticateUser = (req, res, next) => {
       res.status(404).json({
         auth: false,
         token: null,
-        msg: 'Incorrect username or password',
+        message: 'Incorrect username or password',
       });
       return;
     }
@@ -107,7 +107,7 @@ exports.postAuthenticateUser = (req, res, next) => {
         const token = jwt.sign(
           { email: user.email, id: user._id },
           process.env.SERVER_SECRET || config.server.secret,
-          { expiresIn: 10000 }
+          { expiresIn: 1000 }
         );
         res.json({
           auth: true,
@@ -117,7 +117,7 @@ exports.postAuthenticateUser = (req, res, next) => {
         res.status(401).json({
           auth: false,
           token: null,
-          msg: 'Incorrect username or password',
+          message: 'Incorrect username or password',
         });
       }
       console.log(
@@ -136,7 +136,7 @@ exports.getLogoutUser = (req, res) => {
 exports.getResetPassword = (req, res, next) => {
   User.findOne({ resetPasswordToken: req.query.token }).then((user) => {
     if (!user) {
-      res.status(400).json({ success: false, msg: 'User not found' });
+      res.status(400).json({ success: false, message: 'User not found' });
     }
     res.redirect(
       `http://localhost:3000/resetpassword2?token=${req.query.token}`
@@ -147,23 +147,23 @@ exports.getResetPassword = (req, res, next) => {
 exports.postResetPassword = (req, res, next) => {
   User.findByEmail(req.body.email).then((user) => {
     if (!user) {
-      res.status(400).json({ success: false, msg: 'User not found' });
+      res.status(400).json({ success: false, message: 'User not found' });
     }
 
     mailUtils.sendResetPasswordEmail(user);
     user.save();
-    res.status(200).json({ success: true, msg: 'Reset mail sent' });
+    res.status(200).json({ success: true, message: 'Reset mail sent' });
   });
 };
 
 exports.putResetPassword = (req, res, next) => {
   User.findOne({ resetPasswordToken: req.query.token }).then((user) => {
     if (!user) {
-      res.status(400).json({ success: false, msg: 'User not found' });
+      res.status(400).json({ success: false, message: 'User not found' });
     }
 
     // if (user.expirationTokenDate < Date.now()) {
-    //     res.status(400).json({ success: false, msg: "Token expired" });
+    //     res.status(400).json({ success: false, message: "Token expired" });
     //     return;
     // }
     user.password = req.body.password;
@@ -183,12 +183,12 @@ exports.getFindCurrentUser = (req, res, next) => {
     if (err)
       return res
         .status(500)
-        .json({ msg: 'There was a problem finding the user.' });
-    if (!user) return res.status(404).json({ msg: 'User not found' });
+        .json({ message: 'There was a problem finding the user.' });
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
     Post.find({ authorId: loggedUserId }).then((posts) => {
       if (!posts) {
-        res.status(400).json({ success: false, msg: 'Posts not found' });
+        res.status(400).json({ success: false, message: 'Posts not found' });
       }
       const userPosts = _.map(posts, (post) =>
         _.pick(post, [
@@ -212,34 +212,34 @@ exports.patchUpdateUser = (req, res, next) => {
       if (req.body.password || req.body.email || req.body.role) {
         res
           .status(400)
-          .json({ success: false, msg: 'This data cannot be modified' });
+          .json({ success: false, message: 'This data cannot be modified' });
         return;
       }
       User.findByIdAndUpdate(loggedUserId, { $set: req.body }).then((user) => {
         if (!user) {
-          res.status(400).json({ success: false, msg: 'User not found' });
+          res.status(400).json({ success: false, message: 'User not found' });
           return;
         }
         user.save();
-        res.status(200).json({ success: true, msg: 'Profile updated' });
+        res.status(200).json({ success: true, message: 'Profile updated' });
         return;
       });
     } else if (foundUser.role === 'Admin') {
       if (req.body.password || req.body.email) {
         res
           .status(400)
-          .json({ success: false, msg: 'This data cannot be modified' });
+          .json({ success: false, message: 'This data cannot be modified' });
         return;
       }
       User.findByIdAndUpdate(req.query.id, { $set: req.body }).then((user) => {
         if (!user) {
-          res.status(400).json({ success: false, msg: 'User not found' });
+          res.status(400).json({ success: false, message: 'User not found' });
           return;
         }
         user.save();
         res
           .status(200)
-          .json({ success: true, msg: 'Profile updated by Admin' });
+          .json({ success: true, message: 'Profile updated by Admin' });
         return;
       });
     }
@@ -251,12 +251,12 @@ exports.patchChangePassword = (req, res, next) => {
     if (foundUser.role === 'User' || foundUser.role === 'Moderator') {
       User.findById(loggedUserId).then((user) => {
         if (!user) {
-          res.status(400).json({ success: false, msg: 'User not found' });
+          res.status(400).json({ success: false, message: 'User not found' });
           return;
         } else if (req.body.validatepassword != req.body.password) {
           res
             .status(400)
-            .json({ success: false, msg: "Passwords don't match." });
+            .json({ success: false, message: "Passwords don't match." });
         }
 
         user.password = req.body.password;
@@ -267,7 +267,7 @@ exports.patchChangePassword = (req, res, next) => {
             user.save();
             res.status(201).send('Password changed');
           })
-          .catch(() => res.status(400).json({ msg: 'Error occured' }));
+          .catch(() => res.status(400).json({ message: 'Error occured' }));
       });
     }
   });
@@ -278,7 +278,7 @@ exports.deleteUser = (req, res, next) => {
     if (foundUser.role === 'User') {
       User.findOne({ _id: loggedUserId }).then((user) => {
         if (!user) {
-          res.status(400).json({ success: false, msg: 'User not found' });
+          res.status(400).json({ success: false, message: 'User not found' });
         }
         user.remove();
         res.status(200).send('User removed!');
@@ -286,7 +286,7 @@ exports.deleteUser = (req, res, next) => {
     } else if (foundUser.role === 'Admin') {
       User.findOne({ _id: req.query.id }).then((user) => {
         if (!user) {
-          res.status(400).json({ success: false, msg: 'User not found' });
+          res.status(400).json({ success: false, message: 'User not found' });
         }
         user.remove();
         res.status(200).send('User removed by Admin!');
@@ -299,7 +299,7 @@ exports.getFindUsers = async (req, res, next) => {
   const users = await searchParams.userSearch(req);
 
   if (!users || users.length == 0) {
-    res.status(400).json({ success: false, msg: 'Not found' });
+    res.status(400).json({ success: false, message: 'Not found' });
   }
   const foundUsers = _.map(users, (user) =>
     _.pick(user, [
@@ -322,13 +322,13 @@ exports.getFindUsers = async (req, res, next) => {
 exports.putChangeVisibility = (req, res, next) => {
   User.findById(loggedUserId).then((user) => {
     if (!user) {
-      res.status(400).json({ success: false, msg: 'User not found' });
+      res.status(400).json({ success: false, message: 'User not found' });
     }
 
     user.visibility = req.body.visibility;
     user.save();
 
-    res.status(200).json({ success: true, msg: 'Visibility changed!' });
+    res.status(200).json({ success: true, message: 'Visibility changed!' });
   });
 };
 
@@ -337,9 +337,13 @@ exports.patchProfileImage = (req, res, next) => {
     User.findByIdAndUpdate(loggedUserId).then((user) => {
       const result = saveImage(user, req.file.path);
       if (result) {
-        res.status(200).json({ success: true, msg: 'Profile image updated' });
+        res
+          .status(200)
+          .json({ success: true, message: 'Profile image updated' });
       } else {
-        res.status(403).json({ success: false, msg: 'something went wrong' });
+        res
+          .status(403)
+          .json({ success: false, message: 'something went wrong' });
       }
       return;
     });

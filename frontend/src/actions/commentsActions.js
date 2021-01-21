@@ -3,10 +3,11 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
   GET_COMMENTS,
-  GET_ERRORS,
   LIKE_COMMENT,
   UNLIKE_COMMENT,
 } from './types';
+
+import { handleError } from '../utils/errorUtils';
 
 export const addComment = (id, comment, history) => (dispatch) => {
   axios
@@ -23,10 +24,7 @@ export const addComment = (id, comment, history) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch, history);
     });
 };
 
@@ -44,10 +42,7 @@ export const deleteComment = (postId, commentId) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -65,10 +60,7 @@ export const likeComment = (postId, commentId) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -86,10 +78,7 @@ export const unlikeComment = (postId, commentId) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -107,13 +96,6 @@ export const getComments = (id) => (dispatch) => {
       });
     })
     .catch((error) => {
-      if (error.response.status !== 500) {
-        dispatch({
-          type: GET_ERRORS,
-          error: error.response.data,
-        });
-      } else {
-        localStorage.removeItem('jwtToken');
-      }
+      handleError(error, dispatch);
     });
 };

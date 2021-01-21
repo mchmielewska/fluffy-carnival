@@ -1,11 +1,7 @@
 import axios from 'axios';
-import {
-  ADD_LIKE,
-  REMOVE_LIKE,
-  GET_LIKES,
-  GET_ERRORS,
-  GET_USER_FAVOURITES,
-} from './types';
+import { ADD_LIKE, REMOVE_LIKE, GET_LIKES, GET_USER_FAVOURITES } from './types';
+
+import { handleError } from '../utils/errorUtils';
 
 export const addLike = (id) => (dispatch) => {
   axios
@@ -19,10 +15,7 @@ export const addLike = (id) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -40,10 +33,7 @@ export const removeLike = (id) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -57,14 +47,7 @@ export const getLikes = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      if (error.response.status !== 500) {
-        dispatch({
-          type: GET_ERRORS,
-          error: error.response.data,
-        });
-      } else {
-        localStorage.removeItem('jwtToken');
-      }
+      handleError(error, dispatch);
     });
 };
 
@@ -80,13 +63,6 @@ export const getUserFavourites = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      if (error.response.status !== 500) {
-        dispatch({
-          type: GET_ERRORS,
-          error: error.response.data,
-        });
-      } else {
-        localStorage.removeItem('jwtToken');
-      }
+      handleError(error, dispatch);
     });
 };

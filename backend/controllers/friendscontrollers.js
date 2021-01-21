@@ -9,14 +9,14 @@ exports.postSendInvite = (req, res, next) => {
 
   User.findById(req.query.id).then((user) => {
     if (!user) {
-      res.status(400).json({ success: false, msg: 'User does not exist!' });
+      res.status(400).json({ success: false, message: 'User does not exist!' });
     } else if (req.query.id === loggedUserId) {
       res
         .status(400)
-        .json({ success: false, msg: "You can't invite yourself!" });
+        .json({ success: false, message: "You can't invite yourself!" });
       return;
     } else if (friendsUtils.areWeFriends(user) == true) {
-      res.status(400).json({ success: false, msg: 'Already your friend!' });
+      res.status(400).json({ success: false, message: 'Already your friend!' });
       return;
     }
 
@@ -91,7 +91,7 @@ exports.getDeclineInvite = (req, res, next) => {
 exports.getFriendsList = (req, res, next) => {
   User.findById(loggedUserId).then((user) => {
     if (!user) {
-      res.status(400).json({ success: false, msg: 'Friends not found' });
+      res.status(400).json({ success: false, message: 'Friends not found' });
     }
 
     const friendsIds = friendsUtils.myFriends(user);
@@ -117,7 +117,7 @@ exports.getPendingInvites = (req, res, next) => {
     if (!user) {
       res
         .status(400)
-        .json({ success: false, msg: 'Awaiting friendships not found' });
+        .json({ success: false, message: 'Awaiting friendships not found' });
     }
     const friends = user.friends.filter((user) => user.status === 'awaiting');
     res.send(friends);
@@ -131,7 +131,7 @@ exports.deleteFriend = (req, res, next) => {
 
     User.findById(req.body.id).then((user) => {
       if (!user) {
-        res.status(400).json({ success: false, msg: 'User not found' });
+        res.status(400).json({ success: false, message: 'User not found' });
       }
 
       const removedFriend = user.friends.find(

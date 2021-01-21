@@ -67,7 +67,9 @@ class Register extends Component {
 
   render() {
     const error = this.props.errors;
-    const showError = error ? <div className="error">{error.msg}</div> : null;
+    const showError = error ? (
+      <div className="error">{error.message}</div>
+    ) : null;
 
     return (
       <div className="container">

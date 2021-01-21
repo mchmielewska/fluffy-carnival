@@ -4,7 +4,12 @@ const initialState = '';
 const errorReducer = function (state = initialState, action) {
   switch (action.type) {
     case GET_ERRORS:
-      return action.error;
+      if (JSON.stringify(state) !== JSON.stringify(action.error)) {
+        return action.error;
+      } else {
+        return state;
+      }
+
     case CLEAN_ERRORS:
       return null;
     default:

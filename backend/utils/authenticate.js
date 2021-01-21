@@ -19,7 +19,8 @@ exports.verifyToken = (req, res, next) => {
     function (err, decoded) {
       if (err)
         return res
-          .status(500)
+          .status(401)
+          .set('WWW-Authenticate', 'Basic realm=login/')
           .send({ auth: false, message: 'Failed to authenticate token.' });
 
       loggedUserId = decoded.id;

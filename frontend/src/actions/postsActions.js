@@ -5,9 +5,8 @@ import {
   DELETE_POST,
   FIND_POSTS,
   GET_POSTS_BY_TAG,
-  LOGOUT_USER,
 } from './types';
-import setAuthToken from '../setAuthToken';
+import { handleError } from '../utils/errorUtils';
 
 export const getPosts = (history, user) => (dispatch) => {
   axios
@@ -24,23 +23,7 @@ export const getPosts = (history, user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      if (error.response.status !== 500) {
-        dispatch({
-          type: GET_ERRORS,
-          error: error.response.data,
-        });
-      } else {
-        dispatch({
-          type: GET_ERRORS,
-          error: error.response.data,
-        });
-        history.push('/login');
-        localStorage.removeItem('jwtToken');
-        setAuthToken(false);
-        dispatch({
-          type: LOGOUT_USER,
-        });
-      }
+      handleError(error, dispatch, history);
     });
 };
 
@@ -58,10 +41,7 @@ export const getPostsByTag = (tag) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -107,10 +87,7 @@ export const addPost = (post, history) => (dispatch) => {
       history.push('/postadded');
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch, history);
     });
 };
 
@@ -127,10 +104,7 @@ export const deletePost = (id) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -151,9 +125,6 @@ export const patchPost = (id, post, history) => (dispatch) => {
       history.push('/postupdated');
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch, history);
     });
 };

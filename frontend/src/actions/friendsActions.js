@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-  GET_ERRORS,
   GET_FRIENDS,
   GET_PENDING_INVITES,
   ACCEPT_INVITE,
@@ -8,6 +7,8 @@ import {
   REMOVE_FRIEND,
   SEND_INVITE,
 } from './types';
+
+import { handleError } from '../utils/errorUtils';
 
 export const getFriendsList = (user) => (dispatch) => {
   axios
@@ -22,17 +23,7 @@ export const getFriendsList = (user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      if (error.response.status !== 500) {
-        dispatch({
-          type: GET_ERRORS,
-          error: error.response.data,
-        });
-      } else {
-        console.log(error);
-        console.log(error.response);
-
-        localStorage.removeItem('jwtToken');
-      }
+      handleError(error, dispatch);
     });
 };
 
@@ -49,10 +40,7 @@ export const getPendingInvites = (user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -71,10 +59,7 @@ export const acceptInvite = (token) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -93,10 +78,7 @@ export const declineInvite = (user, token) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -114,10 +96,7 @@ export const removeFriend = (id, user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };
 
@@ -136,9 +115,6 @@ export const inviteFriend = (id, user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch);
     });
 };

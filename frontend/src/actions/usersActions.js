@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { GET_ERRORS, GET_USERS, GET_CURRENT_USER, FIND_USERS } from './types';
+import { handleError } from '../utils/errorUtils.js';
 
 export const getUsers = (user) => (dispatch) => {
   axios
@@ -16,14 +17,7 @@ export const getUsers = (user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      if (error.response.status !== 500) {
-        dispatch({
-          type: GET_ERRORS,
-          error: error.response.data,
-        });
-      } else {
-        localStorage.removeItem('jwtToken');
-      }
+      handleError(error, dispatch);
     });
 };
 
@@ -42,6 +36,7 @@ export const findUsers = (query, history) => (dispatch) => {
       history.push('/search');
     })
     .catch((error) => {
+      // TODO: refactor to use shared error handling?
       dispatch({
         type: FIND_USERS,
         payload: [],
@@ -64,14 +59,7 @@ export const getCurrentUser = (user) => (dispatch) => {
       });
     })
     .catch((error) => {
-      if (error.response.status !== 500) {
-        dispatch({
-          type: GET_ERRORS,
-          error: error.response.data,
-        });
-      } else {
-        localStorage.removeItem('jwtToken');
-      }
+      handleError(error, dispatch);
     });
 };
 
@@ -85,10 +73,7 @@ export const patchUser = (user, history) => (dispatch) => {
       history.push('/userupdated');
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch, history);
     });
 };
 
@@ -102,10 +87,7 @@ export const patchPassword = (data, history) => (dispatch) => {
       history.push('/userupdated');
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch, history);
     });
 };
 
@@ -125,9 +107,6 @@ export const patchProfileImage = (image, history) => (dispatch) => {
       history.push('/userupdated');
     })
     .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        error: error.response.data,
-      });
+      handleError(error, dispatch, history);
     });
 };
