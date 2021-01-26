@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, patchPost } from '../actions/postsActions';
 import * as M from 'materialize-css';
+import Login from './Login';
 
 class EditPost extends Component {
   constructor() {
@@ -58,10 +59,17 @@ class EditPost extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
+
     const post = this.props.post;
     const postTags = post.tags.toString().replace(',', ', ');
 
-    return (
+    const authPage = (
       <div className="container">
         <button
           className="nav-link btn btn-primary back-btn"
@@ -153,6 +161,8 @@ class EditPost extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
@@ -160,6 +170,7 @@ const mapStateToProps = (state, ownProps) => {
   let id = ownProps.match.params.post_id;
   return {
     ...ownProps,
+    auth: state.auth,
     post: state.posts.find((post) => post.id === id),
   };
 };

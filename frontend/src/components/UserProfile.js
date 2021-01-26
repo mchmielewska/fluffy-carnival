@@ -7,6 +7,7 @@ import { getLikes } from '../actions/likesActions';
 import UserPosts from './UserPosts';
 import UserProfileSidebar from './UserProfileSidebar';
 import UserPanel from './UserPanel';
+import Login from './Login';
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -26,13 +27,20 @@ class UserProfile extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
+
     const user = this.props.user ? (
       <UserPanel {...this.props} />
     ) : (
       <div className="center">Loading user data...</div>
     );
 
-    return (
+    const authPage = (
       <div className="row">
         <UserProfileSidebar {...this.props} />
 
@@ -44,12 +52,15 @@ class UserProfile extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   let id = ownProps.match.params.user_id;
   return {
+    auth: state.auth,
     friendsList: state.friends.friendsList,
     currentUser: state.auth.user,
     id: id,

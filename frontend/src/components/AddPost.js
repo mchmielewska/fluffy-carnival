@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addPost } from '../actions/postsActions';
 import * as M from 'materialize-css';
+import Login from './Login';
+import BackButton from './BackButton';
 class AddPost extends Component {
   constructor() {
     super();
@@ -66,17 +68,16 @@ class AddPost extends Component {
   }
 
   render() {
-    return (
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
+
+    const authPage = (
       <div className="container">
-        <button
-          className="nav-link btn btn-primary back-btn"
-          onClick={() => {
-            this.props.history.goBack();
-          }}
-        >
-          <i className="material-icons left">keyboard_arrow_left</i>
-          Back
-        </button>
+        <BackButton {...this.props} />
 
         <div className="row">
           <h4
@@ -166,6 +167,8 @@ class AddPost extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
@@ -173,6 +176,7 @@ const mapStateToProps = (state, ownProps) => {
   const userId = state.auth.user.id;
   return {
     ...ownProps,
+    auth: state.auth,
     authorId: userId,
   };
 };

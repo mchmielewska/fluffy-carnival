@@ -5,8 +5,8 @@ import { getPosts } from '../actions/postsActions';
 import { getCurrentUser, getUsers } from '../actions/usersActions';
 import Sidebar from './Sidebar';
 import { getLikes, getUserFavourites } from '../actions/likesActions';
-
 import SinglePostCard from './SinglePostCard';
+import Login from './Login';
 
 class Favourites extends Component {
   componentDidMount() {
@@ -21,6 +21,13 @@ class Favourites extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
+
     const users = this.props.users;
     const likes = this.props.likes;
     const currentUser = this.props.currentUser.id;
@@ -45,7 +52,7 @@ class Favourites extends Component {
       <div className="center">No posts found</div>
     );
 
-    return (
+    const authPage = (
       <div className="row">
         <Sidebar {...this.props} />
         <div className="col s10">
@@ -53,11 +60,14 @@ class Favourites extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth,
     currentUser: state.auth.user,
     posts: state.posts,
     users: state.users.all,

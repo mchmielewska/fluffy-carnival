@@ -5,6 +5,7 @@ import { getFriendsList, getPendingInvites } from '../actions/friendsActions';
 import Sidebar from '../components/Sidebar';
 import FriendUserCard from './FriendUserCard';
 import PendingInvitationUserCard from './PendingInvitationUserCard';
+import Login from './Login';
 
 class Friends extends Component {
   componentDidUpdate() {
@@ -14,6 +15,13 @@ class Friends extends Component {
   render() {
     const users = this.props.users;
     const currentUser = this.props.currentUser;
+
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
 
     this.props.getFriendsList();
     this.props.getPendingInvites();
@@ -68,7 +76,7 @@ class Friends extends Component {
       <div className="center">No friends found</div>
     );
 
-    return (
+    const authPage = (
       <div className="row">
         <Sidebar {...this.props} />
         <div className="col s10">
@@ -83,11 +91,14 @@ class Friends extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth,
     currentUser: state.auth.user.id,
     users: state.users.all,
     friends: state.friends.friendsList,

@@ -3,7 +3,7 @@ import React from 'react';
 const BackButton = (props) => {
   return (
     <button
-      className="nav-link btn btn-primary"
+      className="nav-link btn btn-primary back-btn"
       onClick={() => {
         props.history.goBack();
       }}

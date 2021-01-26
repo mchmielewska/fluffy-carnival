@@ -11,12 +11,21 @@ import AuthorSinglePostPage from './AuthorSinglePostPage';
 import LikesForPost from './LikesForPost';
 import SinglePostImage from './SinglePostImage';
 import PostActionPanel from './PostActionPanel';
+import Login from './Login';
+
 class Post extends Component {
   componentDidUpdate() {
     this.props.getLikes();
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
+
     const id = this.props.post.id;
     const likesProps = {
       id: id,
@@ -66,7 +75,7 @@ class Post extends Component {
         })
       : null;
 
-    return (
+    const authPage = (
       <div className="container">
         <div className="edit-links">
           <Link className="nav-link btn" to="/posts">
@@ -82,12 +91,15 @@ class Post extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   let id = ownProps.match.params.post_id;
   return {
+    auth: state.auth,
     currentUser: state.auth.user,
     users: state.users.all,
     post: state.posts.find((post) => post.id === id),

@@ -16,6 +16,7 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import Login from './Login';
 class EditUser extends Component {
   constructor() {
     super();
@@ -94,6 +95,13 @@ class EditUser extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
+
     const user = this.props.user;
     const history = this.props.location.pathname
       ? this.props.location.pathname
@@ -131,7 +139,7 @@ class EditUser extends Component {
       button.classList.add('hidden');
     }
 
-    return (
+    const authPage = (
       <div className="container">
         <div className="center" style={{ marginTop: '50px' }}>
           <h4 style={{ marginBottom: '40px' }}>Edit profile</h4>
@@ -286,6 +294,8 @@ class EditUser extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
@@ -293,6 +303,7 @@ const mapStateToProps = (state, ownProps) => {
   let id = ownProps.match.params.user_id;
 
   return {
+    auth: state.auth,
     currentUser: state.auth.user,
     user: state.users.all.find((user) => user._id === id),
   };

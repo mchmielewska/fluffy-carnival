@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import { getLikes } from '../actions/likesActions';
 import { cleanErrors } from '../actions/errorActions';
 import SinglePostCard from './SinglePostCard';
+import Login from './Login';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -34,6 +35,13 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
+
     const posts = this.props.posts;
     const users = this.props.users;
     const likes = this.props.likes;
@@ -56,7 +64,7 @@ class Dashboard extends Component {
       <div className="center">No posts found</div>
     );
 
-    return (
+    const authPage = (
       <div className="row">
         <Sidebar {...this.props} />
         <div className="col s10">
@@ -64,6 +72,8 @@ class Dashboard extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
@@ -71,6 +81,7 @@ const mapStateToProps = (state, ownProps) => {
   let tag = ownProps.match ? ownProps.match.params.tag : undefined;
   if (tag !== undefined) {
     return {
+      auth: state.auth,
       tag: tag,
       currentUser: state.auth.user,
       posts: state.posts,
@@ -80,6 +91,7 @@ const mapStateToProps = (state, ownProps) => {
     };
   } else {
     return {
+      auth: state.auth,
       currentUser: state.auth.user,
       posts: state.posts,
       users: state.users.all,

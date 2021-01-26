@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 import UserCard from './UserCard';
 import { cleanErrors } from '../actions/errorActions';
 import FoundPost from './FoundPost';
+import Login from './Login';
 class Search extends Component {
   render() {
     const error = this.props.errors;
@@ -12,6 +13,13 @@ class Search extends Component {
     const users = this.props.users;
     const usersFound = this.props.usersFound;
     const showError = error ? <span>{error.message}</span> : null;
+
+    const { isAuthenticated } = this.props.auth;
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
 
     const userList = usersFound.length ? (
       usersFound.map((user) => {
@@ -39,7 +47,7 @@ class Search extends Component {
       <div className="center">{showError}</div>
     );
 
-    return (
+    const authPage = (
       <div className="row">
         <Sidebar {...this.props} />
         <div className="col s10">
@@ -50,11 +58,14 @@ class Search extends Component {
         </div>
       </div>
     );
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth,
     friendsList: state.friends.friendsList,
     currentUser: state.auth.user,
     users: state.users.all,
