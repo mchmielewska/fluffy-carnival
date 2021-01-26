@@ -1,13 +1,13 @@
 /*jshint esversion: 6 */
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { cleanErrors } from '../actions/errorActions';
 import { withRouter } from 'react-router-dom';
 import Dashboard from './Dashboard';
+import GuestPage from './GuestPage';
 
 class Home extends Component {
   onLogout(e) {
@@ -20,22 +20,11 @@ class Home extends Component {
   }
 
   render() {
-    const image = 'https://i.imgur.com/I3SMZXj.png';
     const { isAuthenticated } = this.props.auth;
-    const authPage = <Dashboard />;
-    const guestPage = (
-      <div className="container center">
-        <img className="main-img" src={image} alt="social media"></img>
-        <br></br>
-        <Link to="/register">Register</Link> or{' '}
-        <Link to="/login">login as existing user</Link> to access the Fluffy
-        Carnival page!
-      </div>
-    );
 
     return (
       <div>
-        <div>{isAuthenticated ? authPage : guestPage}</div>
+        <div>{isAuthenticated ? <Dashboard /> : <GuestPage />}</div>
       </div>
     );
   }

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import SidebarLinks from './SidebarLinks';
-import { inviteFriend } from '../actions/friendsActions';
-import { getCurrentUser, getUsers } from '../actions/usersActions';
+import { getUsers } from '../actions/usersActions';
 import { getPosts } from '../actions/postsActions';
 import { getLikes } from '../actions/likesActions';
-import SinglePostCard from './SinglePostCard';
-import UserProfileActionPanel from './UserProfileActionPanel';
-import ProfileImage from './ProfileImage';
+import UserPosts from './UserPosts';
+import UserProfileSidebar from './UserProfileSidebar';
+import UserPanel from './UserPanel';
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -28,65 +26,20 @@ class UserProfile extends Component {
   }
 
   render() {
-    const allLikes = this.props.likes;
-    const users = this.props.users;
-    const currentUser = this.props.currentUser;
-
-    const imageProps = {
-      user: this.props.user,
-      class: 'responsive-img',
-    };
-
     const user = this.props.user ? (
-      <div className="row center">
-        <div className="col s12">
-          <ProfileImage {...imageProps} />
-        </div>
-
-        <UserProfileActionPanel {...this.props} />
-      </div>
+      <UserPanel {...this.props} />
     ) : (
       <div className="center">Loading user data...</div>
     );
 
-    const userPosts = this.props.posts;
-
-    const postList = userPosts.length ? (
-      userPosts
-        .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
-        .map((post) => {
-          const props = {
-            post: post,
-            users: users,
-            allLikes: allLikes,
-            currentUser: currentUser,
-            classList: 'col s6',
-          };
-          return <SinglePostCard {...props} key={post.id} />;
-        })
-    ) : (
-      <div className="center">No posts found</div>
-    );
-
     return (
       <div className="row">
-        <div className="col m2">
-          <button
-            className="nav-link btn btn-primary"
-            onClick={() => {
-              this.props.history.goBack();
-            }}
-          >
-            <i className="material-icons left">keyboard_arrow_left</i>
-            Back
-          </button>
-          <SidebarLinks {...this.props} />
-        </div>
+        <UserProfileSidebar {...this.props} />
 
         <div className="col s9">
           <div className="row profile center">
             <div className="col m3">{user}</div>
-            <div className="col m9">{postList}</div>
+            <UserPosts {...this.props} />
           </div>
         </div>
       </div>
@@ -109,14 +62,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    inviteFriend: (id) => {
-      dispatch(inviteFriend(id));
-    },
     getLikes: () => {
       dispatch(getLikes());
-    },
-    getCurrentUser: () => {
-      dispatch(getCurrentUser());
     },
     getUsers: () => {
       dispatch(getUsers());

@@ -24,13 +24,13 @@ import history from './history';
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
-  store.dispatch(getCurrentUser());
   store.dispatch(setCurrentUser(decoded));
-  store.dispatch(getUsers());
-  store.dispatch(getPosts());
-  store.dispatch(getLikes());
-  store.dispatch(getFriendsList());
-  store.dispatch(getPendingInvites());
+  // store.dispatch(getCurrentUser());
+  // store.dispatch(getUsers());
+  // store.dispatch(getPosts());
+  // store.dispatch(getLikes());
+  // store.dispatch(getFriendsList());
+  // store.dispatch(getPendingInvites());
 }
 
 ReactDOM.render(

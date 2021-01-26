@@ -34,6 +34,22 @@ const persistConfig = {
   migrate: createMigrate(migrations, { debug: false }),
 };
 
+var crazyCallPreventCounter = 0;
+const maxCalls = 50;
+
+const loggerMiddleware = (storeAPI) => (next) => (action) => {
+  console.log('dispatching', action);
+
+  if (false) {
+    const callStack = { test: 1, stack: new Error().stack };
+    console.log(callStack);
+  }
+  let result = next(action);
+  console.log('next state', storeAPI.getState());
+  if (crazyCallPreventCounter++ > maxCalls) debugger;
+  return result;
+};
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const inititalState = {};
@@ -47,7 +63,7 @@ const store = createStore(
   persistedReducer,
   inititalState,
   compose(
-    applyMiddleware(thunk),
+    applyMiddleware(thunk, loggerMiddleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ &&
       window.__REDUX_DEVTOOLS_EXTENSION__({
         actionSanitizer,

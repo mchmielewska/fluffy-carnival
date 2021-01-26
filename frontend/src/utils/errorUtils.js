@@ -30,5 +30,7 @@ const handleInvalidSessionError = (error, dispatch) => {
     type: LOGOUT_USER,
   });
 
-  history.push('/login');
+  if (history.location.pathname !== '/login') {
+    history.push('/login');
+  }
 };

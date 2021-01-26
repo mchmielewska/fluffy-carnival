@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { GET_ERRORS, LOGOUT_USER, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, LOGOUT_USER, SET_CURRENT_USER, SET_PATH } from './types';
 import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
+import history from '../history';
 
 export const registerUser = (user, history) => (dispatch) => {
   axios
@@ -18,18 +19,21 @@ export const registerUser = (user, history) => (dispatch) => {
     });
 };
 
-export const loginUser = (user) => (dispatch) => {
+export const loginUser = (user, previousLocation) => (dispatch) => {
   axios
     .post(
       `${process.env.SERVER_URL || 'http://localhost:9090'}/users/authenticate`,
       user
     )
     .then((res) => {
+      console.log('login');
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       const decoded = jwt_decode(token);
+      console.log(`loginUser previousLocation=${previousLocation}`);
       dispatch(setCurrentUser(decoded));
+      dispatch(setPath(previousLocation));
     })
     .catch((error) => {
       dispatch({
@@ -39,7 +43,18 @@ export const loginUser = (user) => (dispatch) => {
     });
 };
 
+export const setPath = (previousLocation) => {
+  console.log(`path previousLocation=${previousLocation}`);
+  if (previousLocation) history.push(previousLocation);
+  return {
+    type: SET_PATH,
+    payload: previousLocation,
+  };
+};
+
 export const setCurrentUser = (decoded) => {
+  // console.log(`currentUser previousLocation=${previousLocation}`)
+  // if (previousLocation) history.push(previousLocation)
   return {
     type: SET_CURRENT_USER,
     payload: decoded,

@@ -30,13 +30,13 @@ class Dashboard extends Component {
       this.props.getPosts(this.props.history);
     }
 
-    this.props.getLikes();
+    if (this.props.likes !== prevProps.likes) this.props.getLikes();
   }
 
   render() {
     const posts = this.props.posts;
     const users = this.props.users;
-    const allLikes = this.props.likes;
+    const likes = this.props.likes;
     const currentUser = this.props.currentUser.id;
 
     const postList = posts.length ? (
@@ -46,7 +46,7 @@ class Dashboard extends Component {
           const props = {
             post: post,
             users: users,
-            allLikes: allLikes,
+            likes: likes,
             currentUser: currentUser,
             classList: 'col m4 s6',
           };

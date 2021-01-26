@@ -4,14 +4,14 @@ import { withRouter } from 'react-router-dom';
 import { getUsers } from '../actions/usersActions';
 import Sidebar from '../components/Sidebar';
 import UserCard from './UserCard';
+import Login from './Login';
 class Users extends Component {
   componentDidMount() {
-    // const previousPathObject = this.props.location;
-    // const previousPath = previousPathObject.state.from;
     this.props.getUsers();
   }
   render() {
     const users = this.props.users;
+    const { isAuthenticated } = this.props.auth;
 
     const userList = users ? (
       users.map((user) => {
@@ -25,7 +25,7 @@ class Users extends Component {
       <div className="center">No users found</div>
     );
 
-    return (
+    const authPage = (
       <div className="row">
         <Sidebar {...this.props} />
         <div className="col s10">
@@ -33,11 +33,19 @@ class Users extends Component {
         </div>
       </div>
     );
+
+    const location = this.props.history.location;
+    const loginProps = {
+      previousLocation: location,
+    };
+
+    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth,
     friendsList: state.friends.friendsList,
     currentUser: state.auth.user.id,
     users: state.users.all,

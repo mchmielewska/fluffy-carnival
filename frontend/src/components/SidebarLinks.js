@@ -31,7 +31,7 @@ class SidebarLinks extends Component {
             state: { from: history },
           }}
         >
-          <i className="material-icons">people</i>Friends
+          <i className="material-icons">group</i>Friends
         </Link>
         <Link
           className="link valign-wrapper"
@@ -42,9 +42,6 @@ class SidebarLinks extends Component {
         >
           <i className="material-icons">favorite_border</i>Favourites
         </Link>
-        <span className="valign-wrapper">
-          <i className="material-icons">search</i>Explore
-        </span>
         <Link
           className="link valign-wrapper"
           to={{
@@ -52,7 +49,7 @@ class SidebarLinks extends Component {
             state: { from: history },
           }}
         >
-          <i className="material-icons white-text">navigate_next</i>People
+          <i className="material-icons search">group_add</i>All users
         </Link>
       </div>
     );

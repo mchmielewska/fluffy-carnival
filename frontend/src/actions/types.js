@@ -24,3 +24,4 @@ export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const LIKE_COMMENT = 'LIKE_COMMENT';
 export const UNLIKE_COMMENT = 'UNLIKE_COMMENT';
+export const SET_PATH = 'SET_PATH';

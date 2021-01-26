@@ -13,6 +13,7 @@ import { getPosts } from '../actions/postsActions';
 import { getFriendsList, getPendingInvites } from '../actions/friendsActions';
 import { getLikes } from '../actions/likesActions';
 import { cleanErrors } from '../actions/errorActions';
+import { setPath } from '../actions/authentication';
 class Login extends Component {
   constructor() {
     super();
@@ -33,34 +34,36 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const previousLocation = this.props.previousLocation
+      ? this.props.previousLocation.pathname
+      : this.props.auth.path;
     const user = {
       email: this.state.email,
       password: this.state.password,
     };
-    this.props.loginUser(user);
+
+    this.props.loginUser(user, previousLocation);
     this.props.cleanErrors();
   }
 
   componentDidMount() {
-    this.props.cleanErrors();
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/');
-    }
-  }
+    const previousLocation = this.props.previousLocation
+      ? this.props.previousLocation.pathname
+      : this.props.auth.path;
 
-  componentDidUpdate() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/');
-      store.dispatch(getCurrentUser());
-      store.dispatch(getUsers());
-      store.dispatch(getPosts(this.props.history));
-      store.dispatch(getLikes());
-      store.dispatch(getFriendsList());
-      store.dispatch(getPendingInvites());
+    if (this.props.auth.isAuthenticated && previousLocation) {
+      this.props.cleanErrors();
+      console.log('authenticated redirect');
+      this.props.setPath(previousLocation);
     }
   }
 
   render() {
+    const previousLocation = this.props.previousLocation
+      ? this.props.previousLocation.pathname
+      : this.props.auth.path;
+    console.log(previousLocation);
+    // this.props.setPath(previousLocation);
     const error = this.props.errors;
     const showError = error ? (
       <div className="error">{error.message || 'unknown error'}</div>
@@ -139,8 +142,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginUser: (user) => dispatch(loginUser(user)),
+    loginUser: (user, previousLocation) =>
+      dispatch(loginUser(user, previousLocation)),
     cleanErrors: () => dispatch(cleanErrors()),
+    setPath: (previousLocation) => dispatch(setPath(previousLocation)),
   };
 };
 

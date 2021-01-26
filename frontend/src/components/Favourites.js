@@ -22,7 +22,7 @@ class Favourites extends Component {
 
   render() {
     const users = this.props.users;
-    const allLikes = this.props.likes;
+    const likes = this.props.likes;
     const currentUser = this.props.currentUser.id;
     const postsLikedByUser = this.props.userlikes;
 
@@ -35,7 +35,7 @@ class Favourites extends Component {
           const props = {
             post: post,
             users: users,
-            allLikes: allLikes,
+            likes: likes,
             currentUser: currentUser,
             classList: 'col m4 s6',
           };

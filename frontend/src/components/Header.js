@@ -13,15 +13,15 @@ class Header extends Component {
     this.props.logoutUser(this.props.history);
   }
 
-  componentDidMount() {
-    if (localStorage.jwtToken) {
-      const decoded = jwt_decode(localStorage.jwtToken);
-      const currentTime = Date.now() / 1000;
-      if (decoded.exp < currentTime) {
-        this.props.logoutUser(this.props.history);
-      }
-    }
-  }
+  // componentDidMount() {
+  //   if (localStorage.jwtToken) {
+  //     const decoded = jwt_decode(localStorage.jwtToken);
+  //     const currentTime = Date.now() / 1000;
+  //     if (decoded.exp < currentTime) {
+  //       this.props.logoutUser(this.props.history);
+  //     }
+  //   }
+  // }
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
