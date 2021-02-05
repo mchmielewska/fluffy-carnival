@@ -85,7 +85,7 @@ class Post extends Component {
           <PostActionPanel {...this.props} />
         </div>
         {post}
-        <div className="comments-container">
+        <div className="comments-container" id="comments">
           {comments}
           <AddComment {...this.props} />
         </div>

@@ -5,7 +5,7 @@ const CurrentUserDetails = (props) => {
   const friends = props.friends;
 
   return (
-    <div className="user-details">
+    <div className="user-details profile-data">
       <p className="username">
         {currentUser.user.name} {currentUser.user.surname}
       </p>

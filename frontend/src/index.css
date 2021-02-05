@@ -833,3 +833,30 @@ textarea.materialize-textarea {
 .btn.comments-action.liked i:hover {
     color: #000000;
 }
+
+.user-details p.username {
+    color: #000000;
+}
+
+.user-details p.username:hover {
+    color: #999999;
+}
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-content p.center-align a:hover {
+    color: #000000;
+}
+
+.comments-link span.post-comments-icons:hover, .comments-link i:hover {
+    cursor: pointer;
+    color: #000000;
+}
+
+.like-button i.red-text:hover {
+    color: #999999 !important;
+}

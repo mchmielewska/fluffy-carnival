@@ -9,8 +9,8 @@ const GuestPage = () => {
     <div className="container center">
       <img className="main-img" src={image} alt="social media"></img>
       <br></br>
-      <Link to="/register">Register</Link> or
-      <Link to="/login">login as existing user</Link> to access the Fluffy
+      <Link to="/register">Register</Link> or 
+      <Link to="/login"> login as existing user</Link> to access the Fluffy
       Carnival page!
     </div>
   );

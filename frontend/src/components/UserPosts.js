@@ -1,11 +1,14 @@
 import React from 'react';
 import SinglePostCard from './SinglePostCard';
+import { MetroSpinner } from 'react-spinners-kit';
 
 const UserPosts = (props) => {
+  const loading = props.loading;
   const posts = props.posts;
   const users = props.users;
   const likes = props.likes;
   const currentUser = props.currentUser;
+  console.log(loading)
 
   const postList = posts.length ? (
     posts
@@ -24,7 +27,16 @@ const UserPosts = (props) => {
     <div className="center">No posts found</div>
   );
 
-  return <div className="col m9">{postList}</div>;
+  const element =
+    posts.length && !loading ? (
+      <div className="col m9">{postList}</div>
+    ) : (
+      <div className="center spinner col m9">
+        <MetroSpinner size={50} color="#CCCCCC" loading={loading} />
+      </div>
+    );
+
+  return element;
 };
 
 export default UserPosts;

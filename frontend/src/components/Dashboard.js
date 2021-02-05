@@ -7,10 +7,19 @@ import Sidebar from './Sidebar';
 import { getLikes } from '../actions/likesActions';
 import { cleanErrors } from '../actions/errorActions';
 import SinglePostCard from './SinglePostCard';
-import Login from './Login';
+import GuestPage from './GuestPage';
+import { MetroSpinner } from 'react-spinners-kit';
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loadingComponent: true,
+    };
+  }
+
   componentDidMount() {
+    this.setState({loadingComponent: true});
     this.props.getUsers();
     if (this.props.tag !== undefined) {
       let tag = this.props.tag;
@@ -19,8 +28,8 @@ class Dashboard extends Component {
     } else {
       this.props.getPosts(this.props.history);
     }
-
     this.props.getLikes();
+    this.setState({ loadingComponent: false });
   }
 
   componentDidUpdate(prevProps) {
@@ -35,6 +44,8 @@ class Dashboard extends Component {
   }
 
   render() {
+    const loadingPosts = this.props.loading;
+    const loadingComponent = this.state.loadingComponent;
     const { isAuthenticated } = this.props.auth;
 
     const location = this.props.history.location;
@@ -61,10 +72,16 @@ class Dashboard extends Component {
           return <SinglePostCard {...props} key={post.id} />;
         })
     ) : (
-      <div className="center">No posts found</div>
+      <div className="center spinner">
+        <MetroSpinner size={50} color="#CCCCCC" loading={loadingPosts} />
+      </div>
     );
 
-    const authPage = (
+    const authPage = loadingComponent ? (
+      <div className="center spinner">
+        <MetroSpinner size={50} color="#CCCCCC" loading={loadingComponent} />
+      </div>
+    ) : (
       <div className="row">
         <Sidebar {...this.props} />
         <div className="col s10">
@@ -73,12 +90,20 @@ class Dashboard extends Component {
       </div>
     );
 
-    return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
+    return (
+      <div>{isAuthenticated ? authPage : <GuestPage {...loginProps} />}</div>
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   let tag = ownProps.match ? ownProps.match.params.tag : undefined;
+  let loading = true;
+
+  if (state.posts && state.posts.length > 0) {
+    loading = false;
+  }
+
   if (tag !== undefined) {
     return {
       auth: state.auth,
@@ -88,6 +113,7 @@ const mapStateToProps = (state, ownProps) => {
       users: state.users.all,
       likes: state.likes,
       errors: state.errors,
+      loading: loading,
     };
   } else {
     return {
@@ -97,6 +123,7 @@ const mapStateToProps = (state, ownProps) => {
       users: state.users.all,
       likes: state.likes,
       errors: state.errors,
+      loading: loading,
     };
   }
 };

@@ -10,7 +10,6 @@ const initialState = {
 const authReducer = function (state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_USER:
-      console.log('SET_CURRENT_USER');
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
@@ -23,10 +22,6 @@ const authReducer = function (state = initialState, action) {
         user: {},
       };
     case SET_PATH:
-      console.log('setpath: ', action.payload !== state.path);
-      console.log('action', action.payload);
-      console.log('state', state.path);
-      // debugger
       if (action.payload !== state.path)
         return {
           ...state,

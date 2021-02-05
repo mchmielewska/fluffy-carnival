@@ -6,6 +6,9 @@ import CurrentUserDetails from './CurrentUserDetails';
 import CurrentUserProfileImage from './CurrentUserProfileImage';
 
 class CurrentUser extends Component {
+  componentDidMount() {
+    this.props.getCurrentUser();
+  }
   componentDidUpdate() {
     this.props.getCurrentUser();
   }
@@ -18,16 +21,24 @@ class CurrentUser extends Component {
       currentUser,
       friends,
     };
+    const location = this.props.location ? this.props.location.pathname : '/';
     const profileImageProps = {
-      user: currentUser.user,
-      history: this.props.location.pathname,
+      currentUser: currentUser,
+      history: location,
       id: id,
     };
     const profileData = currentUser ? (
       <div>
         <div className="center-align row">
+        <Link
+            to={{
+              pathname: `/users/${id}`,
+              state: { from: this.props.location.pathname },
+            }}
+          >
           <CurrentUserProfileImage {...profileImageProps} />
           <CurrentUserDetails {...detailsProps} />
+          </Link>
         </div>
 
         <div className="sidebar-links row">

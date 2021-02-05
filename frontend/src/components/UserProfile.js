@@ -8,17 +8,18 @@ import UserPosts from './UserPosts';
 import UserProfileSidebar from './UserProfileSidebar';
 import UserPanel from './UserPanel';
 import Login from './Login';
+import { MetroSpinner } from 'react-spinners-kit';
 
 class UserProfile extends Component {
   componentDidMount() {
     const previousPathObject = this.props.location.state;
     const previousPath = previousPathObject ? previousPathObject.from : '/';
     if (previousPath.includes('tags')) {
-      console.log('reloading posts');
       this.props.getPosts(this.props.history);
     }
     this.props.getUsers();
     this.props.getLikes();
+    this.setState({loading: false})
   }
 
   componentDidUpdate() {
@@ -28,7 +29,7 @@ class UserProfile extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
-
+    const loadingData = this.props.loading;
     const location = this.props.history.location;
     const loginProps = {
       previousLocation: location,
@@ -37,7 +38,9 @@ class UserProfile extends Component {
     const user = this.props.user ? (
       <UserPanel {...this.props} />
     ) : (
-      <div className="center">Loading user data...</div>
+      <div className="center spinner">
+        <MetroSpinner size={50} color="#CCCCCC" loading={loadingData} />
+      </div>
     );
 
     const authPage = (
@@ -59,6 +62,15 @@ class UserProfile extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   let id = ownProps.match.params.user_id;
+  let loading = true;
+
+  if (
+    state.posts &&
+    state.posts.length > 0
+  ) {
+    loading = false;
+  }
+
   return {
     auth: state.auth,
     friendsList: state.friends.friendsList,
@@ -68,6 +80,7 @@ const mapStateToProps = (state, ownProps) => {
     posts: state.posts.filter((post) => post.authorId === id),
     likes: state.likes,
     users: state.users.all,
+    loading: loading,
   };
 };
 
