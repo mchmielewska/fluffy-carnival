@@ -72,7 +72,7 @@ class App extends Component {
           <Route path="/usercreated" component={UserCreated} />
           <Route path="/resetpassword" component={Resetpassword} />
           <Route path="/resetpassword2" component={Resetpassword2} />
-          <Route exact path="/posts/" component={Dashboard} />
+          <Route exact path="/posts" component={Dashboard} />
           <Route exact path="/tags/:tag" component={Dashboard} />
           <Route exact path="/posts/:post_id" component={Post} />
           <Route path="/postadded" component={PostAdded} />
@@ -80,12 +80,12 @@ class App extends Component {
           <Route exact path="/users" component={Users} />
           <Route exact path="/users/:user_id" component={UserProfile} />
           <Route exact path="/users/:user_id/edit" component={EditUser} />
-          <Route path="/userupdated/" component={UserUpdated} />
-          <Route path="/postupdated/" component={PostUpdated} />
+          <Route path="/userupdated" component={UserUpdated} />
+          <Route path="/postupdated" component={PostUpdated} />
           <Route exact path="/posts/:post_id/edit" component={EditPost} />
           <Route path="/friends" component={Friends} />
-          <Route path="/search/" component={Search} />
-          <Route path="/favourites/" component={Favourites} />
+          <Route path="/search" component={Search} />
+          <Route path="/favourites" component={Favourites} />
         </div>
       </div>
     );

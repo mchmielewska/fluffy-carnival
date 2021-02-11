@@ -7,9 +7,9 @@ const CurrentUserDetails = (props) => {
   return (
     <div className="user-details profile-data">
       <p className="username">
-        {currentUser.user.name} {currentUser.user.surname}
+      Hello, {currentUser.user.name}
       </p>
-      <p>{currentUser.user.city}</p>
+      {/* <p>{currentUser.user.city}</p>
       <div className="row center-align">
         <div className="col m6">
           <p>
@@ -25,7 +25,7 @@ const CurrentUserDetails = (props) => {
             <span className="uppercase">friends</span>
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

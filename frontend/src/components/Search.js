@@ -49,8 +49,7 @@ class Search extends Component {
 
     const authPage = (
       <div className="row">
-        <Sidebar {...this.props} />
-        <div className="col s10">
+        <div className="col">
           <h5>Users:</h5>
           <div className="row center user-list">{userList}</div>
           <h5>Posts:</h5>

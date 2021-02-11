@@ -26,12 +26,10 @@ export const loginUser = (user, previousLocation) => (dispatch) => {
       user
     )
     .then((res) => {
-      console.log('login');
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       const decoded = jwt_decode(token);
-      console.log(`loginUser previousLocation=${previousLocation}`);
       dispatch(setCurrentUser(decoded));
       dispatch(setPath(previousLocation));
     })
@@ -44,7 +42,6 @@ export const loginUser = (user, previousLocation) => (dispatch) => {
 };
 
 export const setPath = (previousLocation) => {
-  console.log(`path previousLocation=${previousLocation}`);
   if (previousLocation) history.push(previousLocation);
   return {
     type: SET_PATH,
@@ -53,8 +50,6 @@ export const setPath = (previousLocation) => {
 };
 
 export const setCurrentUser = (decoded) => {
-  // console.log(`currentUser previousLocation=${previousLocation}`)
-  // if (previousLocation) history.push(previousLocation)
   return {
     type: SET_CURRENT_USER,
     payload: decoded,

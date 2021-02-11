@@ -67,7 +67,7 @@ class Dashboard extends Component {
             users: users,
             likes: likes,
             currentUser: currentUser,
-            classList: 'col m4 s6',
+            classList: 'col single-post-card',
           };
           return <SinglePostCard {...props} key={post.id} />;
         })
@@ -82,12 +82,9 @@ class Dashboard extends Component {
         <MetroSpinner size={50} color="#CCCCCC" loading={loadingComponent} />
       </div>
     ) : (
-      <div className="row">
-        <Sidebar {...this.props} />
-        <div className="col s10">
+        <div className="container">
           <div className="row center post-list">{postList}</div>
         </div>
-      </div>
     );
 
     return (

@@ -6,6 +6,8 @@ import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
 import SearchField from './SearchField';
 import jwt_decode from 'jwt-decode';
+import Sidebar from './Sidebar';
+import CurrentUser from './CurrentUser'
 
 class Header extends Component {
   onLogout(e) {
@@ -25,21 +27,19 @@ class Header extends Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
+  
     const authLinks = (
       <ul className="navbar-nav right">
         <SearchField />
+        <CurrentUser {...this.props}/>
         <li className="nav-item">
-          <Link className="nav-link" to="/posts">
-            Dashboard
-          </Link>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#" onClick={this.onLogout.bind(this)}>
-            Logout
+          <a className="nav-link" title="Logout" href="#" onClick={this.onLogout.bind(this)}>
+            <i className="material-icons">exit_to_app</i>
           </a>
         </li>
       </ul>
     );
+
     const guestLinks = (
       <ul className="navbar-nav right">
         <li className="nav-item">
@@ -54,15 +54,36 @@ class Header extends Component {
         </li>
       </ul>
     );
-    return (
-      <nav className="nav-wrapper white">
-        <Link className="brand-logo" to="/">
-          Fluffy Carnival
+
+    const authHeader = (
+      <div className="navbar-fixed">
+<nav className="nav-wrapper white">
+      <div>
+      <Link className="brand-logo" to="/">
+          <img id="logo" src="https://res.cloudinary.com/fluffy-carnival/image/upload/v1612963806/fluffy_z4bue1.png" alt="logo"></img>
         </Link>
-        <div className="hide-on-med-and-down" id="navbarSupportedContent">
-          {isAuthenticated ? authLinks : guestLinks}
+        <div>
+          { authLinks }
         </div>
+      </div>
+        <Sidebar {...this.props}/>
       </nav>
+      </div>
+      
+    )
+
+    const guestHeader = (
+      <nav className="nav-wrapper white">
+      <div>
+      <Link className="brand-logo" to="/">
+          <img id="logo" src="https://res.cloudinary.com/fluffy-carnival/image/upload/v1612963806/fluffy_z4bue1.png" alt="logo"></img>
+        </Link>
+      </div>
+      </nav>
+    )
+    
+    return (
+          isAuthenticated ? authHeader : guestHeader
     );
   }
 }

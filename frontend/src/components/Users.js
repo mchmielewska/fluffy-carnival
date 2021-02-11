@@ -27,8 +27,7 @@ class Users extends Component {
 
     const authPage = (
       <div className="row">
-        <Sidebar {...this.props} />
-        <div className="col s10">
+        <div className="col">
           <div className="row center">{userList}</div>
         </div>
       </div>

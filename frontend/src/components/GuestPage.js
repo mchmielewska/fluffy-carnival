@@ -2,16 +2,27 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LoginPanel from './LoginPanel';
 
 const GuestPage = () => {
-  const image = 'https://i.imgur.com/I3SMZXj.png';
   const guestPage = (
     <div className="container center">
-      <img className="main-img" src={image} alt="social media"></img>
-      <br></br>
-      <Link to="/register">Register</Link> or 
-      <Link to="/login"> login as existing user</Link> to access the Fluffy
-      Carnival page!
+      <div className="row guest-page">
+        <div className="col m6 s12">
+          <h1>fluffy carnival</h1>
+        </div>
+        <div className="col m6 s12">
+          <div className="login-panel">
+            <LoginPanel />
+          </div>
+          <div className="register-container">
+            You don't have an account?
+            <Link className="btn" to="/register">
+              Register
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 

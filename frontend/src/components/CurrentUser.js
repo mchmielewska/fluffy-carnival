@@ -28,38 +28,33 @@ class CurrentUser extends Component {
       id: id,
     };
     const profileData = currentUser ? (
-      <div>
-        <div className="center-align row">
+      <div className="profile-data">
+        <div className="center-align">
         <Link
             to={{
               pathname: `/users/${id}`,
               state: { from: this.props.location.pathname },
             }}
           >
-          <CurrentUserProfileImage {...profileImageProps} />
+          {/* <CurrentUserProfileImage {...profileImageProps} /> */}
           <CurrentUserDetails {...detailsProps} />
           </Link>
         </div>
 
-        <div className="sidebar-links row">
-          <Link
+        <div className="sidebar-links">
+          <Link title="profile"
             className="valign-wrapper"
             to={{
               pathname: `/users/${id}`,
               state: { from: this.props.location.pathname },
             }}
           >
-            <i className="material-icons">person</i>Profile
+            <i className="material-icons">person</i>
           </Link>
         </div>
       </div>
     ) : (
       <div className="center-align">
-        <img
-          className="responsive-img"
-          src="https://i.imgur.com/IJMRjcI.png"
-          alt="profile"
-        ></img>
         <p>Loading user data...</p>
       </div>
     );

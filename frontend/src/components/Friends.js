@@ -78,8 +78,7 @@ class Friends extends Component {
 
     const authPage = (
       <div className="row">
-        <Sidebar {...this.props} />
-        <div className="col s10">
+        <div className="col">
           <div className="row center">
             <h5 className="left-align">Pending invites:</h5>
             {pendingInvitesList}

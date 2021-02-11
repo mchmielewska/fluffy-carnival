@@ -4,8 +4,8 @@ import SidebarLinks from './SidebarLinks';
 
 export default function Sidebar(props) {
   return (
-    <div className="sidebar col s2">
-      <CurrentUser {...props} />
+    <div className="sidebar">
+      {/* <CurrentUser {...props} /> */}
       <SidebarLinks {...props} />
     </div>
   );
