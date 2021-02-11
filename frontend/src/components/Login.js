@@ -6,7 +6,7 @@ const Login = (props) => {
     return (
         <div className="container-center">
             <div className="login-panel">
-            <LoginPanel/>
+            <LoginPanel {...props}/>
             </div>
         </div>
     )

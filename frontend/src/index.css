@@ -18,19 +18,48 @@ h6 {
 
 .login-panel {
   margin-top: 100px;
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-  0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 1rem;
   padding: 3.5rem 0;
 }
 
 .login-panel .btn {
   margin-bottom: 1rem;
+}
+
+#current-user {
+    position: absolute;
+    background: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+      0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    font-size: 13px;
+    font-weight: normal;
+    z-index: 5;
+    padding: 1rem 2rem;
+    text-align: left;
+}
+
+#current-user img {
+  width: 150px;
+  height: 150px;
+}
+
+.user-menu {
+  color: #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.user-menu span {
+  margin: 0 0.5rem
 }
 
 .container-center .login-panel {
@@ -78,25 +107,32 @@ h6 {
   color: #2196f3;
   font-family: 'Cutive Mono', monospace;
   font-weight: bold;
-  border-right: .15em solid #2196f3; 
-  white-space: nowrap; 
+  border-right: 0.15em solid #2196f3;
+  white-space: nowrap;
   font-size: 3rem;
   text-align: end;
-  animation: 
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #2196f3; }
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #2196f3;
+  }
 }
 
 a {
@@ -271,9 +307,9 @@ nav {
 }
 
 nav ul {
-    margin: 0;
-    display: flex;
-    align-items: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .nav-wrapper {
@@ -349,9 +385,19 @@ nav ul {
   font-size: 10px;
 }
 
+#current-user .sidebar-links a.valign-wrapper {
+  padding: 0 1rem;
+  width: 100%
+}
+
+#current-user .sidebar-links i {
+  margin-right: 1rem
+}
+
+
 .sidebar-links a,
 .sidebar-links span {
-  padding: 5px 35px;
+  padding: 0 35px;
   color: #999999;
   font-weight: bold;
 }
@@ -360,9 +406,8 @@ nav ul {
   border: none;
   color: #000000;
   background-color: #f9f9f9;
-  
 }
-nav .sidebar-links  i.material-icons {
+nav .sidebar-links i.material-icons {
   font-size: 1.8rem;
 }
 
@@ -523,6 +568,12 @@ i {
   cursor: default;
 }
 
+.profile .row.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .action-button {
   background-color: #ffffff;
   border: none;
@@ -679,7 +730,7 @@ nav form {
 }
 
 nav .btn {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
@@ -748,11 +799,10 @@ nav i.material-icons {
   background-color: transparent;
 }
 
-
-.profile-data {
-    display: flex;
-    flex-direction: row;
-}
+/* .profile-data {
+  display: flex;
+  flex-direction: column;
+} */
 
 .back-btn {
   margin-left: 15px;
@@ -762,8 +812,8 @@ nav i.material-icons {
   color: #2196f3;
 }
 
-.nav-item input[type="text"]:not(.browser-default) {
-    height: 30px
+.nav-item input[type='text']:not(.browser-default) {
+  height: 30px;
 }
 
 button:focus {

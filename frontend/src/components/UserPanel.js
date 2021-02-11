@@ -9,7 +9,7 @@ const UserPanel = (props) => {
   };
   return (
     <div className="row center">
-      <div className="col s12">
+      <div className="col s6">
         <ProfileImage {...imageProps} />
       </div>
       <UserProfileActionPanel {...props} />

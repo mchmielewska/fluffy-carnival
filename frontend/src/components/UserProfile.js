@@ -44,16 +44,13 @@ class UserProfile extends Component {
     );
 
     const authPage = (
-      <div className="row">
-        <UserProfileSidebar {...this.props} />
 
-        <div className="col s9">
+        <div className="container">
           <div className="row profile center">
-            <div className="col m3">{user}</div>
+            <div className="col m12">{user}</div>
             <UserPosts {...this.props} />
           </div>
         </div>
-      </div>
     );
 
     return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;

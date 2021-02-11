@@ -44,7 +44,7 @@ class Favourites extends Component {
             users: users,
             likes: likes,
             currentUser: currentUser,
-            classList: 'col m4 s6',
+            classList: 'col single-post-card',
           };
           return <SinglePostCard {...props} key={id} />;
         })
@@ -53,7 +53,7 @@ class Favourites extends Component {
     );
 
     const authPage = (
-        <div className="col">
+        <div className="container">
           <div className="row center post-list">{postList}</div>
         </div>
     );

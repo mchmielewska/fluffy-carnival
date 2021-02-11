@@ -19,7 +19,7 @@ const UserPosts = (props) => {
           users: users,
           likes: likes,
           currentUser: currentUser,
-          classList: 'col s6',
+          classList: 'col single-post-card',
         };
         return <SinglePostCard {...props} key={post.id} />;
       })
@@ -29,9 +29,9 @@ const UserPosts = (props) => {
 
   const element =
     posts.length && !loading ? (
-      <div className="col m9">{postList}</div>
+      <div className="col m12">{postList}</div>
     ) : (
-      <div className="center spinner col m9">
+      <div className="center spinner col m12">
         <MetroSpinner size={50} color="#CCCCCC" loading={loading} />
       </div>
     );

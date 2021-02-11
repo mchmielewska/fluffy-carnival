@@ -77,16 +77,14 @@ class Friends extends Component {
     );
 
     const authPage = (
-      <div className="row">
-        <div className="col">
-          <div className="row center">
-            <h5 className="left-align">Pending invites:</h5>
-            {pendingInvitesList}
-          </div>
-          <div className="row center">
-            <h5 className="left-align">Friends:</h5>
-            {friendsList}
-          </div>
+      <div className="container">
+        <div className="row center">
+          <h5 className="left-align">Pending invites:</h5>
+          {pendingInvitesList}
+        </div>
+        <div className="row center">
+          <h5 className="left-align">Friends:</h5>
+          {friendsList}
         </div>
       </div>
     );

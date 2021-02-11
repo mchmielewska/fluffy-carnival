@@ -94,6 +94,10 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  currentUser: state.auth.user,
+  posts: state.posts,
+  users: state.users.all,
+  likes: state.likes,
 });
 
 export default withRouter(connect(mapStateToProps, { logoutUser })(Header));

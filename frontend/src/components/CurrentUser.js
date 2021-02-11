@@ -8,12 +8,16 @@ import CurrentUserProfileImage from './CurrentUserProfileImage';
 class CurrentUser extends Component {
   componentDidMount() {
     this.props.getCurrentUser();
+    console.log(this.props)
   }
   componentDidUpdate() {
     this.props.getCurrentUser();
   }
 
   render() {
+    const divToShow = document.getElementById('current-user');
+    divToShow.classList.add('hidden')
+
     const currentUser = this.props.user;
     const friends = this.props.friends;
     const id = this.props.id;
@@ -21,6 +25,7 @@ class CurrentUser extends Component {
       currentUser,
       friends,
     };
+
     const location = this.props.location ? this.props.location.pathname : '/';
     const profileImageProps = {
       currentUser: currentUser,
@@ -28,7 +33,7 @@ class CurrentUser extends Component {
       id: id,
     };
     const profileData = currentUser ? (
-      <div className="profile-data">
+      <div id="current-user" className="hidden">
         <div className="center-align">
         <Link
             to={{
@@ -36,7 +41,7 @@ class CurrentUser extends Component {
               state: { from: this.props.location.pathname },
             }}
           >
-          {/* <CurrentUserProfileImage {...profileImageProps} /> */}
+          <CurrentUserProfileImage {...profileImageProps} />
           <CurrentUserDetails {...detailsProps} />
           </Link>
         </div>
@@ -49,7 +54,7 @@ class CurrentUser extends Component {
               state: { from: this.props.location.pathname },
             }}
           >
-            <i className="material-icons">person</i>
+            <i className="material-icons">person</i> Profile
           </Link>
         </div>
       </div>
@@ -59,7 +64,32 @@ class CurrentUser extends Component {
       </div>
     );
 
-    return profileData;
+    const showUserData = (e) => {
+      e.preventDefault();
+      const divToShow = document.getElementById('current-user');
+
+      if (divToShow.classList.contains('hidden')) {
+        divToShow.classList.remove('hidden');
+      } else {
+        divToShow.classList.add('hidden');
+      }
+      };
+
+    const userData = currentUser.user ? (
+      <div>
+      <div className="user-menu">
+      <i className="material-icons">person</i> <span>Hello, {currentUser.user.name}! </span>
+      <button className="btn" onClick={(e) => showUserData(e)}>
+<i className="material-icons">expand_more</i>
+      </button>
+      </div>
+      {profileData}
+      </div>
+
+      
+    ) : <div></div>
+
+    return userData;
   }
 }
 
