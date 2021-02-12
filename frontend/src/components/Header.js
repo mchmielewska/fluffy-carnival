@@ -29,8 +29,11 @@ class Header extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     let isMenuHidden = true;
-    const menu = document.getElementsByClassName('expand-menu')[0];
-    if (menu) menu.style.display = 'none';
+
+    if (window.matchMedia('(max-width: 60rem)').matches) {
+      const menu = document.getElementsByClassName('expand-menu')[0];
+      if (menu) menu.style.display = 'none';
+    }
 
     const showMenu = (e) => {
       const menu = document.getElementsByClassName('expand-menu')[0];
