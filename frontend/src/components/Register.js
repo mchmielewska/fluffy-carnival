@@ -74,10 +74,9 @@ class Register extends Component {
     return (
       <div className="container">
         <div className="center" style={{ marginTop: '150px' }}>
-          
           <div className="row valign-wrapper">
             <div className="col m6">
-            <h4>Registration</h4>
+              <h4>Registration</h4>
             </div>
             <div className="col m6">
               <form onSubmit={this.handleSubmit}>

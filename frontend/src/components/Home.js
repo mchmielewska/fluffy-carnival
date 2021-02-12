@@ -26,7 +26,6 @@ class Home extends Component {
       <div>
         <div>{isAuthenticated ? <Dashboard /> : <GuestPage />}</div>
       </div>
-      
     );
   }
 }

@@ -8,7 +8,6 @@ import CurrentUserProfileImage from './CurrentUserProfileImage';
 class CurrentUser extends Component {
   componentDidMount() {
     this.props.getCurrentUser();
-    console.log(this.props)
   }
   componentDidUpdate() {
     this.props.getCurrentUser();
@@ -16,7 +15,7 @@ class CurrentUser extends Component {
 
   render() {
     const divToShow = document.getElementById('current-user');
-    divToShow.classList.add('hidden')
+    if (divToShow) divToShow.classList.add('hidden');
 
     const currentUser = this.props.user;
     const friends = this.props.friends;
@@ -35,19 +34,20 @@ class CurrentUser extends Component {
     const profileData = currentUser ? (
       <div id="current-user" className="hidden">
         <div className="center-align">
-        <Link
+          <Link
             to={{
               pathname: `/users/${id}`,
               state: { from: this.props.location.pathname },
             }}
           >
-          <CurrentUserProfileImage {...profileImageProps} />
-          <CurrentUserDetails {...detailsProps} />
+            <CurrentUserProfileImage {...profileImageProps} />
+            <CurrentUserDetails {...detailsProps} />
           </Link>
         </div>
 
         <div className="sidebar-links">
-          <Link title="profile"
+          <Link
+            title="profile"
             className="valign-wrapper"
             to={{
               pathname: `/users/${id}`,
@@ -73,21 +73,25 @@ class CurrentUser extends Component {
       } else {
         divToShow.classList.add('hidden');
       }
-      };
+    };
 
-    const userData = currentUser.user ? (
+    const userData = currentUser ? (
       <div>
-      <div className="user-menu">
-      <i className="material-icons">person</i> <span>Hello, {currentUser.user.name}! </span>
-      <button className="btn" onClick={(e) => showUserData(e)}>
-<i className="material-icons">expand_more</i>
-      </button>
+        <div className="user-menu">
+          <i className="material-icons">person</i>{' '}
+          <span>Hello, {currentUser.user.name}! </span>
+          <button
+            className="btn user-data-button"
+            onClick={(e) => showUserData(e)}
+          >
+            <i className="material-icons">expand_more</i>
+          </button>
+        </div>
+        {profileData}
       </div>
-      {profileData}
-      </div>
-
-      
-    ) : <div></div>
+    ) : (
+      <div></div>
+    );
 
     return userData;
   }

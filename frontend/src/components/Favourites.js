@@ -53,9 +53,9 @@ class Favourites extends Component {
     );
 
     const authPage = (
-        <div className="container">
-          <div className="row center post-list">{postList}</div>
-        </div>
+      <div className="container">
+        <div className="row center post-list">{postList}</div>
+      </div>
     );
 
     return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;

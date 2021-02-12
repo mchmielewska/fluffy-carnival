@@ -11,7 +11,8 @@ const PostDetails = (props) => {
         <p className="card-date">{dateBuilder(props.publishDate)}</p>
       </div>
       <div className="col m3 right-align privacy-level">
-        <Link className="comments-link"
+        <Link
+          className="comments-link"
           to={{
             pathname: '/posts/' + props.id,
             hash: '#comments',

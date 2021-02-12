@@ -8,7 +8,7 @@ const UserPosts = (props) => {
   const users = props.users;
   const likes = props.likes;
   const currentUser = props.currentUser;
-  console.log(loading)
+  console.log(loading);
 
   const postList = posts.length ? (
     posts

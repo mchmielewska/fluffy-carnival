@@ -19,7 +19,7 @@ class UserProfile extends Component {
     }
     this.props.getUsers();
     this.props.getLikes();
-    this.setState({loading: false})
+    this.setState({ loading: false });
   }
 
   componentDidUpdate() {
@@ -44,13 +44,12 @@ class UserProfile extends Component {
     );
 
     const authPage = (
-
-        <div className="container">
-          <div className="row profile center">
-            <div className="col m12">{user}</div>
-            <UserPosts {...this.props} />
-          </div>
+      <div className="container">
+        <div className="row profile center">
+          <div className="col m12">{user}</div>
+          <UserPosts {...this.props} />
         </div>
+      </div>
     );
 
     return <div>{isAuthenticated ? authPage : <Login {...loginProps} />}</div>;
@@ -61,10 +60,7 @@ const mapStateToProps = (state, ownProps) => {
   let id = ownProps.match.params.user_id;
   let loading = true;
 
-  if (
-    state.posts &&
-    state.posts.length > 0
-  ) {
+  if (state.posts && state.posts.length > 0) {
     loading = false;
   }
 

@@ -6,19 +6,19 @@ const CurrentUserProfileImage = (props) => {
   const image = (user) => {
     if (user.profileImagePath === undefined) {
       return (
-          <img
-            className="responsive-img"
-            src="https://i.imgur.com/IJMRjcI.png"
-            alt="profile"
-          ></img>
+        <img
+          className="responsive-img"
+          src="https://i.imgur.com/IJMRjcI.png"
+          alt="profile"
+        ></img>
       );
     } else {
       return (
-          <img
-            className="responsive-img"
-            src={user.profileImagePath}
-            alt="profile"
-          ></img>
+        <img
+          className="responsive-img"
+          src={user.profileImagePath}
+          alt="profile"
+        ></img>
       );
     }
   };

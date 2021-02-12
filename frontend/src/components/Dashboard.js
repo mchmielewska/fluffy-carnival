@@ -19,7 +19,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.setState({loadingComponent: true});
+    this.setState({ loadingComponent: true });
     this.props.getUsers();
     if (this.props.tag !== undefined) {
       let tag = this.props.tag;
@@ -82,9 +82,9 @@ class Dashboard extends Component {
         <MetroSpinner size={50} color="#CCCCCC" loading={loadingComponent} />
       </div>
     ) : (
-        <div className="container">
-          <div className="row center post-list">{postList}</div>
-        </div>
+      <div className="container">
+        <div className="row center post-list">{postList}</div>
+      </div>
     );
 
     return (

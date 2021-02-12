@@ -3,13 +3,13 @@ import LoginPanel from './LoginPanel';
 import { withRouter } from 'react-router-dom';
 
 const Login = (props) => {
-    return (
-        <div className="container-center">
-            <div className="login-panel">
-            <LoginPanel {...props}/>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="container-center">
+      <div className="login-panel">
+        <LoginPanel {...props} />
+      </div>
+    </div>
+  );
+};
 
 export default withRouter(Login);

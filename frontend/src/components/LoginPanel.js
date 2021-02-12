@@ -69,47 +69,46 @@ class LoginPanel extends Component {
     ) : null;
 
     return (
-        <div className="container center">
-            {/* <h5 style={{ marginBottom: '40px' }}>Login to Fluffy Carnival</h5> */}
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className={classnames('form-control form-control-lg')}
-                  name="email"
-                  onChange={this.handleInputChange}
-                  value={this.state.email}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className={classnames('form-control form-control-lg')}
-                  name="password"
-                  onChange={this.handleInputChange}
-                  value={this.state.password}
-                />
-              </div>
-              <div className="form-group">
-                {showError}
-                <button
-                  type="submit"
-                  className="btn btn-primary "
-                  style={{ justifyContent: 'center' }}
-                >
-                  Login User{' '}
-                  <i className="material-icons right">chevron_right</i>
-                </button>
-              </div>
-              <div className="form-group">
-                <Link to="/resetpassword" className="link">
-                  Forgot your password?
-                </Link>
-              </div>
-            </form>
+      <div className="container center">
+        {/* <h5 style={{ marginBottom: '40px' }}>Login to Fluffy Carnival</h5> */}
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              className={classnames('form-control form-control-lg')}
+              name="email"
+              onChange={this.handleInputChange}
+              value={this.state.email}
+            />
           </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              className={classnames('form-control form-control-lg')}
+              name="password"
+              onChange={this.handleInputChange}
+              value={this.state.password}
+            />
+          </div>
+          <div className="form-group">
+            {showError}
+            <button
+              type="submit"
+              className="btn btn-primary "
+              style={{ justifyContent: 'center' }}
+            >
+              Login User <i className="material-icons right">chevron_right</i>
+            </button>
+          </div>
+          <div className="form-group">
+            <Link to="/resetpassword" className="link">
+              Forgot your password?
+            </Link>
+          </div>
+        </form>
+      </div>
     );
   }
 }
