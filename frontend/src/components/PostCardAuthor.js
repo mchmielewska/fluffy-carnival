@@ -7,7 +7,7 @@ class PostCardAuthor extends Component {
     const post = this.props.post;
     const users = this.props.users;
 
-    const postAuthor = (users, post, size = 'm2') => {
+    const postAuthor = (users, post, size = 'm2 s2') => {
       for (let i = 0; i < users.length; i++) {
         if (users[i]._id === post.authorId || users[i]._id === post.author) {
           const className = `col ${size} post-header`;
@@ -20,7 +20,7 @@ class PostCardAuthor extends Component {
               <div className={className}>
                 <ProfileImage {...imageProps} />
               </div>
-              <div className="col m10">
+              <div className="col m10 s10">
                 <Link to={'/users/' + users[i]._id}>
                   <p className="bold">
                     {users[i].name} {users[i].surname}
@@ -37,7 +37,7 @@ class PostCardAuthor extends Component {
     };
 
     return (
-      <div className="post-header left-align col m9">
+      <div className="post-header left-align col m9 s9">
         {postAuthor(users, post)}
       </div>
     );

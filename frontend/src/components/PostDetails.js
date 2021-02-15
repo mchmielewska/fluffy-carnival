@@ -7,10 +7,10 @@ const PostDetails = (props) => {
   const comments = props.comments ? props.comments.length : null;
   return (
     <div className="card-action row">
-      <div className="user-details left-align col m9">
+      <div className="user-details left-align col m9 s9">
         <p className="card-date">{dateBuilder(props.publishDate)}</p>
       </div>
-      <div className="col m3 right-align privacy-level">
+      <div className="col m3 s3 right-align privacy-level">
         <Link
           className="comments-link"
           to={{

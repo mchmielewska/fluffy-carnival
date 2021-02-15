@@ -425,12 +425,16 @@ nav .sidebar-links i.material-icons {
   margin-bottom: 0.5rem;
 }
 
+.users-container .card {
+  margin: 0;
+}
+
 .profile-card {
   text-align: center;
-  width: 19vw;
   height: 25vw;
   flex-direction: column;
   justify-content: center;
+  background: #ffffff;
 }
 
 .profile-card .responsive-img {
@@ -577,7 +581,6 @@ i {
   background-color: #ffffff;
   border: none;
   cursor: pointer;
-  display: flex;
   justify-content: center;
   margin-top: 5px;
   font-size: 13px;
@@ -585,7 +588,7 @@ i {
     0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  padding: 0.75rem;
+  padding: 0.75rem 2rem;
   margin: 5px;
 }
 
@@ -596,7 +599,6 @@ i {
 h5.profile-edit {
   text-align: left;
   font-size: 20px;
-  padding: 1rem;
 }
 
 nav ul a:hover {
@@ -610,15 +612,43 @@ nav ul a:hover {
 }
 
 .form-wrapper {
-  /* display: flex;
-    align-items: flex-start; */
-
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.back-button {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.edit-form-image {
+  grid-column: 1;
+  grid-row: 2;
+  height: 100%;
+}
+
+.image-form {
+  margin-top: auto;
+height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.change-password {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.edit-form-user {
+  grid-column: 2;
+  grid-row: 2
 }
 
 .image-upload {
-  margin-top: 2rem;
   padding: 0 1rem;
 }
 
@@ -705,7 +735,7 @@ nav ul a:hover {
 
 .like-button {
   color: #000000;
-  background-color: #ffffff;
+  background-color: transparent;
   border: none;
   cursor: pointer;
 }
@@ -716,7 +746,7 @@ nav ul a:hover {
 
 .like-button:focus,
 .like-button.liked:focus {
-  background-color: #ffffff;
+  background-color: transparent;
 }
 
 .like-button i {
@@ -870,6 +900,23 @@ button.likes-panel-button.like-button {
   text-align: left;
 }
 
+.profile-edit-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 250px;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.filepond--root {
+  width: 150px;
+  height: 150px;
+  margin-top: 1.1rem;
+}
+
 .likes-username {
   display: flex;
   align-items: center;
@@ -915,6 +962,11 @@ a.username {
 
 .input-field > label {
   font-size: 0.9rem;
+}
+
+
+.sidebar-links-mobile {
+  display: none;
 }
 
 .single-comment p {
@@ -1055,6 +1107,29 @@ textarea.materialize-textarea {
   color: #000000;
 }
 
+.users-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+}
+
+.details-link {
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.profile .responsive-img {
+  margin: 1rem 0;
+}
+
+.profile .post-header.responsive-img {
+  margin: 0.1rem;
+}
+
+.card {
+  background: transparent;
+}
+
 .like-button i.red-text:hover {
   color: #999999 !important;
 }
@@ -1076,6 +1151,44 @@ nav .brand-logo {
 @media (max-width: 60rem) {
   .single-post-card {
     width: 100%;
+  }
+
+  .unfixed {
+    position: unset;
+  }
+
+  .sidebar-links-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #current-user .sidebar-links-mobile a.valign-wrapper {
+    padding: 0 0.5rem;
+  }
+
+  h5.left-align {
+    margin: 1rem 2.5%;
+  }
+
+  .users-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .users-container .card {
+    margin: 0 auto;
+    width: 95%;
+  }
+
+  .profile-card {
+    text-align: center;
+    padding: 2rem;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .user-details.profile-data {
@@ -1129,7 +1242,7 @@ nav .brand-logo {
     background: #ffffff;
     color: #999999;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   }
 
   .sidebar-links {
@@ -1139,7 +1252,7 @@ nav .brand-logo {
   }
 
   .sidebar-links a {
-    padding: 0.5rem
+    padding: 0.5rem;
   }
 
   /* .mobile-menu {
@@ -1169,7 +1282,7 @@ nav .brand-logo {
   }
 
   nav {
-    height: 150px
+    height: 150px;
   }
 
   .sidebar {
@@ -1181,6 +1294,41 @@ nav .brand-logo {
     margin-left: 0;
     margin-right: 0;
     width: 100%;
+  }
+
+  .form-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    justify-items: stretch;
+    align-items: stretch;
+    grid-template-rows: 70px 1fr;
+    margin: 1rem
+  }
+
+  .profile-edit-container {
+    grid-gap: 1rem;
+  }
+  
+  .back-button {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  .edit-form-image {
+    grid-column: 1;
+    grid-row: 2;
+    height: 100%;
+  }
+  
+  .change-password {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  
+  .edit-form-user {
+    grid-column: 1;
+    grid-row: 4
   }
 }
 

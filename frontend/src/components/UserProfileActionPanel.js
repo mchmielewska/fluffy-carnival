@@ -65,7 +65,7 @@ class UserProfileActionPanel extends Component {
     };
 
     return (
-      <div className="col s6 center">
+      <div className="col s12 center">
         {isCurrentUser(this.props.user, history)}
 
         <p className="bold username">

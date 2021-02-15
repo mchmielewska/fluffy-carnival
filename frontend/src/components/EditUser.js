@@ -143,8 +143,8 @@ class EditUser extends Component {
       <div className="container">
         <div className="center" style={{ marginTop: '50px' }}>
           <h4 style={{ marginBottom: '40px' }}>Edit profile</h4>
-          <div className="row form-wrapper">
-            <div className="col edit-form">
+          <div className="form-wrapper">
+            <div className="back-button">
               <button
                 className="nav-link btn btn-primary"
                 onClick={() => {
@@ -154,36 +154,41 @@ class EditUser extends Component {
                 <i className="material-icons left">keyboard_arrow_left</i>
                 Back
               </button>
+            </div>
+            <div className="edit-form edit-form-image">
               <form
+              className="image-form"
                 onSubmit={this.handleImageSubmit}
                 method="POST"
                 encType="multipart/form-data"
               >
-                <div className="row image-upload">
+                <div className="image-upload">
                   <h5 className="profile-edit">Change your profile image</h5>
-                  <div className="col m6">
-                    {profileImage(user)}
-                    <p>current image</p>
-                  </div>
-                  <div className="col m6">
-                    {/* <input 
+                  <div className="profile-edit-container">
+                    <div>
+                      {profileImage(user)}
+                      <p>current image</p>
+                    </div>
+                    <div>
+                      {/* <input 
                                 type="file"
                                 id="profileImage" name="profileImage" onChange={e => this.handleFileUpload(e)}
                                 accept="image/png, image/jpeg">
                             </input> */}
-                    <FilePond
-                      ref={(ref) => (this.pond = ref)}
-                      files={this.state.files}
-                      allowMultiple={false}
-                      maxFiles={1}
-                      onupdatefiles={(fileItems) => {
-                        // Set current file objects to this.state
-                        this.setState({
-                          files: fileItems.map((fileItem) => fileItem.file),
-                        });
-                      }}
-                    ></FilePond>
-                    new image
+                      <FilePond
+                        ref={(ref) => (this.pond = ref)}
+                        files={this.state.files}
+                        allowMultiple={false}
+                        maxFiles={1}
+                        onupdatefiles={(fileItems) => {
+                          // Set current file objects to this.state
+                          this.setState({
+                            files: fileItems.map((fileItem) => fileItem.file),
+                          });
+                        }}
+                      ></FilePond>
+                      <p>new image</p>
+                    </div>
                   </div>
                 </div>
                 <div className="input-field">
@@ -196,7 +201,7 @@ class EditUser extends Component {
                 </div>
               </form>
             </div>
-            <div className="edit-form col">
+            <div className="change-password">
               <button
                 id="change-password-button"
                 className="btn"
@@ -207,6 +212,8 @@ class EditUser extends Component {
               <div id="change-password" className="hidden">
                 <ChangePassword />
               </div>
+            </div>
+            <div className="edit-form edit-form-user">
               <form onSubmit={this.handleSubmit}>
                 <div className="input-field">
                   <span className="left">E-mail</span>

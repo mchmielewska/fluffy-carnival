@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getCurrentUser } from '../actions/usersActions';
 import CurrentUserDetails from './CurrentUserDetails';
 import CurrentUserProfileImage from './CurrentUserProfileImage';
+import MobileLinks from './MobileLinks'
 
 class CurrentUser extends Component {
   componentDidMount() {
@@ -23,6 +24,8 @@ class CurrentUser extends Component {
     const detailsProps = {
       currentUser,
       friends,
+      id: id,
+      location: this.props.location
     };
 
     const location = this.props.location ? this.props.location.pathname : '/';
@@ -41,8 +44,8 @@ class CurrentUser extends Component {
             }}
           >
             <CurrentUserProfileImage {...profileImageProps} />
-            <CurrentUserDetails {...detailsProps} />
           </Link>
+          <CurrentUserDetails {...detailsProps} />
         </div>
 
         <div className="sidebar-links">
@@ -56,6 +59,7 @@ class CurrentUser extends Component {
           >
             <i className="material-icons">person</i> Profile
           </Link>
+          <MobileLinks />
         </div>
       </div>
     ) : (

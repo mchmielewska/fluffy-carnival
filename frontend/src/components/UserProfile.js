@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { getUsers } from '../actions/usersActions';
 import { getPosts } from '../actions/postsActions';
 import { getLikes } from '../actions/likesActions';
+import { getFriendsList } from '../actions/friendsActions';
 import UserPosts from './UserPosts';
 import UserProfileSidebar from './UserProfileSidebar';
 import UserPanel from './UserPanel';
@@ -19,12 +20,14 @@ class UserProfile extends Component {
     }
     this.props.getUsers();
     this.props.getLikes();
+    this.props.getFriendsList();
     this.setState({ loading: false });
   }
 
   componentDidUpdate() {
     this.props.getUsers();
     this.props.getLikes();
+    this.props.getFriendsList();
   }
 
   render() {
@@ -88,6 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     getPosts: (history) => {
       dispatch(getPosts(history));
     },
+    getFriendsList: () => {
+      dispatch(getFriendsList())
+    }
   };
 };
 

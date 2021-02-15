@@ -27,7 +27,7 @@ class Users extends Component {
 
     const authPage = (
       <div className="container">
-        <div className="row center">{userList}</div>
+        <div className="users-container center">{userList}</div>
       </div>
     );
 

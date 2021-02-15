@@ -48,12 +48,14 @@ class Search extends Component {
     );
 
     const authPage = (
-      <div className="row">
-        <div className="col">
-          <h5>Users:</h5>
-          <div className="row center user-list">{userList}</div>
-          <h5>Posts:</h5>
-          <div className="row center post-list">{postList}</div>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h5>Users:</h5>
+            <div className="row center user-list">{userList}</div>
+            <h5>Posts:</h5>
+            <div className="row center post-list">{postList}</div>
+          </div>
         </div>
       </div>
     );

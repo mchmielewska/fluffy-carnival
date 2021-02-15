@@ -25,7 +25,7 @@ class FriendUserCard extends Component {
       );
 
     return (
-      <div className="col m3" key={friend._id}>
+      <div key={friend._id}>
         <div className="card profile-card valign-wrapper">
           <ProfileImage {...imageProps} />
           <div className="user-details">

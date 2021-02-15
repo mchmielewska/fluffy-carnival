@@ -55,7 +55,7 @@ class Friends extends Component {
           ...this.props,
         };
         return (
-          <div className="col m3" key={invite.id}>
+          <div className="col" key={invite.id}>
             <PendingInvitationUserCard {...userProps} key={user._id} />
           </div>
         );
@@ -78,13 +78,13 @@ class Friends extends Component {
 
     const authPage = (
       <div className="container">
-        <div className="row center">
+        <div className="center">
           <h5 className="left-align">Pending invites:</h5>
-          {pendingInvitesList}
+          <div className="users-container">{pendingInvitesList}</div>
         </div>
-        <div className="row center">
+        <div className="center">
           <h5 className="left-align">Friends:</h5>
-          {friendsList}
+          <div className="users-container">{friendsList}</div>
         </div>
       </div>
     );

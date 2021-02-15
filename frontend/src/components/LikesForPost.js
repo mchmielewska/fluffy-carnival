@@ -138,7 +138,7 @@ class LikesForPost extends Component {
       }
     };
 
-    return <div className="col m3 right-align">{divToReturn(postLikes)}</div>;
+    return <div className="col m3 s3 right-align">{divToReturn(postLikes)}</div>;
   }
 }
 

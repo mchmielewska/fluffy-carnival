@@ -41,7 +41,7 @@ class UserCard extends Component {
     };
 
     return (
-      <div className="col m3" key={user._id}>
+      <div key={user._id}>
         <div className="card profile-card valign-wrapper">
           <ProfileImage {...imageProps} />
           <div className="user-details">

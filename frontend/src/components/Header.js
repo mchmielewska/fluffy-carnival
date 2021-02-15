@@ -34,7 +34,7 @@ class Header extends Component {
       const menu = document.getElementsByClassName('expand-menu')[0];
       if (menu) menu.style.display = 'none';
     }
-
+    
     const showMenu = (e) => {
       const menu = document.getElementsByClassName('expand-menu')[0];
       const divToShow = document.getElementById('current-user');
