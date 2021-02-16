@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
-import SearchField from './SearchField';
-import jwt_decode from 'jwt-decode';
-import Sidebar from './Sidebar';
-import CurrentUser from './CurrentUser';
+import SearchField from './SearchComponent/SearchField';
+import Menu from './MenuComponent/Menu';
+import CurrentUser from './CurrentUserComponent/CurrentUser';
 
 class Header extends Component {
   onLogout(e) {
@@ -34,7 +33,7 @@ class Header extends Component {
       const menu = document.getElementsByClassName('expand-menu')[0];
       if (menu) menu.style.display = 'none';
     }
-    
+
     const showMenu = (e) => {
       const menu = document.getElementsByClassName('expand-menu')[0];
       const divToShow = document.getElementById('current-user');
@@ -83,26 +82,28 @@ class Header extends Component {
     );
 
     const authHeader = (
-      <div className="navbar-fixed">
-        <nav className="nav-wrapper white">
-          <div className="mobile-menu">
-            <Link className="brand-logo" to="/">
-              <img
-                id="logo"
-                src="https://res.cloudinary.com/fluffy-carnival/image/upload/v1612963806/fluffy_z4bue1.png"
-                alt="logo"
-              ></img>
-            </Link>
-            <button
-              className="expand-menu-button btn"
-              onClick={(e) => showMenu(e)}
-            >
-              menu
-            </button>
-            <div className="expand-menu">{authLinks}</div>
-          </div>
-          <Sidebar {...this.props} />
-        </nav>
+      <div>
+        <div className="navbar-fixed">
+          <nav className="nav-wrapper white">
+            <div className="mobile-menu">
+              <Link className="brand-logo" to="/">
+                <img
+                  id="logo"
+                  src="https://res.cloudinary.com/fluffy-carnival/image/upload/v1612963806/fluffy_z4bue1.png"
+                  alt="logo"
+                ></img>
+              </Link>
+              <button
+                className="expand-menu-button btn"
+                onClick={(e) => showMenu(e)}
+              >
+                menu
+              </button>
+              <div className="expand-menu">{authLinks}</div>
+            </div>
+            <Menu {...this.props} />
+          </nav>
+        </div>
       </div>
     );
 

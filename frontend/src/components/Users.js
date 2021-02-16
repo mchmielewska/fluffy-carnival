@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getUsers } from '../actions/usersActions';
-import Sidebar from '../components/Sidebar';
-import UserCard from './UserCard';
-import Login from './Login';
+import UserCard from './UserCardComponent/UserCard';
+import Login from './LoginComponent/Login';
 class Users extends Component {
   componentDidMount() {
     this.props.getUsers();

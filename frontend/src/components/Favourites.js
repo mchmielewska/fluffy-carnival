@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts } from '../actions/postsActions';
 import { getCurrentUser, getUsers } from '../actions/usersActions';
-import Sidebar from './Sidebar';
 import { getLikes, getUserFavourites } from '../actions/likesActions';
-import SinglePostCard from './SinglePostCard';
-import Login from './Login';
+import SinglePostCard from './PostCardComponent/SinglePostCard';
+import Login from './LoginComponent/Login';
 
 class Favourites extends Component {
   componentDidMount() {

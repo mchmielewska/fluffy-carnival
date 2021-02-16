@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, getPostsByTag } from '../actions/postsActions';
 import { getCurrentUser, getUsers } from '../actions/usersActions';
-import Sidebar from './Sidebar';
+import Menu from './MenuComponent/Menu';
 import { getLikes } from '../actions/likesActions';
 import { cleanErrors } from '../actions/errorActions';
-import SinglePostCard from './SinglePostCard';
+import SinglePostCard from './PostCardComponent/SinglePostCard';
 import GuestPage from './GuestPage';
 import { MetroSpinner } from 'react-spinners-kit';
 

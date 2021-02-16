@@ -22,24 +22,24 @@ import '../node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image
 import Home from './components/Home';
 import Header from './components/Header';
 import Register from './components/Register';
-import Login from './components/Login';
-import Post from './components/Post';
+import Login from './components/LoginComponent/Login';
+import Post from './components/SinglePostComponent/Post';
 import Users from './components/Users';
 
 import Dashboard from './components/Dashboard';
-import Resetpassword from './components/Resetpassword';
-import Resetpassword2 from './components/Resetpassword2';
+import Resetpassword from './components/ResetPasswordComponent/Resetpassword';
+import Resetpassword2 from './components/ResetPasswordComponent/Resetpassword2';
 import Useractivated from './components/UserActivated';
 import UserCreated from './components/UserCreated';
-import PostAdded from './components/PostAdded';
-import AddPost from './components/AddPost';
-import UserProfile from './components/UserProfile';
-import EditUser from './components/EditUser';
-import UserUpdated from './components/UserUpdated';
-import EditPost from './components/EditPost';
-import PostUpdated from './components/PostUpdated';
-import Friends from './components/Friends';
-import Search from './components/Search';
+import PostAdded from './components/AddPostComponent/PostAdded';
+import AddPost from './components/AddPostComponent/AddPost';
+import UserProfile from './components/UserProfileComponent/UserProfile';
+import EditUser from './components/EditUserComponent/EditUser';
+import UserUpdated from './components/EditUserComponent/UserUpdated';
+import EditPost from './components/EditPostComponent/EditPost';
+import PostUpdated from './components/EditPostComponent/PostUpdated';
+import Friends from './components/FriendsComponent/Friends';
+import Search from './components/SearchComponent/Search';
 import Favourites from './components/Favourites';
 import { cleanErrors } from './actions/errorActions';
 

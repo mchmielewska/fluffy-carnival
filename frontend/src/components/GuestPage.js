@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LoginPanel from './LoginPanel';
+import LoginPanel from './LoginComponent/LoginPanel';
 
 const GuestPage = () => {
   const guestPage = (
