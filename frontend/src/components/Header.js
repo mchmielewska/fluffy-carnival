@@ -7,6 +7,8 @@ import { withRouter } from 'react-router-dom';
 import SearchField from './SearchComponent/SearchField';
 import Menu from './MenuComponent/Menu';
 import CurrentUser from './CurrentUserComponent/CurrentUser';
+import MobileLinks from  './MenuComponent/MobileLinks'
+import { asyncLocalStorage } from 'redux-persist/storages';
 
 class Header extends Component {
   onLogout(e) {
@@ -31,20 +33,45 @@ class Header extends Component {
 
     if (window.matchMedia('(max-width: 60rem)').matches) {
       const menu = document.getElementsByClassName('expand-menu')[0];
-      if (menu) menu.style.display = 'none';
+      const divToShow = document.getElementById('current-user');
+      const nav = document.getElementsByClassName('nav-wrapper')[0];
+      const sidebar = document.getElementsByClassName('sidebar')[0];
+      const logo = document.getElementById('logo');
+      const button = document.getElementsByClassName('expand-menu-button')[0];
+      if (menu) {
+        menu.style.display = 'none';
+        sidebar.classList.remove('hidden');
+        logo.classList.remove('hidden')
+        divToShow.classList.add('hidden');
+        nav.classList.remove('unfixed');
+        button.innerHTML = "Menu"
+      };
     }
 
     const showMenu = (e) => {
       const menu = document.getElementsByClassName('expand-menu')[0];
       const divToShow = document.getElementById('current-user');
+      const nav = document.getElementsByClassName('nav-wrapper')[0];
+      const sidebar = document.getElementsByClassName('sidebar')[0];
+      const logo = document.getElementById('logo');
+      const button = document.getElementsByClassName('expand-menu-button')[0];
 
       if (isMenuHidden) {
         menu.style.display = 'flex';
         divToShow.classList.remove('hidden');
+        sidebar.classList.add('hidden');
+        logo.classList.add('hidden');
+        nav.classList.add('unfixed');
+        button.innerHTML = ">";
+
         isMenuHidden = !isMenuHidden;
       } else {
         menu.style.display = 'none';
+        sidebar.classList.remove('hidden');
+        logo.classList.remove('hidden')
         divToShow.classList.add('hidden');
+        nav.classList.remove('unfixed');
+        button.innerHTML = "Menu"
         isMenuHidden = !isMenuHidden;
       }
     };
@@ -53,16 +80,19 @@ class Header extends Component {
       <ul className="navbar-nav right">
         <SearchField />
         <CurrentUser {...this.props} />
+        
+        <div className="sidebar-links sidebar-links-logout">
         <li className="nav-item">
           <a
-            className="nav-link"
+            className="nav-link valign-wrapper"
             title="Logout"
             href="#"
             onClick={this.onLogout.bind(this)}
           >
-            <i className="material-icons">exit_to_app</i>
+            <i className="material-icons">exit_to_app</i><span className="logout"> Logout</span>
           </a>
         </li>
+        </div>
       </ul>
     );
 

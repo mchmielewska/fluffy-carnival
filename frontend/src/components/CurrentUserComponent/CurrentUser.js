@@ -38,7 +38,7 @@ class CurrentUser extends Component {
     };
     const profileData = currentUser ? (
       <div id="current-user" className="hidden">
-        <div className="center-align">
+        <div className="center-align details-container">
           <Link
             to={{
               pathname: `/users/${id}`,

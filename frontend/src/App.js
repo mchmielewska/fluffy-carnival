@@ -62,32 +62,32 @@ class App extends Component {
     FilePond.parse(document.body);
 
     return (
-      <div>
-        <Header />
-        <Route exact path="/" component={Home} />
         <div>
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route path="/useractivated" component={Useractivated} />
-          <Route path="/usercreated" component={UserCreated} />
-          <Route path="/resetpassword" component={Resetpassword} />
-          <Route path="/resetpassword2" component={Resetpassword2} />
-          <Route exact path="/posts" component={Dashboard} />
-          <Route exact path="/tags/:tag" component={Dashboard} />
-          <Route exact path="/posts/:post_id" component={Post} />
-          <Route path="/postadded" component={PostAdded} />
-          <Route exact path="/post_add" component={AddPost} />
-          <Route exact path="/users" component={Users} />
-          <Route exact path="/users/:user_id" component={UserProfile} />
-          <Route exact path="/users/:user_id/edit" component={EditUser} />
-          <Route path="/userupdated" component={UserUpdated} />
-          <Route path="/postupdated" component={PostUpdated} />
-          <Route exact path="/posts/:post_id/edit" component={EditPost} />
-          <Route path="/friends" component={Friends} />
-          <Route path="/search" component={Search} />
-          <Route path="/favourites" component={Favourites} />
+          <Header />
+          <Route exact path="/" component={Home} />
+          <div>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route path="/useractivated" component={Useractivated} />
+            <Route path="/usercreated" component={UserCreated} />
+            <Route path="/resetpassword" component={Resetpassword} />
+            <Route path="/resetpassword2" component={Resetpassword2} />
+            <Route exact path="/posts" component={Dashboard} />
+            <Route exact path="/tags/:tag" component={Dashboard} />
+            <Route exact path="/posts/:post_id" component={Post} />
+            <Route path="/postadded" component={PostAdded} />
+            <Route exact path="/post_add" component={AddPost} />
+            <Route exact path="/users" component={Users} />
+            <Route exact path="/users/:user_id" component={UserProfile} />
+            <Route exact path="/users/:user_id/edit" component={EditUser} />
+            <Route path="/userupdated" component={UserUpdated} />
+            <Route path="/postupdated" component={PostUpdated} />
+            <Route exact path="/posts/:post_id/edit" component={EditPost} />
+            <Route path="/friends" component={Friends} />
+            <Route path="/search" component={Search} />
+            <Route path="/favourites" component={Favourites} />
+          </div>
         </div>
-      </div>
     );
   }
 }

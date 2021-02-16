@@ -6,14 +6,11 @@ const CurrentUserDetails = (props) => {
   const friends = props.friends;
   const id = props.id;
 
-  console.log(props)
-
   return (
     <div className="user-details profile-data">
       <p className="username">
         {currentUser.user.name} {currentUser.user.surname}
       </p>
-      <p>{currentUser.user.city}</p>
       <div className="row center-align">
         <div className="col m6">
         <Link className="details-link"

@@ -12,6 +12,7 @@ import LikesForPost from '../PostCardComponent/LikesForPost';
 import SinglePostImage from './SinglePostImage';
 import PostActionPanel from './PostActionPanel';
 import Login from '../LoginComponent/Login';
+import PostTags from '../PostCardComponent/PostTags';
 
 class Post extends Component {
   componentDidUpdate() {
@@ -35,6 +36,10 @@ class Post extends Component {
     const post = this.props.post ? (
       <div>
         <h5 className="right-align post-title">{this.props.post.title}</h5>
+        <div className="single-post-tags">
+          <PostTags {...this.props.post} />
+        </div>
+
         <div className="likes-panel-single-post">
           <LikesForPost {...likesProps} />
         </div>

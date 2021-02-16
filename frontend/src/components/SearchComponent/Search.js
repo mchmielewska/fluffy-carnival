@@ -51,7 +51,7 @@ class Search extends Component {
         <div className="row">
           <div className="col">
             <h5>Users:</h5>
-            <div className="row center user-list">{userList}</div>
+            <div className="row center user-list users-container">{userList}</div>
             <h5>Posts:</h5>
             <div className="row center post-list">{postList}</div>
           </div>
