@@ -1271,6 +1271,48 @@ nav .brand-logo {
     margin: 1rem 0;
   }
 
+  .card.horizontal {
+    flex-direction: column;
+  }
+
+  .single-post.responsive-img, .single-comment .author .single-post.responsive-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .author-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 1rem;
+    justify-items: start;
+    padding: 0.5rem;
+  }
+
+  .edit-links .right-align {
+    text-align: center;
+  }
+
+  .edit-links {
+    text-align: center;
+  }
+
+  .edit-links .btn {
+    margin-left: 0;
+  }
+
+  .author {
+    padding: 5px 15px
+  }
+
+  .single-comment .author {
+    width: 100%;
+  }
+
+  .comments-container {
+    margin: 0 1rem;
+    margin-top: 2rem;
+  }
+
   #current-user {
     position: unset;
     line-height: 3rem;

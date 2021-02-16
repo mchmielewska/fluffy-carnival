@@ -37,7 +37,7 @@ class CommentsActionPanel extends Component {
     };
 
     return (
-      <div className="col m3">
+      <div className="col m3 s3">
         {panel(this.props.author, this.props.currentUser.id)}
       </div>
     );

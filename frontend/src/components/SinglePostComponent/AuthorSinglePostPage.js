@@ -12,7 +12,7 @@ const AuthorSinglePostPage = (props) => {
         };
         const authorDiv = (
           <div>
-            <Link to={'/users/' + users[i]._id}>
+            <Link to={'/users/' + users[i]._id} className="author-container">
               <ProfileImage {...imageProps} />
               <p className="bold">
                 {users[i].name} {users[i].surname}

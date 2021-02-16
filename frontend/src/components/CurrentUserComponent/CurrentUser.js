@@ -28,8 +28,6 @@ class CurrentUser extends Component {
       location: this.props.location
     };
 
-    console.log(this.props)
-
     const location = this.props.location ? this.props.location.pathname : '/';
     const profileImageProps = {
       currentUser: currentUser,

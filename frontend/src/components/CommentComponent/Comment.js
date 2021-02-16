@@ -19,7 +19,7 @@ class Comment extends Component {
             <p>{this.props.comment}</p>
           </div>
           <div className="card-action row">
-            <div className="col m9">
+            <div className="col m9 s9">
               <p className="post-date">{dateBuilder(this.props.publishDate)}</p>
             </div>
             <CommentsActionPanel {...this.props} />
