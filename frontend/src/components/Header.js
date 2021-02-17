@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
@@ -7,8 +6,9 @@ import { withRouter } from 'react-router-dom';
 import SearchField from './SearchComponent/SearchField';
 import Menu from './MenuComponent/Menu';
 import CurrentUser from './CurrentUserComponent/CurrentUser';
-import MobileLinks from  './MenuComponent/MobileLinks'
-import { asyncLocalStorage } from 'redux-persist/storages';
+import LogoutUser from './LogoutUser';
+import Logo from './Logo';
+import { hideMenu, showElements, hideElements,  } from '../utils/menuUtils';
 
 class Header extends Component {
   onLogout(e) {
@@ -16,62 +16,20 @@ class Header extends Component {
     this.props.logoutUser(this.props.history);
   }
 
-  // componentDidMount() {
-  //   if (localStorage.jwtToken) {
-  //     const decoded = jwt_decode(localStorage.jwtToken);
-  //     const currentTime = Date.now() / 1000;
-  //     if (decoded.exp < currentTime) {
-  //       this.props.logoutUser(this.props.history);
-  //     }
-  //   }
-  // }
-
   render() {
-    const { isAuthenticated, user } = this.props.auth;
-
+    const { isAuthenticated } = this.props.auth;
     let isMenuHidden = true;
 
     if (window.matchMedia('(max-width: 60rem)').matches) {
-      const menu = document.getElementsByClassName('expand-menu')[0];
-      const divToShow = document.getElementById('current-user');
-      const nav = document.getElementsByClassName('nav-wrapper')[0];
-      const sidebar = document.getElementsByClassName('sidebar')[0];
-      const logo = document.getElementById('logo');
-      const button = document.getElementsByClassName('expand-menu-button')[0];
-      if (menu) {
-        menu.style.display = 'none';
-        sidebar.classList.remove('hidden');
-        logo.classList.remove('hidden')
-        divToShow.classList.add('hidden');
-        nav.classList.remove('unfixed');
-        button.innerHTML = "Menu"
-      };
+      hideMenu();
     }
 
     const showMenu = (e) => {
-      const menu = document.getElementsByClassName('expand-menu')[0];
-      const divToShow = document.getElementById('current-user');
-      const nav = document.getElementsByClassName('nav-wrapper')[0];
-      const sidebar = document.getElementsByClassName('sidebar')[0];
-      const logo = document.getElementById('logo');
-      const button = document.getElementsByClassName('expand-menu-button')[0];
-
       if (isMenuHidden) {
-        menu.style.display = 'flex';
-        divToShow.classList.remove('hidden');
-        sidebar.classList.add('hidden');
-        logo.classList.add('hidden');
-        nav.classList.add('unfixed');
-        button.innerHTML = ">";
-
+        hideElements();
         isMenuHidden = !isMenuHidden;
       } else {
-        menu.style.display = 'none';
-        sidebar.classList.remove('hidden');
-        logo.classList.remove('hidden')
-        divToShow.classList.add('hidden');
-        nav.classList.remove('unfixed');
-        button.innerHTML = "Menu"
+        showElements();
         isMenuHidden = !isMenuHidden;
       }
     };
@@ -80,34 +38,7 @@ class Header extends Component {
       <ul className="navbar-nav right">
         <SearchField />
         <CurrentUser {...this.props} />
-        
-        <div className="sidebar-links sidebar-links-logout">
-        <li className="nav-item">
-          <a
-            className="nav-link valign-wrapper"
-            title="Logout"
-            href="#"
-            onClick={this.onLogout.bind(this)}
-          >
-            <i className="material-icons">exit_to_app</i><span className="logout"> Logout</span>
-          </a>
-        </li>
-        </div>
-      </ul>
-    );
-
-    const guestLinks = (
-      <ul className="navbar-nav right">
-        <li className="nav-item">
-          <Link className="nav-link" to="/register">
-            Sign Up
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/login">
-            Sign In
-          </Link>
-        </li>
+        <LogoutUser {...this.props} />
       </ul>
     );
 
@@ -116,13 +47,7 @@ class Header extends Component {
         <div className="navbar-fixed">
           <nav className="nav-wrapper white">
             <div className="mobile-menu">
-              <Link className="brand-logo" to="/">
-                <img
-                  id="logo"
-                  src="https://res.cloudinary.com/fluffy-carnival/image/upload/v1612963806/fluffy_z4bue1.png"
-                  alt="logo"
-                ></img>
-              </Link>
+              <Logo />
               <button
                 className="expand-menu-button btn"
                 onClick={(e) => showMenu(e)}
@@ -140,13 +65,7 @@ class Header extends Component {
     const guestHeader = (
       <nav className="nav-wrapper white">
         <div>
-          <Link className="brand-logo" to="/">
-            <img
-              id="logo"
-              src="https://res.cloudinary.com/fluffy-carnival/image/upload/v1612963806/fluffy_z4bue1.png"
-              alt="logo"
-            ></img>
-          </Link>
+          <Logo />
         </div>
       </nav>
     );
