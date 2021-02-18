@@ -35,7 +35,7 @@ const opts = {
   secretOrKey: process.env.SERVER_SECRET || config.server.secret,
 };
 
-if (config.cloudinary) {
+if (config?.cloudinary) {
   cloudinary.config({
     cloud_name: config.cloudinary.cloud_name,
     api_key: config.cloudinary.api_key,
