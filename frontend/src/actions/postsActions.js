@@ -12,7 +12,7 @@ export const getPosts = (history, user) => (dispatch) => {
   axios
     .get(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/find?privacy=all`,
       user
     )
@@ -31,7 +31,7 @@ export const getPostsByTag = (tag) => (dispatch) => {
   axios
     .get(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/find?tags=${tag}`
     )
     .then((res) => {
@@ -49,7 +49,7 @@ export const findPosts = (query, history) => (dispatch) => {
   axios
     .get(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/find?search=${query}`
     )
     .then((res) => {
@@ -75,7 +75,7 @@ export const findPosts = (query, history) => (dispatch) => {
 export const addPost = (post, history) => (dispatch) => {
   axios
     .post(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/posts/add`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/posts/add`,
       post,
       {
         headers: {
@@ -94,7 +94,7 @@ export const addPost = (post, history) => (dispatch) => {
 export const deletePost = (id) => (dispatch) => {
   axios
     .delete(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/posts/delete`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/posts/delete`,
       { data: { id: id } }
     )
     .then((res) => {
@@ -112,7 +112,7 @@ export const patchPost = (id, post, history) => (dispatch) => {
   axios
     .patch(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/update?id=${id}`,
       post,
       {

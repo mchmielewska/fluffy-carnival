@@ -13,7 +13,7 @@ export const addComment = (id, comment, history) => (dispatch) => {
   axios
     .post(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/addcomment?id=${id}`,
       comment
     )
@@ -32,7 +32,7 @@ export const deleteComment = (postId, commentId) => (dispatch) => {
   axios
     .delete(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/deletecomment?postId=${postId}&id=${commentId}`
     )
     .then((res) => {
@@ -50,7 +50,7 @@ export const likeComment = (postId, commentId) => (dispatch) => {
   axios
     .post(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/likecomment?postId=${postId}&id=${commentId}`
     )
     .then((res) => {
@@ -68,7 +68,7 @@ export const unlikeComment = (postId, commentId) => (dispatch) => {
   axios
     .delete(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/unlikecomment?postId=${postId}&id=${commentId}`
     )
     .then((res) => {
@@ -86,7 +86,7 @@ export const getComments = (id) => (dispatch) => {
   axios
     .get(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/comments?id=${id}`
     )
     .then((res) => {

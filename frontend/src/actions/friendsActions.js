@@ -13,7 +13,7 @@ import { handleError } from '../utils/errorUtils';
 export const getFriendsList = (user) => (dispatch) => {
   axios
     .get(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/friends/all`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/friends/all`,
       user
     )
     .then((res) => {
@@ -30,7 +30,7 @@ export const getFriendsList = (user) => (dispatch) => {
 export const getPendingInvites = (user) => (dispatch) => {
   axios
     .get(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/friends/pending`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/friends/pending`,
       user
     )
     .then((res) => {
@@ -49,7 +49,7 @@ export const acceptInvite = (token) => (dispatch) => {
   axios
     .get(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/friends/accept?inviteToken=${token}`
     )
     .then((res) => {
@@ -67,7 +67,7 @@ export const declineInvite = (user, token) => (dispatch) => {
   axios
     .get(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/friends/decline?inviteToken=${token}`,
       user
     )
@@ -85,7 +85,7 @@ export const declineInvite = (user, token) => (dispatch) => {
 export const removeFriend = (id, user) => (dispatch) => {
   axios
     .delete(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/friends/remove`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/friends/remove`,
       { data: { id: id } },
       user
     )
@@ -104,7 +104,7 @@ export const inviteFriend = (id, user) => (dispatch) => {
   axios
     .post(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/friends/invite?id=${id}`,
       user
     )

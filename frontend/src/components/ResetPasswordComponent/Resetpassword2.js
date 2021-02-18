@@ -13,7 +13,7 @@ class ResetPassword2 extends Component {
     const userToken = this.props.location.search;
     Axios.put(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/user/reset${userToken}`,
       {
         password: this.state.password,

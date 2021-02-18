@@ -6,7 +6,7 @@ export const getUsers = (user) => (dispatch) => {
   axios
     .get(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/users/find?visibility=visible`,
       user
     )
@@ -25,7 +25,7 @@ export const findUsers = (query, history) => (dispatch) => {
   axios
     .get(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/users/find?search=${query}`
     )
     .then((res) => {
@@ -51,7 +51,7 @@ export const findUsers = (query, history) => (dispatch) => {
 
 export const getCurrentUser = (user) => (dispatch) => {
   axios
-    .get(`${process.env.SERVER_URL || 'http://localhost:9090'}/users/me`, user)
+    .get(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/users/me`, user)
     .then((res) => {
       dispatch({
         type: GET_CURRENT_USER,
@@ -66,7 +66,7 @@ export const getCurrentUser = (user) => (dispatch) => {
 export const patchUser = (user, history) => (dispatch) => {
   axios
     .patch(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/update`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/users/update`,
       user
     )
     .then((res) => {
@@ -80,7 +80,7 @@ export const patchUser = (user, history) => (dispatch) => {
 export const patchPassword = (data, history) => (dispatch) => {
   axios
     .patch(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/changepass`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/users/changepass`,
       data
     )
     .then((res) => {
@@ -95,7 +95,7 @@ export const patchProfileImage = (image, history) => (dispatch) => {
   console.log('patchProfileImage image', image);
   axios
     .post(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/profileimage`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/users/profileimage`,
       image,
       {
         headers: {

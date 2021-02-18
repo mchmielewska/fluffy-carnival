@@ -6,7 +6,7 @@ import { handleError } from '../utils/errorUtils';
 export const addLike = (id) => (dispatch) => {
   axios
     .post(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/posts/like?id=${id}`
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/posts/like?id=${id}`
     )
     .then((res) => {
       dispatch({
@@ -23,7 +23,7 @@ export const removeLike = (id) => (dispatch) => {
   axios
     .delete(
       `${
-        process.env.SERVER_URL || 'http://localhost:9090'
+        process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'
       }/posts/unlike?id=${id}`
     )
     .then((res) => {
@@ -39,7 +39,7 @@ export const removeLike = (id) => (dispatch) => {
 
 export const getLikes = () => (dispatch) => {
   axios
-    .get(`${process.env.SERVER_URL || 'http://localhost:9090'}/posts/likes`)
+    .get(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/posts/likes`)
     .then((res) => {
       dispatch({
         type: GET_LIKES,
@@ -54,7 +54,7 @@ export const getLikes = () => (dispatch) => {
 export const getUserFavourites = () => (dispatch) => {
   axios
     .get(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/posts/likedbyuser`
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/posts/likedbyuser`
     )
     .then((res) => {
       dispatch({

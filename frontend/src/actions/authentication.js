@@ -7,7 +7,7 @@ import history from '../history';
 export const registerUser = (user, history) => (dispatch) => {
   axios
     .post(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/register/`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/users/register/`,
       user
     )
     .then((res) => history.push('/usercreated'))
@@ -22,7 +22,7 @@ export const registerUser = (user, history) => (dispatch) => {
 export const loginUser = (user, previousLocation) => (dispatch) => {
   axios
     .post(
-      `${process.env.SERVER_URL || 'http://localhost:9090'}/users/authenticate`,
+      `${process.env.REACT_APP_SERVER_URL || 'http://localhost:9090'}/users/authenticate`,
       user
     )
     .then((res) => {
