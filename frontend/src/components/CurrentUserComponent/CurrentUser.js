@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentUser } from '../../actions/usersActions';
+import { getFriendsList } from '../../actions/friendsActions';
 import CurrentUserDetails from './CurrentUserDetails';
 import CurrentUserProfileImage from './CurrentUserProfileImage';
 import MobileLinks from '../MenuComponent/MobileLinks'
@@ -9,9 +10,11 @@ import MobileLinks from '../MenuComponent/MobileLinks'
 class CurrentUser extends Component {
   componentDidMount() {
     this.props.getCurrentUser();
+    this.props.getFriendsList();
   }
   componentDidUpdate() {
     this.props.getCurrentUser();
+    this.props.getFriendsList();
   }
 
   render() {
@@ -115,6 +118,9 @@ const mapDispatchToProps = (dispatch) => {
     getCurrentUser: () => {
       dispatch(getCurrentUser());
     },
+    getFriendsList: () => {
+      dispatch(getFriendsList())
+    }
   };
 };
 
