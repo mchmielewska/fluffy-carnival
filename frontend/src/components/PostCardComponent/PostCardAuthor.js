@@ -4,8 +4,8 @@ import ProfileImage from '../ProfileImage';
 
 class PostCardAuthor extends Component {
   render() {
+    let users = this.props.users ? this.props.users : [];
     const post = this.props.post;
-    const users = this.props.users;
 
     const postAuthor = (users, post, size = 'm2 s2') => {
       for (let i = 0; i < users.length; i++) {
