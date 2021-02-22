@@ -53,7 +53,10 @@ class LikesForPost extends Component {
     };
 
     const likesPanel = (id, props, allLikes, users) => {
-      const postLikes = allLikes
+      let postLikes = {
+        likes: []
+      }
+      postLikes = allLikes
         ? allLikes.find((post) => post._id === id)
         : { likes: [] };
       const totalLikes = postLikes.likes.length;
